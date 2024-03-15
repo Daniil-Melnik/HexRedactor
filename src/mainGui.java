@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -16,14 +17,12 @@ public class mainGui extends JFrame {
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        String[] columnNames = {
-                "",
-                "",
-                "",
-                ""
-        };
+        int len = 4;
+        String [] columnNames = new String [len];
+        Arrays.fill(columnNames, "");
 
-        String [][] data = ub.toFour();
+        //String [][] data = ub.toArr(4);
+        String [][] data = ub.toArr(len);
 
         JTable table = new JTable(data, columnNames);
 
