@@ -55,12 +55,12 @@ public class mainGui extends JFrame {
         heightField.setBounds(200, 350, 80, 20);
 
         Hol = new JButton("Блямс!");;
-        Hol.setBounds(100, 400, 90, 20);
+        Hol.setBounds(100, 400, 90, 20); 
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int len1 = Integer.parseInt(widthField.getText());
                 String [][] data1 = ub.toArr(len1);
-                
+
                 String[] newColumnNames = new String[len1];
                 Arrays.fill(columnNames, "");
         
