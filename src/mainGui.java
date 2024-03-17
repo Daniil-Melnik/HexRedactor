@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
@@ -16,6 +18,7 @@ public class mainGui extends JFrame {
     public static void createGUI() throws IOException {
 
         JButton Hol;
+        JTextField widthField, heightField;
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
@@ -37,25 +40,30 @@ public class mainGui extends JFrame {
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(100, 120, 800, 300);
+        scrollPane.setBounds(100, 10, 800, 300);
 
-        Hol = new JButton ("блямс!");
-		Hol.setBounds(650,480,100,30);
-		Hol.setFont(new Font("Arial", Font.PLAIN, 20));
-		Hol.setHorizontalAlignment(SwingConstants.CENTER);
-		Hol.addActionListener(new ActionListener()
+        widthField = new JTextField(15);
+        widthField.setToolTipText("Ширина");
+        widthField.setBounds(100, 350, 80, 20);
+
+        heightField = new JTextField(15);
+        heightField.setToolTipText("Высота");
+        heightField.setBounds(200, 350, 80, 20);
+
+        Hol = new JButton ("Блямс!");;
+        Hol.setBounds(100, 400, 90, 20);
+        Hol.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				frame.remove(scrollPane);
-                frame.repaint(); 
+				System.out.println(widthField.getText() + "x" + heightField.getText());
 			}});
 
-
         frame.getContentPane().add(scrollPane);
+        frame.add(widthField);
+        frame.add(heightField);
         frame.add(Hol);
 
-        frame.pack();
         frame.setSize(1000,600);
 		frame.setLayout(null); 
 		frame.setVisible(true);
