@@ -1,14 +1,21 @@
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Arrays;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
+
+        JButton Hol;
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
@@ -26,13 +33,32 @@ public class mainGui extends JFrame {
 
         JTable table = new JTable(data, columnNames);
 
+        table.setCellSelectionEnabled(true);
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(100, 120, 800, 300);
+
+        Hol = new JButton ("блямс!");
+		Hol.setBounds(650,480,100,30);
+		Hol.setFont(new Font("Arial", Font.PLAIN, 20));
+		Hol.setHorizontalAlignment(SwingConstants.CENTER);
+		Hol.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent event)
+			{
+				frame.remove(scrollPane);
+                frame.repaint(); 
+			}});
+
 
         frame.getContentPane().add(scrollPane);
-        frame.setPreferredSize(new Dimension(450, 200));
+        frame.add(Hol);
+
         frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setSize(1000,600);
+		frame.setLayout(null); 
+		frame.setVisible(true);
     }
 
     public static void main(String[] args) {
