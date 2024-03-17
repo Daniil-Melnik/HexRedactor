@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 public class mainGui extends JFrame {
 
@@ -28,13 +30,15 @@ public class mainGui extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         int len = 4;
-        String [] columnNames = new String [len];
+        String[] columnNames = new String[len];
         Arrays.fill(columnNames, "");
 
-        //String [][] data = ub.toArr(4);
-        String [][] data = ub.toArr(len);
+        // String[][] data = ub.toArr(4);
+        String[][] data = ub.toArr(len);
 
-        JTable table = new JTable(data, columnNames);
+        // Создаем модель таблицы
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model);
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -50,23 +54,35 @@ public class mainGui extends JFrame {
         heightField.setToolTipText("Высота");
         heightField.setBounds(200, 350, 80, 20);
 
-        Hol = new JButton ("Блямс!");;
+        Hol = new JButton("Блямс!");;
         Hol.setBounds(100, 400, 90, 20);
-        Hol.addActionListener(new ActionListener()
-		{
-			public void actionPerformed (ActionEvent event)
-			{
-				System.out.println(widthField.getText() + "x" + heightField.getText());
-			}});
+        Hol.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int len1 = Integer.parseInt(widthField.getText());
+                String [][] data1 = ub.toArr(len1);
+                
+                String[] newColumnNames = new String[len1];
+                Arrays.fill(columnNames, "");
+        
+                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                tableModel.setColumnIdentifiers(newColumnNames);
+                        
+                tableModel.getDataVector().removeAllElements();
+                                    
+                for (int i = 0; i < data1.length; i++) {
+                    tableModel.insertRow(0, data1[i]);
+                }
+            }
+        });
 
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
         frame.add(heightField);
         frame.add(Hol);
 
-        frame.setSize(1000,600);
-		frame.setLayout(null); 
-		frame.setVisible(true);
+        frame.setSize(1000, 600);
+        frame.setLayout(null);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
