@@ -55,21 +55,22 @@ public class mainGui extends JFrame {
         heightField.setBounds(200, 350, 80, 20);
 
         Hol = new JButton("Блямс!");;
-        Hol.setBounds(100, 400, 90, 20); 
+        Hol.setBounds(100, 400, 90, 20);
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int len1 = Integer.parseInt(widthField.getText());
+                int len1 = Integer.parseInt(widthField.getText()) + 1;
                 String [][] data1 = ub.toArr(len1);
 
                 String[] newColumnNames = new String[len1];
                 Arrays.fill(columnNames, "");
-        
+
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                 tableModel.setColumnIdentifiers(newColumnNames);
-                        
+
                 tableModel.getDataVector().removeAllElements();
-                                    
-                for (int i = 0; i < data1.length; i++) {
+
+                for (int i = data1.length - 1; i >= 0; i--) {
+                    Object ob = new Object();
                     tableModel.insertRow(0, data1[i]);
                 }
             }
@@ -98,3 +99,4 @@ public class mainGui extends JFrame {
         });
     }
 }
+
