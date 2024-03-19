@@ -31,8 +31,15 @@ public class mainGui extends JFrame {
 
         // Создаем модель таблицы
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        MyModel mm = new MyModel(data, columnNames);
+        MyModel mm = new MyModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return !(column == 0);
+            }
+        };
         JTable table = new JTable();
+
         table.setModel(mm);
 
         table.setCellSelectionEnabled(true);
