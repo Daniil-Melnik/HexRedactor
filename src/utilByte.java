@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -9,18 +10,19 @@ public class utilByte {
         this.bytes = bytes;
     }
 
-    public String [][] toArr(int len){
+    public Object [][] toArr(int len){
         int k = this.bytes.length / len + 1;
         if (this.bytes.length % len != 0) {
             k = k + 1;
         }
-        String [][] result = new String[k][len + 1];
+        Object [][] result = new Object[k][len + 1];
         for (int i = 0; i < this.bytes.length; i++){
             result[i / len][i % len] = "" + this.bytes[i];
             //System.out.println( i / 4 + " " + i % 4);
         }
         for (int i = 0; i < k; i++){
-            result[i][0] = "" + (i) * (len - 1);
+            //result[i][0] = new JLabel("qq");
+            result[i][0] = new JLabel("" + (i) * (len - 1));
         }
         return result;
     }
@@ -43,9 +45,9 @@ public class utilByte {
         bIO.getByteOfFile();
         utilByte ub = new utilByte(bIO.getBytes());
         //System.out.println(bIO.getBytes()[0]);
-        String [][] b = ub.toArr(4);
-        for (String [] datum : b) {
-            for (String bdat : datum){
+        Object [][] b = ub.toArr(4);
+        for (Object [] datum : b) {
+            for (Object bdat : datum){
                 System.out.print(bdat + " ");
             }
             System.out.println();

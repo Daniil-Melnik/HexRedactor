@@ -2,19 +2,25 @@ import javax.swing.JLabel;
 
 class MyModel extends javax.swing.table.DefaultTableModel{
 
-    Object[][] row;
+    public MyModel (Object [][] row, Object [] col){
 
-    Object[] col;
-
-    public MyModel (Object [][] row, Object [] col) {
-        this.row = row;
-        this.col = col;
         //Adding columns
-        for (Object c : this.col)
+        for(Object c: col)
             this.addColumn(c);
 
         //Adding rows
-        for (Object[] r : this.row)
+        for(Object[] r: row)
             addRow(r);
+
     }
+
+    @Override
+
+    public Class getColumnClass(int columnIndex) {
+        if(columnIndex == 0)return getValueAt(0, columnIndex).getClass();
+
+        else return super.getColumnClass(columnIndex);
+
+    }
+
 }

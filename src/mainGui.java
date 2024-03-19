@@ -5,14 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class mainGui extends JFrame {
@@ -34,14 +27,17 @@ public class mainGui extends JFrame {
         Arrays.fill(columnNames, "");
 
         // String[][] data = ub.toArr(4);
-        String[][] data = ub.toArr(len);
+        Object[][] data = ub.toArr(len);
 
         // Создаем модель таблицы
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable table = new JTable(model);
+        MyModel mm = new MyModel(data, columnNames);
+        JTable table = new JTable();
+        table.setModel(mm);
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        table.setDefaultRenderer(JLabel.class,  new Renderer());
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(100, 10, 800, 300);
@@ -59,7 +55,7 @@ public class mainGui extends JFrame {
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int len1 = Integer.parseInt(widthField.getText()) + 1;
-                String [][] data1 = ub.toArr(len1);
+                Object [][] data1 = ub.toArr(len1);
 
                 String[] newColumnNames = new String[len1];
                 Arrays.fill(columnNames, "");
