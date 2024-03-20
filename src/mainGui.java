@@ -1,8 +1,5 @@
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +15,7 @@ public class mainGui extends JFrame {
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
-        utilByte ub = new utilByte(bIO.getBytes());
+        utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,10 +77,15 @@ public class mainGui extends JFrame {
     }
 
     public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane){
-        utilByte ub = new utilByte(bIO.getBytes());
+        utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
         Object [][] data = ub.toArr(len + 1, 0, vertLen); 
 
         String[] newColumnNames = new String[len + 1];
+        
+        newColumnNames[0] = "off";
+        for (int m = 1; m < len + 1; m++){
+            newColumnNames[m] = "" + (m - 1);
+        }
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setColumnIdentifiers(newColumnNames);
@@ -100,7 +102,7 @@ public class mainGui extends JFrame {
 
         // Устанавливаем ширину остальных столбцов
         int otherColumnWidth = 80;
-        scrollPane.setBounds(0, 0, 800, 300);
+        scrollPane.setBounds(0, 0, 650, 300);
 
         for (int i = 1; i < columnCount; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);;
