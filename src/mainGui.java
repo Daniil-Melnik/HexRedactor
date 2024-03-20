@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,16 +40,16 @@ public class mainGui extends JFrame {
         };
         JTable table = new JTable();
 
-        table.setModel(mm);        
+        table.setModel(mm);   
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setDefaultRenderer(JLabel.class,  new Renderer());
 
-        setTable(table, 4, bIO);
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(0, 0, 0, 0);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(100, 10, 800, 300);
+        setTable(table, 4, bIO, scrollPane);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
@@ -63,7 +64,7 @@ public class mainGui extends JFrame {
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int len = Integer.parseInt(widthField.getText());
-                setTable(table, len, bIO);
+                setTable(table, len, bIO, scrollPane);
             }
         });
 
@@ -77,7 +78,7 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, int len, ByteIO bIO){
+    public static void setTable(JTable table, int len, ByteIO bIO, JScrollPane scrollPane){
         utilByte ub = new utilByte(bIO.getBytes());
         Object [][] data = ub.toArr(len + 1);
 
@@ -90,6 +91,18 @@ public class mainGui extends JFrame {
 
         for (int i = data.length - 1; i >= 0; i--) {
             tableModel.insertRow(0, data[i]);
+        }
+        int leftColumnWidth = 40;
+        int columnCount = len + 1;
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getColumnModel().getColumn(0).setPreferredWidth(leftColumnWidth);;
+
+        // Устанавливаем ширину остальных столбцов
+        int otherColumnWidth = 80;
+        scrollPane.setBounds(0, 0, 800, 300);
+
+        for (int i = 1; i < columnCount; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);;
         }
     }
 
