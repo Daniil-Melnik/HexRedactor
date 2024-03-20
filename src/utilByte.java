@@ -1,28 +1,41 @@
 import javax.swing.*;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class utilByte {
     private byte [] bytes;
-    private int rowLen;
 
     public utilByte(byte [] bytes){
         this.bytes = bytes;
     }
 
-    public Object [][] toArr(int len){
+    public Object [][] toArr(int len, int offset, int vertLen){
         int k = this.bytes.length / len + 1;
+        int endLen;
         if (this.bytes.length % len != 0) {
             k = k + 1;
         }
-        Object [][] result = new Object[k][len + 1];
+        Object [][] chngWidth = new Object[k][len + 1];
+        Object [][] result = new Object[vertLen][len + 1];
         for (int i = 0; i < this.bytes.length; i++){
-            result[i / len][i % len] = "" + this.bytes[i];
-            //System.out.println( i / 4 + " " + i % 4);
+            chngWidth[i / len][i % len] = "" + this.bytes[i];
         }
         for (int i = 0; i < k; i++){
-            //result[i][0] = new JLabel("qq");
-            result[i][0] = new JLabel("" + (i) * (len - 1));
+            chngWidth[i][0] = new JLabel("" + (i) * (len - 1));
+        }
+        if ((offset + len * vertLen) >= this.bytes.length){
+            endLen = chngWidth.length;
+        }
+        else {
+            endLen = (offset / len) + vertLen;
+        }
+
+        int km = 0;
+        for (int i = offset / len; i < endLen; i++){
+            result[km] = chngWidth[i];
+            km++;
+        }
+        for (Object [] q : result){
+            System.out.println(q);
         }
         return result;
     }
@@ -45,7 +58,7 @@ public class utilByte {
         bIO.getByteOfFile();
         utilByte ub = new utilByte(bIO.getBytes());
         //System.out.println(bIO.getBytes()[0]);
-        Object [][] b = ub.toArr(4);
+        Object [][] b = ub.toArr(4, 0, 2);
         for (Object [] datum : b) {
             for (Object bdat : datum){
                 System.out.print(bdat + " ");

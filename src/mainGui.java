@@ -49,7 +49,7 @@ public class mainGui extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
 
-        setTable(table, 4, bIO, scrollPane);
+        setTable(table, 4, 4, bIO, scrollPane);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
@@ -64,7 +64,8 @@ public class mainGui extends JFrame {
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int len = Integer.parseInt(widthField.getText());
-                setTable(table, len, bIO, scrollPane);
+                int vertLen = Integer.parseInt(heightField.getText());
+                setTable(table, len, vertLen, bIO, scrollPane);
             }
         });
 
@@ -78,9 +79,9 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, int len, ByteIO bIO, JScrollPane scrollPane){
+    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane){
         utilByte ub = new utilByte(bIO.getBytes());
-        Object [][] data = ub.toArr(len + 1);
+        Object [][] data = ub.toArr(len + 1, 0, vertLen); 
 
         String[] newColumnNames = new String[len + 1];
 
