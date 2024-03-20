@@ -27,10 +27,9 @@ public class mainGui extends JFrame {
         Arrays.fill(columnNames, "");
 
         // String[][] data = ub.toArr(4);
-        Object[][] data = ub.toArr(len);
+        Object[][] data = {};
 
         // Создаем модель таблицы
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
         MyModel mm = new MyModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -40,11 +39,13 @@ public class mainGui extends JFrame {
         };
         JTable table = new JTable();
 
-        table.setModel(mm);
+        table.setModel(mm);        
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setDefaultRenderer(JLabel.class,  new Renderer());
+
+        setTable(table, 4, bIO);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(100, 10, 800, 300);
@@ -61,21 +62,8 @@ public class mainGui extends JFrame {
         Hol.setBounds(100, 400, 90, 20);
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int len1 = Integer.parseInt(widthField.getText()) + 1;
-                Object [][] data1 = ub.toArr(len1);
-
-                String[] newColumnNames = new String[len1];
-                Arrays.fill(columnNames, "");
-
-                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                tableModel.setColumnIdentifiers(newColumnNames);
-
-                tableModel.getDataVector().removeAllElements();
-
-                for (int i = data1.length - 1; i >= 0; i--) {
-                    Object ob = new Object();
-                    tableModel.insertRow(0, data1[i]);
-                }
+                int len = Integer.parseInt(widthField.getText());
+                setTable(table, len, bIO);
             }
         });
 
@@ -87,6 +75,22 @@ public class mainGui extends JFrame {
         frame.setSize(1000, 600);
         frame.setLayout(null);
         frame.setVisible(true);
+    }
+
+    public static void setTable(JTable table, int len, ByteIO bIO){
+        utilByte ub = new utilByte(bIO.getBytes());
+        Object [][] data = ub.toArr(len + 1);
+
+        String[] newColumnNames = new String[len + 1];
+
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setColumnIdentifiers(newColumnNames);
+
+        tableModel.getDataVector().removeAllElements();
+
+        for (int i = data.length - 1; i >= 0; i--) {
+            tableModel.insertRow(0, data[i]);
+        }
     }
 
     public static void main(String[] args) {
