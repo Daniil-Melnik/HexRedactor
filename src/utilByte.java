@@ -17,7 +17,6 @@ public class utilByte {
             k = k + 1;
         }
         Object [][] chngWidth = new Object[k][len + 1];
-        Object [][] result = new Object[vertLen][len + 1];
         for (int i = 0; i < this.hexBytes.length; i++){
             chngWidth[i / len][i % len] = "" + this.hexBytes[i];
         }
@@ -30,18 +29,11 @@ public class utilByte {
         else {
             endLen = (offset / len) + vertLen;
         }
-
+        Object [][] result = new Object[endLen][len + 1];
         int km = 0;
-        for (int i = offset / len; i < endLen; i++){
+        for (int i = offset / len; i < endLen; i++) {
             result[km] = chngWidth[i];
             //System.out.println(result[km]);
-            km++;
-        }
-        for (int i = endLen; i < vertLen; i++){
-            result[km][0] = new JLabel("" + (i) * (len - 1));
-            for (int j = 1; j < len+1; j++){
-                result[km][j] = "";
-            }
             km++;
         }
 

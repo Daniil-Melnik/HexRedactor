@@ -91,7 +91,7 @@ public class mainGui extends JFrame {
         tableModel.setColumnIdentifiers(newColumnNames);
 
         tableModel.getDataVector().removeAllElements();
-
+        System.out.println(data.length);
         for (int i = data.length - 1; i >= 0; i--) {
             tableModel.insertRow(0, data[i]);
         }
