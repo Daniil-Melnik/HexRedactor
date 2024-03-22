@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class utilByte {
-    private byte [] bytes;
-    private String [] hexBytes;
+    private final byte [] bytes;
+    private final String [] hexBytes;
 
     public utilByte(byte [] bytes, String [] hexBytes){
         this.bytes = bytes;
@@ -11,33 +11,25 @@ public class utilByte {
     }
 
     public Object [][] toArr(int len, int offset, int vertLen){
-        int k = this.hexBytes.length / len + 1;
         int endLen;
-        if (this.hexBytes.length % len != 0) {
-            k = k + 1;
-        }
-        Object [][] chngWidth = new Object[k][len + 1];
-        for (int i = 0; i < this.hexBytes.length; i++){
-            chngWidth[i / len][i % len] = "" + this.hexBytes[i];
-        }
-        for (int i = 0; i < k; i++){
-            chngWidth[i][0] = new JLabel("" + (i) * (len - 1));
-        }
         if ((offset + len * vertLen) >= this.hexBytes.length){
-            endLen = chngWidth.length;
+            endLen = this.hexBytes.length / len + 1;
         }
         else {
-            endLen = (offset / len) + vertLen;
+            endLen = vertLen;
         }
-        Object [][] result = new Object[endLen][len + 1];
-        int km = 0;
-        for (int i = offset / len; i < endLen; i++) {
-            result[km] = chngWidth[i];
-            //System.out.println(result[km]);
-            km++;
+        Object [][] chngWidth = new Object[endLen][len + 1];
+
+        for (int i = offset; i < offset + (len * endLen); i++){
+            if (i < this.hexBytes.length){
+                chngWidth[(i-offset) / len][(i-offset) % len] = "" + this.hexBytes[i];
+            }
+        }
+        for (int i = 0; i < endLen; i++){
+            chngWidth[i][0] = new JLabel("" + (i) * (len - 1));
         }
 
-        return result;
+        return chngWidth;
     }
 
     public String [] getIndexes (int len){

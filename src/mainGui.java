@@ -10,8 +10,11 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol;
+        JButton Hol, forward, back;
         JTextField widthField, heightField;
+        final int[] offset = {0};
+        final int[] rowLen = {4};
+        final int[] columnLen = {4};
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
@@ -20,8 +23,7 @@ public class mainGui extends JFrame {
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        int len = 4;
-        String[] columnNames = new String[len];
+        String[] columnNames = new String[rowLen[0]];
         Arrays.fill(columnNames, "");
 
         // String[][] data = ub.toArr(4);
@@ -46,7 +48,7 @@ public class mainGui extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
 
-        setTable(table, 4, 4, bIO, scrollPane);
+        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
@@ -60,15 +62,42 @@ public class mainGui extends JFrame {
         Hol.setBounds(100, 400, 90, 20);
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int len = Integer.parseInt(widthField.getText());
-                int vertLen = Integer.parseInt(heightField.getText());
-                setTable(table, len, vertLen, bIO, scrollPane);
+                rowLen[0] = Integer.parseInt(widthField.getText());
+                columnLen[0] = Integer.parseInt(heightField.getText());
+
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+            }
+        });
+
+        forward = new JButton("уперёд");;
+        forward.setBounds(200, 500, 90, 20);
+        forward.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                //if (offset[0] + rowLen[0] * columnLen[0] <= data.length + rowLen[0]){
+                    offset[0] = offset[0] + rowLen[0] * columnLen[0];
+                //}
+                System.out.println(offset[0] + " -++");
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+            }
+        });
+
+        back = new JButton("взад");;
+        back.setBounds(100, 500, 90, 20);
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                //if (offset[0] - rowLen[0] * columnLen[0] >= 0){
+                    offset[0] = offset[0] - rowLen[0] * columnLen[0];
+                //}
+                System.out.println(offset[0] + " +--");
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
             }
         });
 
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
         frame.add(heightField);
+        frame.add(forward);
+        frame.add(back);
         frame.add(Hol);
 
         frame.setSize(1000, 600);
@@ -76,9 +105,9 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane){
+    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset){
         utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
-        Object [][] data = ub.toArr(len + 1, 0, vertLen); 
+        Object [][] data = ub.toArr(len + 1, offset, vertLen);
 
         String[] newColumnNames = new String[len + 1];
         
@@ -91,7 +120,6 @@ public class mainGui extends JFrame {
         tableModel.setColumnIdentifiers(newColumnNames);
 
         tableModel.getDataVector().removeAllElements();
-        System.out.println(data.length);
         for (int i = data.length - 1; i >= 0; i--) {
             tableModel.insertRow(0, data[i]);
         }
