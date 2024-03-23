@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
@@ -15,6 +19,8 @@ public class mainGui extends JFrame {
         final int[] offset = {0};
         final int[] rowLen = {4};
         final int[] columnLen = {4};
+
+        MouseHig mh = new MouseHig();
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
@@ -43,6 +49,21 @@ public class mainGui extends JFrame {
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         table.setDefaultRenderer(JLabel.class,  new Renderer());
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+                    int coord [] = new int [2];
+                    coord[0] = row;
+                    coord[1] = column;
+                    mh.addCoord(coord);
+                    int [][] jj = mh.getCoord();
+                    //handleRightClick(row, column);
+                }
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
@@ -82,11 +103,10 @@ public class mainGui extends JFrame {
         back.setBounds(100, 500, 90, 20);
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                //if (offset[0] - rowLen[0] * columnLen[0] >= 0){
+                if (offset[0] > 0){
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
-                //}
-                //System.out.println(offset[0] + " +--");
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+                }
             }
         });
 
@@ -100,6 +120,10 @@ public class mainGui extends JFrame {
         frame.setSize(1000, 600);
         frame.setLayout(null);
         frame.setVisible(true);
+    }
+    public static void handleRightClick(int row, int column) {
+        System.out.println("Right Clicked on Row: " + row + ", Column: " + column);
+        // Ваша обработка правого щелчка здесь...
     }
 
     public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset){
