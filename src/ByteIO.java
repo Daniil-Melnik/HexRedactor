@@ -1,8 +1,5 @@
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 

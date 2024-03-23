@@ -13,7 +13,7 @@ public class utilByte {
     public Object [][] toArr(int len, int offset, int vertLen){
         int endLen;
         if ((offset + len * vertLen) >= this.hexBytes.length){
-            endLen = this.hexBytes.length / len + 1;
+            endLen = (this.hexBytes.length - offset) / len + 1;
         }
         else {
             endLen = vertLen;
@@ -25,10 +25,12 @@ public class utilByte {
                 chngWidth[(i-offset) / len][(i-offset) % len] = "" + this.hexBytes[i];
             }
         }
+        int iOfft = offset;
         for (int i = 0; i < endLen; i++){
-            chngWidth[i][0] = new JLabel("" + (i) * (len - 1));
+            chngWidth[i][0] = new JLabel("" + (iOfft));
+            iOfft += len - 1;
         }
-
+        System.out.println(endLen);
         return chngWidth;
     }
 

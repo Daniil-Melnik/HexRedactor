@@ -1,5 +1,3 @@
-import javax.swing.JLabel;
-
 class MyModel extends javax.swing.table.DefaultTableModel{
 
     public MyModel (Object [][] row, Object [] col){

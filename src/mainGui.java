@@ -18,7 +18,6 @@ public class mainGui extends JFrame {
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
-        utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,10 +72,8 @@ public class mainGui extends JFrame {
         forward.setBounds(200, 500, 90, 20);
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                //if (offset[0] + rowLen[0] * columnLen[0] <= data.length + rowLen[0]){
-                    offset[0] = offset[0] + rowLen[0] * columnLen[0];
-                //}
-                System.out.println(offset[0] + " -++");
+                offset[0] = offset[0] + rowLen[0] * columnLen[0];
+                //System.out.println(offset[0] + " -++");
                 setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
             }
         });
@@ -88,7 +85,7 @@ public class mainGui extends JFrame {
                 //if (offset[0] - rowLen[0] * columnLen[0] >= 0){
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
                 //}
-                System.out.println(offset[0] + " +--");
+                //System.out.println(offset[0] + " +--");
                 setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
             }
         });
@@ -118,6 +115,8 @@ public class mainGui extends JFrame {
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setColumnIdentifiers(newColumnNames);
+
+        System.out.println(data.length);
 
         tableModel.getDataVector().removeAllElements();
         for (int i = data.length - 1; i >= 0; i--) {
@@ -150,4 +149,3 @@ public class mainGui extends JFrame {
         });
     }
 }
-
