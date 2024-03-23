@@ -40,7 +40,26 @@ public class MouseHig {
         return this.coord;
     }
 
-    // public int [][] getFullCoords(int len){
-    //     int 
-    // }
+    public int [][] getFullCoords(int len){
+        int nFullRows = this.coord[1][0] - this.coord[0][0];
+        int nExtraCells = len - this.coord[0][1] + this.coord[1][1];
+        int nAllCells = nFullRows * len + nExtraCells;
+
+        int [][] result = new int [nAllCells][2];
+
+        int nRes = 0;
+
+        for (int i = this.coord[0][0] * (len + 1) + this.coord[0][1]; i <= this.coord[1][0] * (len + 1) + this.coord[1][1]; i++){
+            if (i % (len + 1) != 0){   
+                int [] qT = new int [2];
+                qT[0] = i / (len + 1);
+                qT[1] = i % (len + 1);
+                result[nRes] = qT;
+                nRes += 1;
+                // System.out.println(qT[0] + "x" + qT[1]);  // for control of selection 
+            }
+        }
+        
+        return result;
+    }
 }

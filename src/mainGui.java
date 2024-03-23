@@ -59,8 +59,10 @@ public class mainGui extends JFrame {
                     coord[0] = row;
                     coord[1] = column;
                     mh.addCoord(coord);
-                    int [][] jj = mh.getCoord();
-                    //handleRightClick(row, column);
+                    // int [][] jj1 = mh.getCoord(); // for control of cell's selection
+                    // if (mh.getCond() == 2){
+                    //     int [][] jj = mh.getFullCoords(4);
+                    // }
                 }
             }
         });
