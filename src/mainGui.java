@@ -16,9 +16,9 @@ public class mainGui extends JFrame {
 
         JButton Hol, forward, back;
         JTextField widthField, heightField;
-        final int[] offset = {0};
-        final int[] rowLen = {4};
-        final int[] columnLen = {4};
+        int[] offset = {0};
+        int[] rowLen = {4};
+        int[] columnLen = {4};
 
         MouseHig mh = new MouseHig();
 
@@ -31,7 +31,6 @@ public class mainGui extends JFrame {
         String[] columnNames = new String[rowLen[0]];
         Arrays.fill(columnNames, "");
 
-        // String[][] data = ub.toArr(4);
         Object[][] data = {};
 
         // Создаем модель таблицы
@@ -48,7 +47,12 @@ public class mainGui extends JFrame {
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        table.setDefaultRenderer(JLabel.class,  new Renderer());
+        int[][] highlightCells = {};
+
+        // Создаем экземпляр класса Renderer, передавая массив координат
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(0, 0, 0, 0);
+        table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells));
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -59,18 +63,19 @@ public class mainGui extends JFrame {
                     coord[0] = row;
                     coord[1] = column;
                     mh.addCoord(coord);
-                    // int [][] jj1 = mh.getCoord(); // for control of cell's selection
-                    // if (mh.getCond() == 2){
-                    //     int [][] jj = mh.getFullCoords(4);
-                    // }
+                    if (mh.getCond() == 2){
+                        int [][]highlightCells = mh.getFullCoords(rowLen[0]);
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    else{
+                        int [][]highlightCells = {};
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
                 }
             }
         });
 
-        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(0, 0, 0, 0);
-
-        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
@@ -84,10 +89,10 @@ public class mainGui extends JFrame {
         Hol.setBounds(100, 400, 90, 20);
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                int [][] highlightCells = {};
                 rowLen[0] = Integer.parseInt(widthField.getText());
                 columnLen[0] = Integer.parseInt(heightField.getText());
-
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
             }
         });
 
@@ -95,9 +100,9 @@ public class mainGui extends JFrame {
         forward.setBounds(200, 500, 90, 20);
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                int [][] highlightCells = {};
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
-                //System.out.println(offset[0] + " -++");
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
             }
         });
 
@@ -106,8 +111,9 @@ public class mainGui extends JFrame {
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (offset[0] > 0){
+                    int [][] highlightCells = {};
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
-                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0]);
+                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
                 }
             }
         });
@@ -128,7 +134,7 @@ public class mainGui extends JFrame {
         // Ваша обработка правого щелчка здесь...
     }
 
-    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset){
+    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset, int [][] highlightCells){
         utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
         Object [][] data = ub.toArr(len + 1, offset, vertLen);
 
@@ -159,6 +165,13 @@ public class mainGui extends JFrame {
 
         for (int i = 1; i < columnCount; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);;
+        }
+
+        // Создаем экземпляр класса Renderer, передавая массив координат
+        Renderer renderer = new Renderer(highlightCells);
+        // Устанавливаем рендерер для всех столбцов
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
     }
 

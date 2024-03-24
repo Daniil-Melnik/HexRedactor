@@ -1,22 +1,23 @@
-import javax.swing.JLabel;
-import java.awt.Component;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 
-public class Renderer extends DefaultTableCellRenderer{
+public class Renderer extends DefaultTableCellRenderer {
+    private HighLightRenderer highlightRenderer;
+
+    public Renderer(int[][] highlightCells) {
+        
+        this.highlightRenderer = new HighLightRenderer(highlightCells);
+    }
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                   boolean hasFocus, int row, int column)
-    {
-
-        if(value instanceof JLabel){
-            //This time return only the JLabel without icon
-            return (JLabel)value;
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        // Если столбец - 0, и значение - JLabel, возвращаем его без изменений
+        if (column == 0 && value instanceof JLabel) {
+            return (JLabel) value;
+        } else {
+            // Иначе, используем HighlightRenderer для выделения ячеек
+            return highlightRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         }
-
-        else
-            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
     }
 }
