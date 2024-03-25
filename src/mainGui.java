@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -71,6 +73,18 @@ public class mainGui extends JFrame {
                         int [][]highlightCells = {};
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
                     }
+                }
+            }
+        });
+
+        table.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+                if (row != TableModelEvent.HEADER_ROW && column != TableModelEvent.ALL_COLUMNS) {
+                    Object value = table.getValueAt(row, column);
+                    System.out.println("Changed cell value: " + value);
                 }
             }
         });
