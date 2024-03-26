@@ -124,7 +124,7 @@ public class mainGui extends JFrame {
         back.setBounds(100, 500, 90, 20);
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (offset[0] > 0){
+                if (offset[0] - rowLen[0] * columnLen[0] > 0){
                     int [][] highlightCells = {};
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
