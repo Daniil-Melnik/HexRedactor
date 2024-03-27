@@ -124,7 +124,7 @@ public class mainGui extends JFrame {
         back.setBounds(100, 500, 90, 20);
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (offset[0] - rowLen[0] * columnLen[0] > 0){
+                if (offset[0] - rowLen[0] * columnLen[0] >= 0){
                     int [][] highlightCells = {};
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
@@ -149,7 +149,8 @@ public class mainGui extends JFrame {
     }
 
     public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset, int [][] highlightCells){
-        utilByte ub = new utilByte(bIO.getBytes(), bIO.getHexByte());
+        utilByte ub = new utilByte(bIO.setHexBytesOfft(offset, vertLen * len));
+        System.out.println("=== " + bIO.setHexBytesOfft(offset, vertLen * len).length + "  " + offset + "  " + vertLen * len);
         Object [][] data = ub.toArr(len + 1, offset, vertLen);
 
         String[] newColumnNames = new String[len + 1];

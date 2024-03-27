@@ -41,27 +41,28 @@ public class ByteIO {
         this.hexBytes = hexBytes;
     }
 
-    public void setHexBytesOfft(int offt, int len){
+    public String [] setHexBytesOfft(int offt, int len){
         try (RandomAccessFile file = new RandomAccessFile(this.fName, "r")) {
             byte[] bytes = new byte[len];
             file.seek(offt);
             file.read(bytes);
             this.bytesOfft = bytes;
-            String [] hexBytes = new String[len];
+            String [] hexQBytes = new String[len];
             for (int i = 0; i < len; i++){
-                hexBytes[i] = Integer.toHexString(this.bytesOfft[i]);
+                hexQBytes[i] = Integer.toHexString(this.bytesOfft[i]);
             }
-            this.hexBytesOfft = hexBytes;
+            this.hexBytesOfft = hexQBytes;
            
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return hexBytesOfft;
     }
 
     public static void main(String[] args) throws IOException {
         ByteIO test = new ByteIO("src/1.txt");
         test.getByteOfFile();
-        test.setHexBytesOfft(0, 10);
+        test.setHexBytesOfft(117, 10);
         String [] tData = test.getHexBytesOfft();
         for (String datum : tData) {
             System.out.print(datum + " ");
