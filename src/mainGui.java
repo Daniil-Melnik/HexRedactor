@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import java.awt.event.*;
+
 public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
@@ -21,6 +23,7 @@ public class mainGui extends JFrame {
         int[] offset = {0};
         int[] rowLen = {4};
         int[] columnLen = {4};
+        boolean[] changed = {false};
 
         MouseHig mh = new MouseHig();
 
@@ -85,6 +88,7 @@ public class mainGui extends JFrame {
                 if (row != TableModelEvent.HEADER_ROW && column != TableModelEvent.ALL_COLUMNS) {
                     Object value = table.getValueAt(row, column);
                     System.out.println("Changed cell value: " + value);
+                    changed[0] = true;
                 }
             }
         });
@@ -103,10 +107,34 @@ public class mainGui extends JFrame {
         Hol.setBounds(100, 400, 90, 20);
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int [][] highlightCells = {};
-                rowLen[0] = Integer.parseInt(widthField.getText());
-                columnLen[0] = Integer.parseInt(heightField.getText());
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                if (!changed[0]){
+                    int [][] highlightCells = {};
+                    rowLen[0] = Integer.parseInt(widthField.getText());
+                    columnLen[0] = Integer.parseInt(heightField.getText());
+                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                }
+                else{
+                    int result = JOptionPane.showConfirmDialog(
+                                      frame, 
+                                      "Данные изменены. Сохранить?",
+                                      "Сохранить",
+                                      JOptionPane.YES_NO_CANCEL_OPTION);
+                    if (result == 0){
+                        // вставить запись в файл изменений
+                        int [][] highlightCells = {};
+                        rowLen[0] = Integer.parseInt(widthField.getText());
+                        columnLen[0] = Integer.parseInt(heightField.getText());
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    else if (result == 1){
+                        // вставить оставить файл в старом виде
+                        int [][] highlightCells = {};
+                        rowLen[0] = Integer.parseInt(widthField.getText());
+                        columnLen[0] = Integer.parseInt(heightField.getText());
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    // Cancel - ничего не делать
+                }              
             }
         });
 
