@@ -33,6 +33,8 @@ public class mainGui extends JFrame {
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        HandChng hc = new HandChng(frame);
+
         String[] columnNames = new String[rowLen[0]];
         Arrays.fill(columnNames, "");
 
@@ -114,11 +116,7 @@ public class mainGui extends JFrame {
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
                 }
                 else{
-                    int result = JOptionPane.showConfirmDialog(
-                                      frame, 
-                                      "Данные изменены. Сохранить?",
-                                      "Сохранить",
-                                      JOptionPane.YES_NO_CANCEL_OPTION);
+                    int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
                         // вставить запись в файл изменений
                         int [][] highlightCells = {};
@@ -134,6 +132,7 @@ public class mainGui extends JFrame {
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
                     }
                     // Cancel - ничего не делать
+                    changed[0] = false;
                 }              
             }
         });
@@ -144,7 +143,22 @@ public class mainGui extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 int [][] highlightCells = {};
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                if (!changed[0]){
+                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                }
+                else{
+                    int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
+                    if (result == 0){
+                        // вставить запись в файл изменений
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    else if (result == 1){
+                        // вставить оставить файл в старом виде
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    // Cancel - ничего не делать
+                    changed[0] = false;
+                }       
             }
         });
 
@@ -152,10 +166,25 @@ public class mainGui extends JFrame {
         back.setBounds(100, 500, 90, 20);
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                int [][] highlightCells = {};
                 if (offset[0] - rowLen[0] * columnLen[0] >= 0){
-                    int [][] highlightCells = {};
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
-                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    if (!changed[0]){
+                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                    }
+                    else{
+                        int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
+                        if (result == 0){
+                            // вставить запись в файл изменений
+                            setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        }
+                        else if (result == 1){
+                            // вставить оставить файл в старом виде
+                            setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        }
+                        // Cancel - ничего не делать
+                        changed[0] = false;
+                    }
                 }
             }
         });
