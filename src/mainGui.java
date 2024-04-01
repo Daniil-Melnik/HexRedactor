@@ -123,6 +123,7 @@ public class mainGui extends JFrame {
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        changed[0] = false;
                     }
                     else if (result == 1){
                         // вставить оставить файл в старом виде
@@ -130,9 +131,10 @@ public class mainGui extends JFrame {
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        changed[0] = false;
                     }
                     // Cancel - ничего не делать
-                    changed[0] = false;
+
                 }              
             }
         });
@@ -151,13 +153,14 @@ public class mainGui extends JFrame {
                     if (result == 0){
                         // вставить запись в файл изменений
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        changed[0] = false;
                     }
                     else if (result == 1){
                         // вставить оставить файл в старом виде
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                        changed[0] = false;
                     }
                     // Cancel - ничего не делать
-                    changed[0] = false;
                 }       
             }
         });
@@ -177,13 +180,14 @@ public class mainGui extends JFrame {
                         if (result == 0){
                             // вставить запись в файл изменений
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                            changed[0] = false;
                         }
                         else if (result == 1){
                             // вставить оставить файл в старом виде
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+                            changed[0] = false;
                         }
                         // Cancel - ничего не делать
-                        changed[0] = false;
                     }
                 }
             }
