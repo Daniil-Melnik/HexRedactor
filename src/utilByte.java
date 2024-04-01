@@ -57,6 +57,8 @@ public class utilByte {
         return res;
     }
 
+    // добавить чтение байт в 16ричном формате
+
     public static void main(String [] args) throws IOException {
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
