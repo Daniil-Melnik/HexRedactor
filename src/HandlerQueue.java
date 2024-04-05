@@ -10,8 +10,17 @@ public class HandlerQueue {
     }
 
     public void setData(ByteIO bIO, int offset, int len){
-        utilByte ub = new utilByte(bIO.setHexBytesOfft(offset, len));
-        //this.data = ub. дописать после добавления простого чтения байт в 16ричном виде в UtilByte
+        this.data = bIO.setHexBytesOfft(offset, len);
+    }
+
+    public void addChange (ChangeHandler chH){
+        this.queue.add(chH);
+    }
+
+    public  void showQueue(){
+        for (ChangeHandler c : this.queue) {
+            System.out.print("type = " + c.getType() + "\noffset = " + c.getOfft() + "\nlen = " + c.getLen());
+        }
     }
 }
 

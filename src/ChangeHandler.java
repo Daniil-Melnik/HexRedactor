@@ -8,4 +8,16 @@ public class ChangeHandler {
     private String [] changedCells;
     private int offt;
     private int len; //for one cell - 1
+
+    public int getOfft(){
+        return this.offt;
+    }
+
+    public int getLen(){
+        return this.len;
+    }
+
+    public int getType(){
+        return this.type;
+    }
 }
