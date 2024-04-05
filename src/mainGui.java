@@ -20,6 +20,7 @@ public class mainGui extends JFrame {
 
         JButton Hol, forward, back;
         JTextField widthField, heightField;
+        HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0};
         int[] rowLen = {4};
         int[] columnLen = {4};
@@ -89,7 +90,10 @@ public class mainGui extends JFrame {
                 int column = e.getColumn();
                 if (row != TableModelEvent.HEADER_ROW && column != TableModelEvent.ALL_COLUMNS) {
                     Object value = table.getValueAt(row, column);
-                    System.out.println("Changed cell value: " + value);
+                    String [] strData = {String.valueOf(value)};
+                    ChangeHandler chH = new ChangeHandler(0, offset[0] + (rowLen[0] * row) + column - 1, 1, strData);
+                    hQ.addChange(chH);
+                    hQ.showQueue();
                     changed[0] = true;
                 }
             }

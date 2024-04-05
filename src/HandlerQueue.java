@@ -4,7 +4,7 @@ public class HandlerQueue {
     private ArrayList<ChangeHandler> queue;
     private String [] data;
 
-    public HandlerQueue(String [] data){
+    public HandlerQueue(){
         this.queue = new ArrayList<ChangeHandler>();
         this.data = null;
     }
@@ -19,7 +19,7 @@ public class HandlerQueue {
 
     public  void showQueue(){
         for (ChangeHandler c : this.queue) {
-            System.out.print("type = " + c.getType() + "\noffset = " + c.getOfft() + "\nlen = " + c.getLen());
+            System.out.println("type = " + c.getType() + "\noffset = " + c.getOfft() + "\nlen = " + c.getLen());
         }
     }
 }

@@ -9,6 +9,13 @@ public class ChangeHandler {
     private int offt;
     private int len; //for one cell - 1
 
+    public ChangeHandler(int type, int offt, int len, String [] data){
+        this.type = type;
+        this.offt = offt;
+        this.len = len;
+        this.changedCells = data;
+    }
+
     public int getOfft(){
         return this.offt;
     }
