@@ -59,6 +59,10 @@ public class ByteIO {
         return hexBytesOfft;
     }
 
+    public void deletebytes(){
+        
+    }
+
     public static void main(String[] args) throws IOException {
         ByteIO test = new ByteIO("src/1.txt");
         test.getByteOfFile();
