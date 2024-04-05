@@ -13,7 +13,14 @@ public class HandlerQueue {
         this.data = bIO.setHexBytesOfft(offset, len);
     }
 
-    public void addChange (ChangeHandler chH){
+    public void showData(){
+        for (int i = 0; i < this.data.length; i++){
+            System.out.println(this.data[i]);
+        }
+    }
+
+    public void addChange (ChangeHandler chH, int sOfft){
+        this.data[sOfft] = chH.getData()[0];
         this.queue.add(chH);
     }
 

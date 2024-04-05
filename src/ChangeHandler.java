@@ -27,4 +27,7 @@ public class ChangeHandler {
     public int getType(){
         return this.type;
     }
+    public String [] getData(){
+        return this.changedCells;
+    }
 }
