@@ -13,6 +13,10 @@ public class HandlerQueue {
         this.data = bIO.setHexBytesOfft(offset, len);
     }
 
+    public String [] getData() {
+        return this.data;
+    }
+
     public void showData(){
         for (int i = 0; i < this.data.length; i++){
             System.out.println(this.data[i]);

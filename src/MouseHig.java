@@ -35,8 +35,8 @@ public class MouseHig {
     }
 
     public int [][] getCoord(){
-        System.out.println(this.coord[0][0] + " " + this.coord[0][1]);
-        System.out.println(this.coord[1][0] + " " + this.coord[1][1]);
+        //System.out.println(this.coord[0][0] + " " + this.coord[0][1]);
+        //System.out.println(this.coord[1][0] + " " + this.coord[1][1]);
         return this.coord;
     }
 
@@ -45,7 +45,7 @@ public class MouseHig {
             int [] dCoord = this.coord[0];
             this.coord[0] = this.coord[1];
             this.coord[1] = dCoord; 
-            System.out.println("control");
+            //System.out.println("control");
         }
     }
 

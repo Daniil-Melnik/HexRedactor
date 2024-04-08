@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ public class mainGui extends JFrame {
         boolean[] changed = {false};
 
         MouseHig mh = new MouseHig();
+        RegExp rE = new RegExp();
 
         ByteIO bIO = new ByteIO("src/1.txt");
         bIO.getByteOfFile();
@@ -94,11 +96,17 @@ public class mainGui extends JFrame {
                     Object value = table.getValueAt(row, column);
                     String [] strData = {String.valueOf(value)};
                     ChangeHandler chH = new ChangeHandler(0, offset[0] + (rowLen[0] * row) + column - 1, 1, strData);
-                    System.out.println(row * rowLen[0] + column - 1);
+                    //System.out.println(row * rowLen[0] + column - 1);
                     hQ.addChange(chH, row * rowLen[0] + column - 1);
-                    hQ.showData();
+                    //hQ.showData();
+                    String [] _strArr = hQ.getData();
                     //hQ.showQueue();
                     changed[0] = true;
+
+                    ArrayList<Integer> a = rE.isValidArr(_strArr, offset[0]);
+                    for (Integer integer : a) {
+                        System.out.println(integer);
+                    }
                 }
             }
         });
@@ -229,7 +237,7 @@ public class mainGui extends JFrame {
 
     public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset, int [][] highlightCells){
         utilByte ub = new utilByte(bIO.setHexBytesOfft(offset, vertLen * len));
-        System.out.println("=== " + bIO.setHexBytesOfft(offset, vertLen * len).length + "  " + offset + "  " + vertLen * len);
+        //System.out.println("=== " + bIO.setHexBytesOfft(offset, vertLen * len).length + "  " + offset + "  " + vertLen * len);
         Object [][] data = ub.toArr(len + 1, offset, vertLen);
 
         String[] newColumnNames = new String[len + 1];
@@ -241,8 +249,6 @@ public class mainGui extends JFrame {
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setColumnIdentifiers(newColumnNames);
-
-        System.out.println(data.length);
 
         tableModel.getDataVector().removeAllElements();
         for (int i = data.length - 1; i >= 0; i--) {
