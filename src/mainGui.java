@@ -76,12 +76,10 @@ public class mainGui extends JFrame {
                     if (mh.getCond() == 2){
                         int [][]highlightCells = mh.getFullCoords(rowLen[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     }
                     else{
                         int [][]highlightCells = {};
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     }
                 }
             }
@@ -96,23 +94,15 @@ public class mainGui extends JFrame {
                     Object value = table.getValueAt(row, column);
                     String [] strData = {String.valueOf(value)};
                     ChangeHandler chH = new ChangeHandler(0, offset[0] + (rowLen[0] * row) + column - 1, 1, strData);
-                    //System.out.println(row * rowLen[0] + column - 1);
-                    hQ.addChange(chH, row * rowLen[0] + column - 1);
-                    //hQ.showData();
-                    String [] _strArr = hQ.getData();
-                    //hQ.showQueue();
+                    hQ.addChange(chH, row * rowLen[0] + column - 1); // добавть изменения в SheetHolder
                     changed[0] = true;
 
-                    ArrayList<Integer> a = rE.isValidArr(_strArr, offset[0]);
-                    for (Integer integer : a) {
-                        System.out.println(integer);
-                    }
                 }
             }
         });
 
         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
@@ -131,7 +121,7 @@ public class mainGui extends JFrame {
                     rowLen[0] = Integer.parseInt(widthField.getText());
                     columnLen[0] = Integer.parseInt(heightField.getText());
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                    hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                    //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -141,7 +131,7 @@ public class mainGui extends JFrame {
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     else if (result == 1){
@@ -150,7 +140,7 @@ public class mainGui extends JFrame {
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
@@ -167,20 +157,20 @@ public class mainGui extends JFrame {
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
                 if (!changed[0]){
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                    hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                    //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
                         // вставить запись в файл изменений
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     else if (result == 1){
                         // вставить оставить файл в старом виде
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
@@ -197,20 +187,20 @@ public class mainGui extends JFrame {
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
                     if (!changed[0]){
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                        hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     }
                     else{
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                         if (result == 0){
                             // вставить запись в файл изменений
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                            hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                            //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;
                         }
                         else if (result == 1){
                             // вставить оставить файл в старом виде
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
-                            hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                            //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;
                         }
                         // Cancel - ничего не делать
