@@ -2,14 +2,10 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class utilByte {
-    private final byte [] bytes;
-    private final String [] hexBytes;
-    private String [] hexBytesOfft;
 
-    public utilByte(String [] hexBytesOfft){
-        this.hexBytesOfft = hexBytesOfft;
-        this.bytes = null;
-        this.hexBytes = null;
+    public Object [][] toSimpleArr(int rowLen, int columnLen, String [] data){
+        //////Дописать перевод в простой массив//////
+        return null;
     }
 
     public Object [][] toArr(int len, int offset, int vertLen){
@@ -43,8 +39,4 @@ public class utilByte {
 
     // добавить чтение байт в 16ричном формате
 
-    public static void main(String [] args) throws IOException {
-        ByteIO bIO = new ByteIO("src/1.txt");
-        bIO.getByteOfFile();
-    }
 }

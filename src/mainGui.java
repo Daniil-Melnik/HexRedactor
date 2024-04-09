@@ -26,6 +26,7 @@ public class mainGui extends JFrame {
         int[] rowLen = {4};
         int[] columnLen = {4};
         boolean[] changed = {false};
+        SheetHolder sH = new SheetHolder();
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
@@ -63,6 +64,11 @@ public class mainGui extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
         table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells));
+
+        //////////////////////////////////////////////////////////////////
+        //////////////////// Перехват правых кликаний ////////////////////
+        //////////////////////////////////////////////////////////////////
+
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -85,6 +91,10 @@ public class mainGui extends JFrame {
             }
         });
 
+        ///////////////////////////////////////////////////////////////////
+        //////////////////// Отлов изменений в таблице ////////////////////
+        ///////////////////////////////////////////////////////////////////
+
         table.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -102,6 +112,7 @@ public class mainGui extends JFrame {
         });
 
         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells);
+
         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
 
         widthField = new JTextField(15);
@@ -111,6 +122,10 @@ public class mainGui extends JFrame {
         heightField = new JTextField(15);
         heightField.setToolTipText("Высота");
         heightField.setBounds(200, 350, 80, 20);
+
+        ///////////////////////////////////////////////////////////////////
+        //////////////////// Кнопка установки размеров ////////////////////
+        ///////////////////////////////////////////////////////////////////
 
         Hol = new JButton("Блямс!");;
         Hol.setBounds(100, 400, 90, 20);
@@ -148,7 +163,9 @@ public class mainGui extends JFrame {
                 }              
             }
         });
-
+        ///////////////////////////////////////////////////////////////////
+        //////////////////// Кнопка проллистать вперёд ////////////////////
+        ///////////////////////////////////////////////////////////////////
         forward = new JButton("уперёд");;
         forward.setBounds(200, 500, 90, 20);
         forward.addActionListener(new ActionListener() {
@@ -177,6 +194,10 @@ public class mainGui extends JFrame {
                 }       
             }
         });
+
+        //////////////////////////////////////////////////////////////////
+        //////////////////// Кнопка проллистать назад ////////////////////
+        //////////////////////////////////////////////////////////////////
 
         back = new JButton("взад");;
         back.setBounds(100, 500, 90, 20);
