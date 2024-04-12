@@ -109,7 +109,10 @@ public class mainGui extends JFrame {
                     System.out.println("Сдвиг: " + chH.getOfft());
                     System.out.println("Данные: " + chH.getData()[0]);
                     sH.makeHandle(chH);
-                    //String [] datm = sH.getData();
+                    ArrayList<Integer> aL = rE.isValidArr(sH.getData(), offset[0]);
+                    for (Integer integer : aL) {
+                        System.out.println(integer);
+                    }
                     hQ.addChange(chH, row * rowLen[0] + column - 1); // добавть изменения в SheetHolder
                     changed[0] = true;
 
@@ -147,7 +150,6 @@ public class mainGui extends JFrame {
                     sH.setRowLen(rowLen[0]);
                     sH.setColumnLen(columnLen[0]);
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
-                    //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -159,7 +161,6 @@ public class mainGui extends JFrame {
                         sH.setRowLen(rowLen[0]);
                         sH.setColumnLen(columnLen[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
-                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     else if (result == 1){
@@ -170,7 +171,6 @@ public class mainGui extends JFrame {
                         sH.setRowLen(rowLen[0]);
                         sH.setColumnLen(columnLen[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
-                        //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
