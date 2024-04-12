@@ -1,42 +1,39 @@
 import javax.swing.*;
 import java.io.IOException;
+// toArr -> toLabeledArr
 
 public class utilByte {
 
     public Object [][] toSimpleArr(int rowLen, int columnLen, String [] data){
-        //////Дописать перевод в простой массив//////
-        return null;
+        Object [][] arr = new Object[columnLen][rowLen];
+        for (int i = 0; i < data.length; i++){
+            arr[i / rowLen][i % rowLen] = data[i];
+        }
+        return arr;
     }
 
-    public Object [][] toArr(int len, int offset, int vertLen){
-        int endLen;
-        endLen = vertLen;
-        Object [][] chngWidth = new Object[vertLen][len + 1];
+    public Object [][] toLabeledArr(int rowLen, int columnLen, String [] data, int offt){
+        Object [][] resArr = new Object[columnLen][rowLen + 1];
 
-        for (int i = 0; i < this.hexBytesOfft.length; i++){
-            chngWidth[i / (len - 1)][i % (len - 1) + 1] = "" + this.hexBytesOfft[i];
+        for (int i = 0; i < data.length; i++){
+            resArr[i / rowLen][(i % rowLen) + 1] = data[i];
         }
-        int iOfft = offset;
-        for (int i = 0; i < endLen; i++){
-            chngWidth[i][0] = new JLabel("" + (iOfft));
-            iOfft += len - 1;
+        for (int i = 0; i < columnLen; i++){
+            resArr[i][0] = new JLabel("" + (offt + (i * rowLen)));
         }
-        return chngWidth;
+        return resArr;
     }
 
-    public String [] getIndexes (int len){
-        int k = this.bytes.length / len;
-        if (this.bytes.length % len != 0) {
-            k = k + 1;
+    public static void main(String[] args){
+        ByteIO bIO = new ByteIO("src/1.txt");
+        String [] data = bIO.getHexBytesOfft(0, 16);
+        utilByte ub = new utilByte();
+        Object [][] resArr = ub.toSimpleArr(4, 4, data);
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                System.out.print(resArr[i][j] + " ");
+            }
+            System.out.println("");
         }
-        String [] res = new String[k];
-        for (int i = 0; i < k; i++){
-            res[i] = "" + len * i;
-        }
-
-        return res;
     }
-
-    // добавить чтение байт в 16ричном формате
-
 }

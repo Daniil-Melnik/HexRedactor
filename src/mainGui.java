@@ -32,7 +32,7 @@ public class mainGui extends JFrame {
         RegExp rE = new RegExp();
 
         ByteIO bIO = new ByteIO("src/1.txt");
-        bIO.getByteOfFile();
+        //bIO.getByteOfFile();
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +54,7 @@ public class mainGui extends JFrame {
         };
         JTable table = new JTable();
 
-        table.setModel(mm);   
+        table.setModel(mm);
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -160,7 +160,7 @@ public class mainGui extends JFrame {
                     }
                     // Cancel - ничего не делать
 
-                }              
+                }
             }
         });
         ///////////////////////////////////////////////////////////////////
@@ -191,7 +191,7 @@ public class mainGui extends JFrame {
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
-                }       
+                }
             }
         });
 
@@ -246,15 +246,15 @@ public class mainGui extends JFrame {
         // Ваша обработка правого щелчка здесь...
     }
 
-    public static void setTable(JTable table, int len, int vertLen, ByteIO bIO, JScrollPane scrollPane, int offset, int [][] highlightCells){
-        utilByte ub = new utilByte(bIO.setHexBytesOfft(offset, vertLen * len));
-        //System.out.println("=== " + bIO.setHexBytesOfft(offset, vertLen * len).length + "  " + offset + "  " + vertLen * len);
-        Object [][] data = ub.toArr(len + 1, offset, vertLen);
+    public static void setTable(JTable table, int rowLen, int columnLen, ByteIO bIO, JScrollPane scrollPane, int offt, int [][] highlightCells){
+        String [] data = bIO.getHexBytesOfft(offt, rowLen * columnLen);
+        utilByte ub = new utilByte();
+        Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
 
-        String[] newColumnNames = new String[len + 1];
-        
+        String[] newColumnNames = new String[rowLen + 1];
+
         newColumnNames[0] = "off";
-        for (int m = 1; m < len + 1; m++){
+        for (int m = 1; m < rowLen + 1; m++){
             newColumnNames[m] = "" + (m - 1);
         }
 
@@ -262,11 +262,11 @@ public class mainGui extends JFrame {
         tableModel.setColumnIdentifiers(newColumnNames);
 
         tableModel.getDataVector().removeAllElements();
-        for (int i = data.length - 1; i >= 0; i--) {
-            tableModel.insertRow(0, data[i]);
+        for (int i = tableData.length - 1; i >= 0; i--) {
+            tableModel.insertRow(0, tableData[i]);
         }
         int leftColumnWidth = 40;
-        int columnCount = len + 1;
+        int columnCount = columnLen + 1;
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.getColumnModel().getColumn(0).setPreferredWidth(leftColumnWidth);;
 
