@@ -12,7 +12,7 @@ public class RegExp {
             if (!isValid(arr[i])){
                 res.add(offt + i);
             }
-            //System.out.println(isValid(arr[i]));
+            System.out.println(isValid(arr[i]));
         }
         res.add(-1);
         return  res;

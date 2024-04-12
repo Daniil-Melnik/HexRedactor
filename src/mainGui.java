@@ -50,7 +50,6 @@ public class mainGui extends JFrame {
         MyModel mm = new MyModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                //all cells false
                 return !(column == 0);
             }
         };
@@ -106,6 +105,11 @@ public class mainGui extends JFrame {
                     Object value = table.getValueAt(row, column);
                     String [] strData = {String.valueOf(value)};
                     ChangeHandler chH = new ChangeHandler(0, offset[0] + (rowLen[0] * row) + column - 1, 1, strData);
+                    System.out.println("Тип: " + chH.getType());
+                    System.out.println("Сдвиг: " + chH.getOfft());
+                    System.out.println("Данные: " + chH.getData()[0]);
+                    sH.makeHandle(chH);
+                    //String [] datm = sH.getData();
                     hQ.addChange(chH, row * rowLen[0] + column - 1); // добавть изменения в SheetHolder
                     changed[0] = true;
 
@@ -114,6 +118,8 @@ public class mainGui extends JFrame {
         });
         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
         sH.setData(dat[0]);
+        sH.setColumnLen(4);
+        sH.setRowLen(4);
         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
 
         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
@@ -138,6 +144,8 @@ public class mainGui extends JFrame {
                     int [][] highlightCells = {};
                     rowLen[0] = Integer.parseInt(widthField.getText());
                     columnLen[0] = Integer.parseInt(heightField.getText());
+                    sH.setRowLen(rowLen[0]);
+                    sH.setColumnLen(columnLen[0]);
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                 }
@@ -148,6 +156,8 @@ public class mainGui extends JFrame {
                         int [][] highlightCells = {};
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
+                        sH.setRowLen(rowLen[0]);
+                        sH.setColumnLen(columnLen[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
@@ -157,6 +167,8 @@ public class mainGui extends JFrame {
                         int [][] highlightCells = {};
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
+                        sH.setRowLen(rowLen[0]);
+                        sH.setColumnLen(columnLen[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;

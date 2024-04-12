@@ -32,9 +32,10 @@ public class SheetHolder {
         return this.columnLen;
     }
 
-    public void getHandle(ChangeHandler chH){
+    public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
         if (chH.getType() == 0){
+            System.out.println("GET HANDLE ZERO");
             this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
         }
     }
