@@ -1,15 +1,15 @@
 public class SheetHolder {
     private String [] data;
-    private int width;
-    private int height;
+    private int rowLen;
+    private int columnLen;
     private int offt;
 
-    public void setWidth(int width){
-        this.width = width;
+    public void setRowLen(int width){
+        this.rowLen = width;
     }
 
-    public void setHeight(int height){
-        this.height = height;
+    public void setColumnLen(int height){
+        this.columnLen = height;
     }
 
     public void setOfft(int offt){
@@ -24,16 +24,16 @@ public class SheetHolder {
         return this.data;
     }
 
-    public int getWidth(){
-        return this.width;
+    public int getRowLen(){
+        return this.rowLen;
     }
 
     public int getHeight(){
-        return this.height;
+        return this.columnLen;
     }
 
     public void getHandle(ChangeHandler chH){
-        int index = chH.getOfft() % (this.width * this.height);
+        int index = chH.getOfft() % (this.rowLen * this.columnLen);
         if (chH.getType() == 0){
             this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
         }

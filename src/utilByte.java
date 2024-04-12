@@ -3,7 +3,9 @@ import java.io.IOException;
 // toArr -> toLabeledArr
 
 public class utilByte {
-
+    ///////////////////////////////////////////////
+    /////////Получить простой массив строк/////////
+    ///////////////////////////////////////////////
     public Object [][] toSimpleArr(int rowLen, int columnLen, String [] data){
         Object [][] arr = new Object[columnLen][rowLen];
         for (int i = 0; i < data.length; i++){
@@ -12,6 +14,9 @@ public class utilByte {
         return arr;
     }
 
+    ////////////////////////////////////////////////
+    ////////Получить массив строк с лэйблами////////
+    ////////////////////////////////////////////////
     public Object [][] toLabeledArr(int rowLen, int columnLen, String [] data, int offt){
         Object [][] resArr = new Object[columnLen][rowLen + 1];
 
