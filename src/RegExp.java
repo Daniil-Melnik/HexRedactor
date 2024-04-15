@@ -2,10 +2,16 @@ import java.util.ArrayList;
 
 public class RegExp {
 
+    ////////////////////////////////////////////////////////
+    //////////////// Валидация одного байта ////////////////
+    ////////////////////////////////////////////////////////
     public boolean isValid(String str){
         return (str.matches("^[0-9A-Fa-f]{2}$"));
     }
 
+    ////////////////////////////////////////////////////////
+    /////////////// Валидация массива байтов ///////////////
+    ////////////////////////////////////////////////////////
     public ArrayList<Integer> isValidArr(String [] arr, int offt){
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (int i = 0; i < arr.length; i++){
@@ -16,6 +22,9 @@ public class RegExp {
         return  res;
     }
 
+    ////////////////////////////////////////////////////////
+    ////////////// Получение координат ошибок //////////////
+    ////////////////////////////////////////////////////////
     public int [][] getErrorCells(int rowLen, int offt, ArrayList<Integer> errorOfft){
         int [][] res = new int[errorOfft.size()][2];
         int k;
