@@ -9,11 +9,21 @@ public class RegExp {
     public ArrayList<Integer> isValidArr(String [] arr, int offt){
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (int i = 0; i < arr.length; i++){
-            if (!isValid(arr[i])){
+            if (!isValid(arr[i])) {
                 res.add(offt + i);
             }
-            //System.out.println(isValid(arr[i]));
         }
         return  res;
+    }
+
+    public int [][] getErrorCells(int rowLen, int offt, ArrayList<Integer> errorOfft){
+        int [][] res = new int[errorOfft.size()][2];
+        int k;
+        for (Integer i : errorOfft){
+            k = errorOfft.indexOf(i);
+            res[k][0] = (i - offt) / rowLen;
+            res[k][1] = (i - offt) % rowLen + 1;
+        }
+        return res;
     }
 }

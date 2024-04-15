@@ -58,6 +58,7 @@ public class mainGui extends JFrame {
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         int[][] highlightCells = {};
+        final int[][][] errorCells = {{}};
 
         // Создаем экземпляр класса Renderer, передавая массив координат
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -111,7 +112,11 @@ public class mainGui extends JFrame {
                     // for (Integer integer : aL) {
                     //     System.out.println(integer);
                     // }
-                    if (aL.size() == 0){
+                    errorCells[0] = rE.getErrorCells(rowLen[0], offset[0], aL);
+                    for (int i = 0; i < errorCells[0].length; i++){
+                        System.out.println(errorCells[0][i][0] + " " + errorCells[0][i][1]);
+                    }
+                    if (aL.isEmpty()){
                         hQ.addChange(chH, row * rowLen[0] + column - 1); 
                     }
                     else{
