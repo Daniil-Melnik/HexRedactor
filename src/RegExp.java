@@ -14,7 +14,6 @@ public class RegExp {
             }
             //System.out.println(isValid(arr[i]));
         }
-        res.add(-1);
         return  res;
     }
 }

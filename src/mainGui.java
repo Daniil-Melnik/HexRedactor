@@ -8,13 +8,11 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.crypto.Data;
 
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import java.awt.event.*;
 
 public class mainGui extends JFrame {
 
@@ -108,19 +106,30 @@ public class mainGui extends JFrame {
                     System.out.println("Тип: " + chH.getType());
                     System.out.println("Сдвиг: " + chH.getOfft());
                     System.out.println("Данные: " + chH.getData()[0]);
-                    sH.makeHandle(chH);
+                    sH.makeHandle(chH); // добавть изменения в SheetHolder
                     ArrayList<Integer> aL = rE.isValidArr(sH.getData(), offset[0]);
-                    for (Integer integer : aL) {
-                        System.out.println(integer);
+                    // for (Integer integer : aL) {
+                    //     System.out.println(integer);
+                    // }
+                    if (aL.size() == 0){
+                        hQ.addChange(chH, row * rowLen[0] + column - 1); 
                     }
-                    hQ.addChange(chH, row * rowLen[0] + column - 1); // добавть изменения в SheetHolder
+                    else{
+                        String msgErrCells = "Значения в ячейках по сдвигу: ";
+                        for (Integer integer : aL) {
+                            msgErrCells += integer + " ";
+                            //System.out.println(integer);
+                        }
+                        msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
+                        hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
+                    }
                     changed[0] = true;
 
                 }
             }
         });
         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
-        sH.setData(dat[0]);
+        sH.setAllData(dat[0]);
         sH.setColumnLen(4);
         sH.setRowLen(4);
         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
@@ -190,21 +199,21 @@ public class mainGui extends JFrame {
                 dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                 if (!changed[0]){
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
-                    sH.setData(dat[0]);
+                    sH.setAllData(dat[0]);
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
                         // вставить запись в файл изменений
-                        sH.setData(dat[0]);
+                        sH.setAllData(dat[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     else if (result == 1){
                         // оставить файл в старом виде
-                        sH.setData(dat[0]);
+                        sH.setAllData(dat[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
@@ -227,21 +236,21 @@ public class mainGui extends JFrame {
                     offset[0] = offset[0] - rowLen[0] * columnLen[0];
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     if (!changed[0]){
-                        sH.setData(dat[0]);
+                        sH.setAllData(dat[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                     }
                     else{
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                         if (result == 0){
                             // вставить запись в файл изменений
-                            sH.setData(dat[0]);
+                            sH.setAllData(dat[0]);
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                             //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;
                         }
                         else if (result == 1){
                             // вставить оставить файл в старом виде
-                            sH.setData(dat[0]);
+                            sH.setAllData(dat[0]);
                             setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, sH);
                             //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;

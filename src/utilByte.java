@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.io.IOException;
 // toArr -> toLabeledArr
 
 public class utilByte {

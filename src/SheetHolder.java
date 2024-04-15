@@ -1,8 +1,8 @@
 public class SheetHolder {
     private String [] data;
+    private String [] reserveData;
     private int rowLen;
     private int columnLen;
-    private int offt;
 
     public void setRowLen(int width){
         this.rowLen = width;
@@ -12,16 +12,25 @@ public class SheetHolder {
         this.columnLen = height;
     }
 
-    public void setOfft(int offt){
-        this.offt = offt;
+    public void setData(String [] data){
+        this.data = data;
     }
 
-    public void setData(String [] data){
+    public void setReserveData(String [] data){
+        this.reserveData = data;
+    }
+
+    public void setAllData(String [] data){
+        this.reserveData = data;
         this.data = data;
     }
 
     public String [] getData (){
         return this.data;
+    }
+
+    public String [] getReserveData (){
+        return this.reserveData;
     }
 
     public int getRowLen(){
@@ -31,6 +40,8 @@ public class SheetHolder {
     public int getHeight(){
         return this.columnLen;
     }
+
+
 
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
