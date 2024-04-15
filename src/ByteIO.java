@@ -5,6 +5,7 @@ import java.io.RandomAccessFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import static java.lang.Math.toIntExact;
 
 public class ByteIO {
     private final String fName;
@@ -48,6 +49,19 @@ public class ByteIO {
     }
 
     /////////////////////////////////////////////////////////////////
+    //////////////// Получить длину файла в байтах //////////////////
+    /////////////////////////////////////////////////////////////////
+    public long getFileLength(){
+        long res = 0;
+        try (RandomAccessFile file = new RandomAccessFile(this.fName, "r")) {
+            res = file.length();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    /////////////////////////////////////////////////////////////////
     ////////////// Перевести массив 16-строк в байты ////////////////
     /////////////////////////////////////////////////////////////////
     public byte [] transformToBytesArr(String [] data){
@@ -70,8 +84,9 @@ public class ByteIO {
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
 
             int nFullPacks = offt / 8;
+            System.out.println(index + " - начало");
 
-            for (int i = 0; i <= nFullPacks; i++){
+            for (int i = 0; i < nFullPacks; i++){
                 fullPackDataStr = getHexBytesOfft(index, 8);
 
                 fullPackDataByte = transformToBytesArr(fullPackDataStr);
@@ -79,9 +94,38 @@ public class ByteIO {
                 System.out.println("File has been written successfully");
 
                 index += 8;
+                System.out.println(index + " - полная до даты");
             }
 
             preEmptyDataStr = getHexBytesOfft(index, offt % 8);
+            preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
+            randomAccessFile.write(preEmptyDataByte);
+
+            index = offt;
+            System.out.println(index + " - перед датой");
+
+            randomAccessFile.write(transformToBytesArr(data));
+
+            index += data.length;
+            System.out.println(index + " - вписали дату");
+
+            long pInd = (getFileLength() - index) / 8;
+
+            for (int k = 0; k < pInd; k++){
+                fullPackDataStr = getHexBytesOfft(index, 8);
+                fullPackDataByte = transformToBytesArr(fullPackDataStr);
+                randomAccessFile.write(fullPackDataByte);
+                index += 8;
+                System.out.println(index + " - полная после даты");
+            }
+            System.out.println(index + " - перед огузком");
+            int nPreEmptyBytes = toIntExact((getFileLength() - index) % 8);
+            preEmptyDataStr = getHexBytesOfft(index,  nPreEmptyBytes);
+            preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
+            randomAccessFile.write(preEmptyDataByte);
+            index += nPreEmptyBytes;
+            System.out.println(index + " - конец");
+            System.out.println("== " + getFileLength());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,8 +134,9 @@ public class ByteIO {
 
     public static void main(String[] args) {
         ByteIO bIO = new ByteIO("src/1.txt");
-        String [] hexBytes = bIO.getHexBytesOfft(0, 28);
-        bIO.printData(28, );
+        String [] hexBytes = bIO.getHexBytesOfft(0, 40);
+        String [] data = {"40", "40", "40", "40", "40", "40", "40", "40", "40", "40"};
+        bIO.printData(4, data);
     }
 }
 
