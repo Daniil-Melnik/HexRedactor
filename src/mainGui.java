@@ -214,7 +214,8 @@ public class mainGui extends JFrame {
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
                         // вставить запись в файл изменений
-                        bIO.printData(offset[0], dat[0]); // добавлена печать в файл изменённого фрагмента
+                        int cellOfft = offset[0] - rowLen[0] * columnLen[0];
+                        bIO.printData(cellOfft, dat[0]); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, errorCells[0], sH);

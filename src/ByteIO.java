@@ -84,6 +84,7 @@ public class ByteIO {
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
 
             int nFullPacks = offt / 8;
+            System.out.println("Сдвиг = " + offt);
             System.out.println(index + " - начало");
 
             for (int i = 0; i < nFullPacks; i++){
