@@ -128,6 +128,8 @@ public class ByteIO {
             System.out.println(index + " - конец");
             System.out.println("== " + getFileLength());
 
+            FileManager fM = new FileManager();
+            fM.setFile("example.txt", "src/1.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
