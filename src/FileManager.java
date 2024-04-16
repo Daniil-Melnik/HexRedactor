@@ -7,6 +7,9 @@ import java.nio.file.Paths;
 // fNameOld -> example.txt
 
 public class FileManager {
+    ///////////////////////////////////////////////////////////////
+    ////////////////////// Переставить файлы //////////////////////
+    ///////////////////////////////////////////////////////////////
     public void setFile(String fNameOld, String fNameNew) throws IOException {
         clearFile(fNameNew);
         copyFileUsingStream(fNameOld, fNameNew);
@@ -14,6 +17,9 @@ public class FileManager {
         Files.delete(pathOld);
     }
 
+    ///////////////////////////////////////////////////////////////
+    /////////////////////// Копировать файл ///////////////////////
+    ///////////////////////////////////////////////////////////////
     private static void copyFileUsingStream(String fNameOld, String fNameNew) throws IOException {
         File source = new File(fNameOld);
         File dest = new File(fNameNew);
@@ -33,6 +39,9 @@ public class FileManager {
         }
     }
 
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// Очистить файл ////////////////////////
+    ///////////////////////////////////////////////////////////////
     public void clearFile(String fName) throws IOException {
         Path path = Paths.get(fName);
         Files.writeString(path, "");
