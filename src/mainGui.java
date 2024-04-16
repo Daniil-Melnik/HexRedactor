@@ -25,7 +25,7 @@ public class mainGui extends JFrame {
         int[] rowLen = {4};
         int[] columnLen = {4};
         boolean[] changed = {false};
-        final String[][] dat = {null};
+        final String[][] dat = {null, null};
         SheetHolder sH = new SheetHolder();
 
         MouseHig mh = new MouseHig();
@@ -113,9 +113,9 @@ public class mainGui extends JFrame {
                     //     System.out.println(integer);
                     // }
                     errorCells[0] = rE.getErrorCells(rowLen[0], offset[0], aL);
-//                    for (int i = 0; i < errorCells[0].length; i++){
-//                        System.out.println(errorCells[0][i][0] + " " + errorCells[0][i][1]);
-//                    }
+                    for (int i = 0; i < errorCells[0].length; i++){
+                        System.out.println(errorCells[0][i][0] + " " + errorCells[0][i][1]);
+                    }
                     if (aL.isEmpty()){
                         hQ.addChange(chH, row * rowLen[0] + column - 1); 
                     }
@@ -203,9 +203,10 @@ public class mainGui extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 int [][] highlightCells = {};
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
-                dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
+
                 if (!changed[0]){
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                    dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     sH.setAllData(dat[0]);
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, errorCells[0], sH);
                 }
@@ -213,13 +214,16 @@ public class mainGui extends JFrame {
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
                         // вставить запись в файл изменений
-                        sH.setAllData(dat[0]);
+                        bIO.printData(offset[0], dat[0]); // добавлена печать в файл изменённого фрагмента
+                        dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
+                        sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     else if (result == 1){
                         // оставить файл в старом виде
+                        dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]);
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells, errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
