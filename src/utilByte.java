@@ -28,6 +28,65 @@ public class utilByte {
         return resArr;
     }
 
+
+    /////////////////////////////////////////////////
+    /////////////Обнуление части массива/////////////
+    /////////////////////////////////////////////////
+    public String [] addZerosToArr(String [] data, int len, int startPosition){
+        String [] res = data;
+        for (int i = startPosition; i < startPosition + len; i++){
+            res[i] = "00";
+        }
+        return res;
+    }
+
+    ////////////////////////////////////////////////
+    /////////////Удаление части массива/////////////
+    ////////////////////////////////////////////////
+    public String [] removeFromArr(String [] data, int len, int startPosition){
+        String [] res = null;
+
+        int newLen = data.length - len;
+        int currArrPosition = 0;
+        int newLeftPosition = startPosition + len;
+        res = new String[newLen];
+
+        for (int i = 0; i < startPosition; i++){
+            res[currArrPosition] = data[i];
+            currArrPosition++;
+        }
+
+        for (int i = newLeftPosition; i < data.length; i++){
+            res[currArrPosition] = data[i];
+            currArrPosition++;
+        }
+
+        return res;
+    }
+
+    ////////////////////////////////////////////////
+    /////////////Склейка двух массивов//////////////
+    ////////////////////////////////////////////////
+    public String [] concatArrs(String [] dataLeft, String [] dataRight){
+        String [] res = null;
+
+        int newLen = dataLeft.length + dataRight.length;
+        int currPosition = 0;
+
+        res = new String[newLen];
+
+        for (int i = 0; i < dataLeft.length; i++){
+            res[currPosition] = dataLeft[i];
+            currPosition++;
+        }
+
+        for (int i = 0; i < dataRight.length; i++){
+            res[currPosition] = dataRight[i];
+            currPosition++;
+        }
+        return res;
+    }
+
     public static void main(String[] args){
         ByteIO bIO = new ByteIO("src/1.txt");
         String [] data = bIO.getHexBytesOfft(0, 16);
