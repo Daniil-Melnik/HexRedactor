@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -130,6 +129,7 @@ public class ByteIO {
 
             FileManager fM = new FileManager();
             fM.setFile("example.txt", "src/1.txt");
+            randomAccessFile.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class ByteIO {
 
     public static void main(String[] args) {
         ByteIO bIO = new ByteIO("src/1.txt");
-        String [] hexBytes = bIO.getHexBytesOfft(0, 40);
+        //String [] hexBytes = bIO.getHexBytesOfft(0, 40);
         String [] data = {"40", "40", "40", "40", "40", "40", "40", "40", "40", "40"};
         bIO.printData(4, data);
     }

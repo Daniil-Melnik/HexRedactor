@@ -3,9 +3,14 @@ public class SheetHolder {
     private String [] reserveData;
     private int rowLen;
     private int columnLen;
+    private String fName;
 
     public void setRowLen(int width){
         this.rowLen = width;
+    }
+
+    public void setFName(String fName){
+        this.fName = fName;
     }
 
     public void setColumnLen(int height){
@@ -39,6 +44,10 @@ public class SheetHolder {
 
     public int getHeight(){
         return this.columnLen;
+    }
+
+    public SheetHolder(String fName){
+        this.fName = fName;
     }
 
 

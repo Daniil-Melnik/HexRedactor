@@ -32,7 +32,7 @@ public class utilByte {
     /////////////////////////////////////////////////
     /////////////Обнуление части массива/////////////
     /////////////////////////////////////////////////
-    public String [] addZerosToArr(String [] data, int len, int startPosition){
+    public String [] removeFromArrZero(String [] data, int len, int startPosition){
         String [] res = data;
         for (int i = startPosition; i < startPosition + len; i++){
             res[i] = "00";
@@ -91,12 +91,9 @@ public class utilByte {
         ByteIO bIO = new ByteIO("src/1.txt");
         String [] data = bIO.getHexBytesOfft(0, 16);
         utilByte ub = new utilByte();
-        Object [][] resArr = ub.toSimpleArr(4, 4, data);
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                System.out.print(resArr[i][j] + " ");
-            }
-            System.out.println("");
+        String [] resArr = ub.removeFromArrZero(data, 5, 1);
+        for (int i = 0; i < 16; i++){
+            System.out.print(resArr[i] + " ");
         }
     }
 }

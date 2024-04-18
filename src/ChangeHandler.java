@@ -1,13 +1,17 @@
 public class ChangeHandler {
     private int type;
     /*
-     * 0 - change one cell
-     * 1 - deleted cells
-     * 2 - added cells
+     * 0 - изменение одной ячейки
+     * 1 - удаление с обнулением
+     * 2 - удаление со сдвигом
+     * 3 - вставка с заменой
+     * 4 - вставка со сдвигом
+     * 5 - вырезка с обнулением
+     * 6 - вырезка со сдвигом
      */
     private String [] changedCells;
     private int offt;
-    private int len; //for one cell - 1
+    private int len;
 
     public ChangeHandler(int type, int offt, int len, String [] data){
         this.type = type;
