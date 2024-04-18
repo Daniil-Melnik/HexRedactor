@@ -3,14 +3,14 @@ public class SheetHolder {
     private String [] reserveData;
     private int rowLen;
     private int columnLen;
-    private String fName;
+    private int offt;
 
     public void setRowLen(int width){
         this.rowLen = width;
     }
 
-    public void setFName(String fName){
-        this.fName = fName;
+    public void setOfft(int offt){
+        this.offt = offt;
     }
 
     public void setColumnLen(int height){
@@ -46,17 +46,28 @@ public class SheetHolder {
         return this.columnLen;
     }
 
-    public SheetHolder(String fName){
-        this.fName = fName;
+    public SheetHolder(){
+        this.offt = 0;
     }
 
 
 
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
-        if (chH.getType() == 0){
-            System.out.println("GET HANDLE ZERO");
-            this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
-        }
+        switch (chH.getType()) {
+            case 0:
+                System.out.println("GET HANDLE ZERO");
+                this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
+                break;
+            
+            case 1:
+                utilByte uB = new utilByte();
+                int len = chH.getLen();
+                int currOfft = chH.getOfft() - this.offt;
+                uB.removeFromArrZero(this.data, len, currOfft);
+                break;
+            default:
+                break;
+        } 
     }
 }

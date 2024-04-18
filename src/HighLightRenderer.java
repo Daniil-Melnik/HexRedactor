@@ -17,11 +17,9 @@ public class HighLightRenderer extends DefaultTableCellRenderer {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         if (Arrays.stream(errorCells).anyMatch(coord -> coord[0] == row && coord[1] == column)) {
             c.setBackground(Color.RED);
-            System.out.println("ПРОБЛЕМНАЯ: ошибка");
         }
         else if (Arrays.stream(highlightCells).anyMatch(coord -> coord[0] == row && coord[1] == column)){
             c.setBackground(Color.GREEN);
-            System.out.println("ПРОБЛЕМНАЯ: выделение");
         }
         else{
             c.setBackground(Color.WHITE); // Сбрасываем фон обратно на белый, если ячейка не выделена

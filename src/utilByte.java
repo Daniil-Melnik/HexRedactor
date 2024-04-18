@@ -87,6 +87,23 @@ public class utilByte {
         return res;
     }
 
+    // public int[][] cutTwinArr(int [][] arr){
+    //     boolean us = false;
+    //     int k = 0;
+    //     if ((arr[0][0] == 0 && arr[0][0] == 0) && (arr[1][0] == 0 && arr[1][1] == 1)){
+    //         us = true;
+    //     } 
+
+    //     for (int i = 0; i < arr.length; i++){
+    //         if (arr[i][0] == 0 && arr[i][1] == 0 && us){
+    //             k++;
+    //         }
+    //         else if (arr[i][0] != 0 || arr[i][1] != 0){
+
+    //         }
+    //     }
+    // }
+
     public static void main(String[] args){
         ByteIO bIO = new ByteIO("src/1.txt");
         String [] data = bIO.getHexBytesOfft(0, 16);

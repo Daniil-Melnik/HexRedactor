@@ -45,19 +45,39 @@ public class MouseHig {
             int [] dCoord = this.coord[0];
             this.coord[0] = this.coord[1];
             this.coord[1] = dCoord; 
-            //System.out.println("control");
+            System.out.println("control");
         }
+        System.out.println("bad");
     }
 
     public int [][] getFullCoords(int len){
 
         validCoord();
 
-        int nFullRows = this.coord[1][0] - this.coord[0][0];
-        int nExtraCells = len - this.coord[0][1] + this.coord[1][1];
+        /*
+         * Верхнюю и нижнюю строку учитываем по отдельности
+         * Остальные принимаем за целые
+         */
+        int nFullRows = this.coord[1][0] - this.coord[0][0] - 1;
+        // int nFullRows = Math.abs(this.coord[1][0] - this.coord[0][0] - 1);
+        int nExtraUp = len - this.coord[0][1] + 1;
+        int nExtraBottom = this.coord[1][1];
+        int nExtraCells = nExtraUp + nExtraBottom;
+
         int nAllCells = nFullRows * len + nExtraCells;
 
-        int [][] result = new int [nAllCells][2];
+        System.out.println("coord0 = " + this.coord[0][0] + " " + this.coord[0][1]);
+        System.out.println("coord1 = " + this.coord[1][0] + " " + this.coord[1][1]);
+        System.out.println("nFullRows = " + nFullRows);
+
+        System.out.println("nFullRows = " + nFullRows);
+        System.out.println("nExtraCells = " + nExtraCells);
+        System.out.println("nAllCells = " + nAllCells);
+
+        System.out.println("nExtraCellsUp = " + (len - this.coord[0][1] + 1));
+        System.out.println("nExtraCellsBottom = " + (this.coord[1][1]));
+
+        int [][] res = new int [nAllCells][2];
 
         int nRes = 0;
 
@@ -66,12 +86,14 @@ public class MouseHig {
                 int [] qT = new int [2];
                 qT[0] = i / (len + 1);
                 qT[1] = i % (len + 1);
-                result[nRes] = qT;
+                res[nRes] = qT;
                 nRes += 1;
                 // System.out.println(qT[0] + "x" + qT[1]);  // for control of selection 
             }
         }
-        
-        return result;
+        // for (int i = 0; i < res.length; i++){
+        //     System.out.println(res[i][0] + " " + res[i][1]);
+        // }
+        return res;
     }
 }
