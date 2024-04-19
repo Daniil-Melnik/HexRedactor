@@ -66,7 +66,9 @@ public class ByteIO {
     public byte [] transformToBytesArr(String [] data){
         byte [] res = new byte[data.length];
         for (int i = 0; i < data.length; i++){
-            res[i] = data[i].getBytes()[0];
+            res[i] = Byte.parseByte(data[i], 16);
+            //res[i] = data[i].getBytes()[0];
+            System.out.println(res[i] + " " + (byte)(Integer.parseInt(data[i], 16)));
         }
         return res;
     }
@@ -127,9 +129,10 @@ public class ByteIO {
             System.out.println(index + " - конец");
             System.out.println("== " + getFileLength());
 
+            randomAccessFile.close();
             FileManager fM = new FileManager();
             fM.setFile("example.txt", "src/1.txt");
-            randomAccessFile.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
