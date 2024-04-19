@@ -39,7 +39,7 @@ public class ByteIO {
             file.read(bytes);
             hexBytesOfft = new String[len];
             for (int i = 0; i < len; i++) {
-                hexBytesOfft[i] = Integer.toHexString(bytes[i]);
+                hexBytesOfft[i] = String.format("%02X", bytes[i]);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class ByteIO {
     public byte [] transformToBytesArr(String [] data){
         byte [] res = new byte[data.length];
         for (int i = 0; i < data.length; i++){
-            res[i] = Byte.parseByte(data[i], 16);
+            res[i] = data[i].getBytes()[0];
         }
         return res;
     }
