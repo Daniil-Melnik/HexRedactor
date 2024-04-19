@@ -287,9 +287,6 @@ public class mainGui extends JFrame {
                 int [] startCoord = highlightCells[0][0];
                 int offt = offset[0] + startCoord[0] * rowLen[0] + startCoord[1] - 1;
                 int highlightLen = highlightCells[0].length;
-                for (int j = 0; j < highlightCells[0].length; j++){
-                    System.out.println("=== " + highlightCells[0][0] + " " + highlightCells[0][1]);
-                } 
                 ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
                 sH.makeHandle(cHZero);
                 String [] newData = sH.getData();
