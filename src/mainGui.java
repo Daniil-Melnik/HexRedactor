@@ -18,7 +18,7 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back, removeZero;
+        JButton Hol, forward, back, removeZero, removeShift;
         JTextField widthField, heightField;
         HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0};
@@ -27,7 +27,7 @@ public class mainGui extends JFrame {
         final int[][][] highlightCells = {{}};
         boolean[] changed = {false};
         final String[][] dat = {null, null};
-        SheetHolder sH = new SheetHolder();
+        SheetHolder sH = new SheetHolder("src/1.txt");
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
@@ -299,9 +299,35 @@ public class mainGui extends JFrame {
             }
         });
 
+        ///////////////////////////////////////////////////////////////////
+        //////////////////// Кнопка удаления со сдвигом ///////////////////
+        ///////////////////////////////////////////////////////////////////
+
+        removeShift = new JButton("сдвиг");;
+        removeShift.setBounds(300, 500, 90, 20);
+        removeShift.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int [] startCoord = highlightCells[0][0];
+                int offt = offset[0] + startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int highlightLen = highlightCells[0].length;
+                ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
+                sH.makeHandle(cHShift);
+                dat[0] = sH.getData();
+                for (int i = 0; i < dat[0].length; i++){
+                    System.out.print(dat[0][i] + " ");
+                }
+                //changed[0] = true;
+                offset[0] = offset[0] + highlightLen;
+                highlightCells[0] = new int[0][0];
+                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells[0], errorCells[0], sH);
+                System.out.println("ИТОГОВЫЙ СДВИГ = " + highlightLen);
+            }
+        });
+
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
         frame.add(removeZero);
+        frame.add(removeShift);
         frame.add(heightField);
         frame.add(forward);
         frame.add(back);

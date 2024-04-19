@@ -1,6 +1,7 @@
 public class SheetHolder {
     private String [] data;
     private String [] reserveData;
+    private String fName;
     private int rowLen;
     private int columnLen;
     private int offt;
@@ -25,6 +26,10 @@ public class SheetHolder {
         this.reserveData = data;
     }
 
+    public void setfName(String fName){
+        this.fName = fName;
+    }
+
     public void setAllData(String [] data){
         this.reserveData = data;
         this.data = data;
@@ -46,14 +51,19 @@ public class SheetHolder {
         return this.columnLen;
     }
 
-    public SheetHolder(){
+    public SheetHolder(String fName){
         this.offt = 0;
+        this.fName = fName;
     }
 
 
 
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
+        int len = 0;
+        int currOfft = 0;
+        utilByte uB = new utilByte();
+        ByteIO bIO = new ByteIO(this.fName);
         switch (chH.getType()) {
             case 0:
                 System.out.println("GET HANDLE ZERO");
@@ -61,11 +71,21 @@ public class SheetHolder {
                 break;
             
             case 1:
-                utilByte uB = new utilByte();
-                int len = chH.getLen();
-                int currOfft = chH.getOfft() - this.offt;
+                len = chH.getLen();
+                currOfft = chH.getOfft() - this.offt;
                 uB.removeFromArrZero(this.data, len, currOfft);
                 break;
+
+            case 2:
+                len = chH.getLen();
+                currOfft = chH.getOfft() - this.offt;
+                int newOfft = chH.getOfft() + len;
+                String [] leftData = uB.removeFromArr(this.data, len, currOfft);
+                String [] rightData = bIO.getHexBytesOfft(newOfft, len);
+                this.data = uB.concatArrs(leftData, rightData);
+                System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + currOfft + "\nДЛИНА = " + len);
+                break;
+
             default:
                 break;
         } 
