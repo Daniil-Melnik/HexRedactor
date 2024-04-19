@@ -289,10 +289,11 @@ public class mainGui extends JFrame {
                 int highlightLen = highlightCells[0].length;
                 ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
                 sH.makeHandle(cHZero);
-                String [] newData = sH.getData();
-                for (int i = 0; i < newData.length; i++){
-                    System.out.print(newData[i] + " ");
+                dat[0] = sH.getData();
+                for (int i = 0; i < dat[0].length; i++){
+                    System.out.print(dat[0][i] + " ");
                 }
+                changed[0] = true;
                 setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[0], highlightCells[0], errorCells[0], sH);
                 System.out.println("ИТОГОВЫЙ СДВИГ = " + highlightLen);
             }
