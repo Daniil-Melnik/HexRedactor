@@ -221,6 +221,7 @@ public class mainGui extends JFrame {
                         bIO.printData(cellOfft, dat[0]); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
+                        //offset[0] = offset[1]; // добавленого в тест
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
@@ -287,7 +288,7 @@ public class mainGui extends JFrame {
         removeZero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int [] startCoord = highlightCells[0][0];
-                int offt = offset[0] + startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int offt = offset[1] + startCoord[0] * rowLen[0] + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
                 int highlightLen = highlightCells[0].length;
                 ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
                 sH.makeHandle(cHZero);
@@ -310,7 +311,7 @@ public class mainGui extends JFrame {
         removeShift.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int [] startCoord = highlightCells[0][0];
-                int offt = offset[0] + startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int offt = offset[1] + startCoord[0] * rowLen[0] + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
                 int highlightLen = highlightCells[0].length;
                 ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
                 sH.makeHandle(cHShift);
