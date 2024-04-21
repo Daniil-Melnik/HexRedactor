@@ -24,6 +24,7 @@ public class mainGui extends JFrame {
         int[] offset = {0, 0};
         int[] rowLen = {4};
         int[] columnLen = {4};
+        int[] dLen = {0};
         final int[][][] highlightCells = {{}};
         boolean[] changed = {false};
         final String[][] dat = {null, null};
@@ -210,6 +211,7 @@ public class mainGui extends JFrame {
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     sH.setAllData(dat[0]);
+                    dLen[0] = 0;
                     setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 }
                 else{
@@ -217,12 +219,13 @@ public class mainGui extends JFrame {
                     if (result == 0){
                         // вставить запись в файл изменений
                         int cellOfft = offset[1] - rowLen[0] * columnLen[0];
-                        bIO.printData(cellOfft, dat[0]); // добавлена печать в файл изменённого фрагмента
+                        bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         //offset[0] = offset[1]; // добавленого в тест
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
+                        dLen[0] = 0;
                         changed[0] = false;
                     }
                     else if (result == 1){
@@ -312,6 +315,7 @@ public class mainGui extends JFrame {
                 int [] startCoord = highlightCells[0][0];
                 int offt = offset[1] + startCoord[0] * rowLen[0] + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
                 int highlightLen = highlightCells[0].length;
+                dLen[0] += highlightLen; // добавлен доп. сдвиг в файле для печати
                 ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
                 sH.makeHandle(cHShift);
                 dat[0] = sH.getData();

@@ -73,7 +73,7 @@ public class ByteIO {
         return res;
     }
 
-    public void printData(int offt, String[] data) {
+    public void printData(int offt, String[] data, int dLen) {
         File file = new File("example.txt");
         int index = 0;
 
@@ -108,7 +108,7 @@ public class ByteIO {
 
             randomAccessFile.write(transformToBytesArr(data));
 
-            index += data.length;
+            index += data.length + dLen; // добавлен допю сдвиг 21.01.2024
             System.out.println(index + " - вписали дату");
 
             long pInd = (getFileLength() - index) / 8;
@@ -142,7 +142,7 @@ public class ByteIO {
         ByteIO bIO = new ByteIO("src/1.txt");
         //String [] hexBytes = bIO.getHexBytesOfft(0, 40);
         String [] data = {"40", "40", "40", "40", "40", "40", "40", "40", "40", "40"};
-        bIO.printData(4, data);
+        bIO.printData(4, data, 0);
     }
 }
 
