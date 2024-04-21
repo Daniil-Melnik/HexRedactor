@@ -79,11 +79,13 @@ public class SheetHolder {
             case 2:
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
-                int newOfft = chH.getOfft() + len;
+                int newOfft = this.offt + this.rowLen * this.columnLen + len - 1; // 21.04.2024
+                //int newOfft = this.offt + len;
                 String [] leftData = uB.removeFromArr(this.data, len, currOfft);
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
                 this.data = uB.concatArrs(leftData, rightData);
-                System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + currOfft + "\nДЛИНА = " + len);
+                this.offt += len; // 21.04.2024 разобраться с установкой в mainGUI
+                System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
                 break;
 
             default:

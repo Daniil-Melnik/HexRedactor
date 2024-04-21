@@ -206,7 +206,6 @@ public class mainGui extends JFrame {
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
                 offset[1] = offset[1] + rowLen[0] * columnLen[0];
                 sH.setOfft(offset[0]);
-
                 if (!changed[0]){
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
