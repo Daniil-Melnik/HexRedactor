@@ -87,22 +87,27 @@ public class utilByte {
         return res;
     }
 
-    // public int[][] cutTwinArr(int [][] arr){
-    //     boolean us = false;
-    //     int k = 0;
-    //     if ((arr[0][0] == 0 && arr[0][0] == 0) && (arr[1][0] == 0 && arr[1][1] == 1)){
-    //         us = true;
-    //     } 
-
-    //     for (int i = 0; i < arr.length; i++){
-    //         if (arr[i][0] == 0 && arr[i][1] == 0 && us){
-    //             k++;
-    //         }
-    //         else if (arr[i][0] != 0 || arr[i][1] != 0){
-
-    //         }
-    //     }
-    // }
+    ///////////////////////////////////////////////  offt - сдвиг внутри таблицы
+    ////////////Вставка нулей в массив/////////////
+    ///////////////////////////////////////////////
+    public String [] fillInZeros (String [] data, int offt, int len){
+        int newDataLen = data.length + len;
+        String [] res = new String [newDataLen];
+        int currIndex = 0;
+        for (int i = 0; i <= offt; i++){
+            res[currIndex] = data[i];
+            currIndex++;
+        }
+        for (int j = 0; j < len; j++){
+            res[currIndex] = "00";
+            currIndex++;
+        }
+        for (int k = offt + 1; k < data.length; k++){
+            res[currIndex] = data[k];
+            currIndex++;
+        }
+        return res;
+    }
 
     public static void main(String[] args){
         ByteIO bIO = new ByteIO("src/1.txt");
