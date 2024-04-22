@@ -222,7 +222,7 @@ public class mainGui extends JFrame {
                         bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
-                        //offset[0] = offset[1]; // добавленого в тест
+                        offset[0] = offset[1]; // добавленого в тест
                         setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         dLen[0] = 0;
