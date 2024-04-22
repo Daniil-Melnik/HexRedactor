@@ -18,8 +18,8 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back, removeZero, removeShift;
-        JTextField widthField, heightField;
+        JButton Hol, forward, back, removeZero, removeShift, fillZero;
+        JTextField widthField, heightField, lenField;
         HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0, 0};
         int[] rowLen = {4};
@@ -153,6 +153,10 @@ public class mainGui extends JFrame {
         heightField.setToolTipText("Высота");
         heightField.setBounds(200, 350, 80, 20);
 
+        lenField = new JTextField(15);
+        lenField.setToolTipText("Длина вставки");
+        lenField.setBounds(300, 350, 80, 20);
+
         ///////////////////////////////////////////////////////////////////
         //////////////////// Кнопка установки размеров ////////////////////
         ///////////////////////////////////////////////////////////////////
@@ -285,7 +289,7 @@ public class mainGui extends JFrame {
         /////////////////// Кнопка удаления с обнулением //////////////////
         ///////////////////////////////////////////////////////////////////
 
-        removeZero = new JButton("под ноль");;
+        removeZero = new JButton("уд. 0");;
         removeZero.setBounds(300, 400, 90, 20);
         removeZero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -308,7 +312,7 @@ public class mainGui extends JFrame {
         //////////////////// Кнопка удаления со сдвигом ///////////////////
         ///////////////////////////////////////////////////////////////////
 
-        removeShift = new JButton("сдвиг");;
+        removeShift = new JButton("уд. сдв");
         removeShift.setBounds(300, 500, 90, 20);
         removeShift.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -329,6 +333,23 @@ public class mainGui extends JFrame {
                 System.out.println("ИТОГОВЫЙ СДВИГ = " + highlightLen);
             }
         });
+
+        ///////////////////////////////////////////////////////////////////
+        /////////////////////// Кнопка вставки нулей //////////////////////
+        /////////////////////////////////////////////////////////////////// функция не проверялась
+//        fillZero = new JButton("вст. 0");
+//        fillZero.setBounds(300, 700, 90, 20);
+//        fillZero.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent event) {
+//                int [] startCoord = highlightCells[0][0];
+//                int len = Integer.parseInt(lenField.getText());
+//                int currOfft = startCoord[0] * rowLen[0] + startCoord[1]; // сдвиг в таблице по координате
+//                ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
+//                sH.makeHandle(chH);
+//                highlightCells[0] = new int[0][0];
+//                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+//            }
+//        });
 
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);

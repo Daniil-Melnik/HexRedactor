@@ -88,6 +88,11 @@ public class SheetHolder {
                 System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
                 break;
 
+            case 7:
+                len = chH.getLen();
+                offt = chH.getOfft(); // необходимо дозабить массив звёздочками если потребуется
+                // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
+                this.data = uB.fillInZeros(this.data, offt, len); // наполнение нулями действующих данных
             default:
                 break;
         } 
