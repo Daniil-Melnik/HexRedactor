@@ -92,7 +92,16 @@ public class SheetHolder {
                 len = chH.getLen();
                 offt = chH.getOfft(); // необходимо дозабить массив звёздочками если потребуется
                 // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
-                this.data = uB.fillInZeros(this.data, offt, len); // наполнение нулями действующих данных
+                String [] tempData = uB.fillInZeros(this.data, offt, len);
+                int emptyCellData;
+                if (tempData.length % this.rowLen != 0){
+                    emptyCellData = this.rowLen - tempData.length % this.rowLen;
+                }
+                else emptyCellData = 0;
+                tempData = uB.fillInStars(tempData, emptyCellData);
+                for (int i = 0; i < tempData.length; i++){
+                    System.out.println(tempData[i]);
+                }
             default:
                 break;
         } 

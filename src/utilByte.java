@@ -109,6 +109,23 @@ public class utilByte {
         return res;
     }
 
+    //////////////////////////////////////////////  offt - сдвиг внутри таблицы
+    /////////Дополнение массива звёздами//////////
+    //////////////////////////////////////////////
+
+    public String [] fillInStars(String [] data, int len){
+        int oldLen = data.length;
+        int newLen = oldLen + len;
+        String [] res = new String[newLen];
+        for (int i = 0; i < oldLen; i++){
+            res[i] = data[i];
+        }
+        for (int j = oldLen; j < newLen; j++) {
+            res[j] = "**";
+        }
+        return res;
+    }
+
     public static void main(String[] args){
         ByteIO bIO = new ByteIO("src/1.txt");
         String [] data = bIO.getHexBytesOfft(0, 16);

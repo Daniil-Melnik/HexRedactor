@@ -337,25 +337,27 @@ public class mainGui extends JFrame {
         ///////////////////////////////////////////////////////////////////
         /////////////////////// Кнопка вставки нулей //////////////////////
         /////////////////////////////////////////////////////////////////// функция не проверялась
-//        fillZero = new JButton("вст. 0");
-//        fillZero.setBounds(300, 700, 90, 20);
-//        fillZero.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent event) {
-//                int [] startCoord = highlightCells[0][0];
-//                int len = Integer.parseInt(lenField.getText());
-//                int currOfft = startCoord[0] * rowLen[0] + startCoord[1]; // сдвиг в таблице по координате
-//                ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
-//                sH.makeHandle(chH);
-//                highlightCells[0] = new int[0][0];
-//                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
-//            }
-//        });
+        fillZero = new JButton("вст. 0");
+        fillZero.setBounds(500, 500, 90, 20);
+        fillZero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int [] startCoord = highlightCells[0][0];
+                int len = Integer.parseInt(lenField.getText());
+                int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1; // сдвиг в таблице по координате
+                ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
+                sH.makeHandle(chH);
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+            }
+        });
 
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
         frame.add(removeZero);
         frame.add(removeShift);
+        frame.add(fillZero);
         frame.add(heightField);
+        frame.add(lenField);
         frame.add(forward);
         frame.add(back);
         frame.add(Hol);
