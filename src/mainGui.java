@@ -368,7 +368,6 @@ public class mainGui extends JFrame {
     public static void setTable(JTable table, int rowLen, int columnLen, ByteIO bIO, JScrollPane scrollPane, int offt, int [][] highlightCells, int[][] errorCells, SheetHolder sH){
         String [] data = null;
         data = sH.getData();
-
         utilByte ub = new utilByte();
         Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
 
