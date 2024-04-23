@@ -98,10 +98,11 @@ public class SheetHolder {
                     emptyCellData = this.rowLen - tempData.length % this.rowLen;
                 }
                 else emptyCellData = 0;
-                tempData = uB.fillInStars(tempData, emptyCellData);
-                for (int i = 0; i < tempData.length; i++){
-                    System.out.println(tempData[i]);
-                }
+                this.data = uB.fillInStars(tempData, emptyCellData);
+                this.columnLen = this.data.length / this.rowLen;
+//                for (int i = 0; i < tempData.length; i++){
+//                    System.out.println(tempData[i]);
+//                }
             default:
                 break;
         } 

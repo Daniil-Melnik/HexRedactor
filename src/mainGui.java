@@ -137,10 +137,11 @@ public class mainGui extends JFrame {
                 }
             }
         });
+        sH.setColumnLen(columnLen[0]); // что-то не то, где то задана константа
+        sH.setRowLen(rowLen[0]);
         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
         sH.setAllData(dat[0]);
-        sH.setColumnLen(4);
-        sH.setRowLen(4);
+
         setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
 
         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
@@ -211,6 +212,7 @@ public class mainGui extends JFrame {
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
                 offset[1] = offset[1] + rowLen[0] * columnLen[0];
                 sH.setOfft(offset[0]);
+                sH.setColumnLen(columnLen[0]);
                 if (!changed[0]){
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
@@ -373,6 +375,8 @@ public class mainGui extends JFrame {
         utilByte ub = new utilByte();
         int rowLen = sH.getRowLen();
         int columnLen = sH.getColumnLen();
+
+        System.out.println("Количество строк = " + columnLen);
         Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
 
         String[] newColumnNames = new String[rowLen + 1];
@@ -390,7 +394,7 @@ public class mainGui extends JFrame {
             tableModel.insertRow(0, tableData[i]);
         }
         int leftColumnWidth = 40;
-        int columnCount = columnLen + 1;
+        int columnCount = rowLen + 1; // количество столбцов, а не строк
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table.getColumnModel().getColumn(0).setPreferredWidth(leftColumnWidth);;
 
@@ -399,7 +403,7 @@ public class mainGui extends JFrame {
         scrollPane.setBounds(0, 0, 650, 300);
 
         for (int i = 1; i < columnCount; i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);;
+            table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);
         }
 
         // Создаем экземпляр класса Renderer, передавая массив координат
