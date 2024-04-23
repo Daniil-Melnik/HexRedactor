@@ -77,17 +77,17 @@ public class mainGui extends JFrame {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     int row = table.rowAtPoint(e.getPoint());
                     int column = table.columnAtPoint(e.getPoint());
-                    int coord [] = new int [2];
+                    int [] coord = new int [2];
                     coord[0] = row;
                     coord[1] = column;
                     mh.addCoord(coord);
                     if (mh.getCond() == 2){
                         highlightCells[0] = mh.getFullCoords(rowLen[0]);
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                     }
                     else{
                         highlightCells[0] = new int[0][0];
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class mainGui extends JFrame {
                         //hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
                     }
                     // ??
-                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                    setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                     changed[0] = true;
 
                 }
@@ -141,7 +141,7 @@ public class mainGui extends JFrame {
         sH.setAllData(dat[0]);
         sH.setColumnLen(4);
         sH.setRowLen(4);
-        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
 
         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
 
@@ -171,7 +171,7 @@ public class mainGui extends JFrame {
                     columnLen[0] = Integer.parseInt(heightField.getText());
                     sH.setRowLen(rowLen[0]);
                     sH.setColumnLen(columnLen[0]);
-                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                    setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -182,7 +182,7 @@ public class mainGui extends JFrame {
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         sH.setRowLen(rowLen[0]);
                         sH.setColumnLen(columnLen[0]);
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         changed[0] = false;
                     }
                     else if (result == 1){
@@ -192,7 +192,7 @@ public class mainGui extends JFrame {
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         sH.setRowLen(rowLen[0]);
                         sH.setColumnLen(columnLen[0]);
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
@@ -216,7 +216,7 @@ public class mainGui extends JFrame {
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     sH.setAllData(dat[0]);
                     dLen[0] = 0;
-                    setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                    setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -227,7 +227,7 @@ public class mainGui extends JFrame {
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         dLen[0] = 0;
                         changed[0] = false;
@@ -236,7 +236,7 @@ public class mainGui extends JFrame {
                         // оставить файл в старом виде
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]);
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
@@ -261,21 +261,21 @@ public class mainGui extends JFrame {
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     if (!changed[0]){
                         sH.setAllData(dat[0]);
-                        setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                        setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                     }
                     else{
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                         if (result == 0){
                             // вставить запись в файл изменений
                             sH.setAllData(dat[0]);
-                            setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                            setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                             //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;
                         }
                         else if (result == 1){
                             // вставить оставить файл в старом виде
                             sH.setAllData(dat[0]);
-                            setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                            setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                             //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                             changed[0] = false;
                         }
@@ -303,7 +303,7 @@ public class mainGui extends JFrame {
                     System.out.print(dat[0][i] + " ");
                 }
                 changed[0] = true;
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 System.out.println("ИТОГОВЫЙ СДВИГ = " + highlightLen);
             }
         });
@@ -329,7 +329,7 @@ public class mainGui extends JFrame {
                 changed[0] = true;
                 offset[0] = offset[0] + highlightLen;
                 highlightCells[0] = new int[0][0];
-                setTable(table, rowLen[0], columnLen[0], bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                setTable(table, bIO, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 System.out.println("ИТОГОВЫЙ СДВИГ = " + highlightLen);
             }
         });
@@ -365,10 +365,12 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, int rowLen, int columnLen, ByteIO bIO, JScrollPane scrollPane, int offt, int [][] highlightCells, int[][] errorCells, SheetHolder sH){
+    public static void setTable(JTable table, ByteIO bIO, JScrollPane scrollPane, int offt, int [][] highlightCells, int[][] errorCells, SheetHolder sH){
         String [] data = null;
         data = sH.getData();
         utilByte ub = new utilByte();
+        int rowLen = sH.getRowLen();
+        int columnLen = sH.getColumnLen();
         Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
 
         String[] newColumnNames = new String[rowLen + 1];

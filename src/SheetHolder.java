@@ -47,7 +47,7 @@ public class SheetHolder {
         return this.rowLen;
     }
 
-    public int getHeight(){
+    public int getColumnLen(){
         return this.columnLen;
     }
 
