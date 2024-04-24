@@ -18,8 +18,8 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back, removeZero, removeShift, fillZero;
-        JTextField widthField, heightField, lenField;
+        JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst;
+        JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0, 0};
         int[] rowLen = {4};
@@ -148,22 +148,21 @@ public class mainGui extends JFrame {
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");
-        widthField.setBounds(100, 350, 80, 20);
 
         heightField = new JTextField(15);
         heightField.setToolTipText("Высота");
-        heightField.setBounds(200, 350, 80, 20);
 
         lenField = new JTextField(15);
         lenField.setToolTipText("Длина вставки");
-        lenField.setBounds(300, 350, 80, 20);
+
+        dataField = new JTextField(15);
+        dataField.setToolTipText("Данные вставки");
 
         ///////////////////////////////////////////////////////////////////
         //////////////////// Кнопка установки размеров ////////////////////
         ///////////////////////////////////////////////////////////////////
 
-        Hol = new JButton("Блямс!");;
-        Hol.setBounds(100, 400, 90, 20);
+        Hol = new JButton("размер");;
         Hol.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (!changed[0]){
@@ -204,8 +203,7 @@ public class mainGui extends JFrame {
         ///////////////////////////////////////////////////////////////////
         //////////////////// Кнопка проллистать вперёд ////////////////////
         ///////////////////////////////////////////////////////////////////
-        forward = new JButton("уперёд");;
-        forward.setBounds(200, 500, 90, 20);
+        forward = new JButton("далее");
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 highlightCells[0] = new int[0][0];
@@ -252,8 +250,7 @@ public class mainGui extends JFrame {
         //////////////////// Кнопка проллистать назад ////////////////////
         //////////////////////////////////////////////////////////////////
 
-        back = new JButton("взад");;
-        back.setBounds(100, 500, 90, 20);
+        back = new JButton("назад");;
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 highlightCells[0] = new int[0][0];
@@ -292,8 +289,7 @@ public class mainGui extends JFrame {
         /////////////////// Кнопка удаления с обнулением //////////////////
         ///////////////////////////////////////////////////////////////////
 
-        removeZero = new JButton("уд. 0");;
-        removeZero.setBounds(300, 400, 90, 20);
+        removeZero = new JButton("уд. 0");
         removeZero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int [] startCoord = highlightCells[0][0];
@@ -315,8 +311,7 @@ public class mainGui extends JFrame {
         //////////////////// Кнопка удаления со сдвигом ///////////////////
         ///////////////////////////////////////////////////////////////////
 
-        removeShift = new JButton("уд. сдв");
-        removeShift.setBounds(300, 500, 90, 20);
+        removeShift = new JButton("уд. сдв.");
         removeShift.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int [] startCoord = highlightCells[0][0];
@@ -339,9 +334,8 @@ public class mainGui extends JFrame {
 
         ///////////////////////////////////////////////////////////////////
         /////////////////////// Кнопка вставки нулей //////////////////////
-        /////////////////////////////////////////////////////////////////// функция не проверялась
+        ///////////////////////////////////////////////////////////////////
         fillZero = new JButton("вст. 0");
-        fillZero.setBounds(500, 500, 90, 20);
         fillZero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 int [] startCoord = highlightCells[0][0];
@@ -355,13 +349,52 @@ public class mainGui extends JFrame {
             }
         });
 
+        //////////////////////////////////////////////////////////////////
+        //////////////////// Кнопка вставки со сдвигом ///////////////////
+        //////////////////////////////////////////////////////////////////
+        fillShift = new JButton("вст. cдв.");
+        fillShift.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                
+            }
+        });
+
+        //////////////////////////////////////////////////////////////////
+        /////////////////// Кнопка вставки с замещением //////////////////
+        //////////////////////////////////////////////////////////////////
+        fillSubst = new JButton("вст. зам.");
+        fillSubst.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                
+            }
+        });
+
+        fillZero.setBounds(600, 90, 90, 20);
+        fillShift.setBounds(600, 120, 90, 20);
+        fillSubst.setBounds(600, 150, 90, 20);
+
+        removeShift.setBounds(600, 50, 90, 20);
+        removeZero.setBounds(600, 20, 90, 20);
+
+        Hol.setBounds(440, 400, 90, 20);
+        forward.setBounds(500, 500, 90, 20);
+        back.setBounds(400, 500, 90, 20);
+
+        widthField.setBounds(400, 350, 80, 20);
+        heightField.setBounds(500, 350, 80, 20);
+        lenField.setBounds(710, 90, 80, 20);
+        dataField.setBounds(710, 150, 150, 20);
+
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
         frame.add(removeZero);
         frame.add(removeShift);
         frame.add(fillZero);
+        frame.add(fillShift);
+        frame.add(fillSubst);
         frame.add(heightField);
         frame.add(lenField);
+        frame.add(dataField);
         frame.add(forward);
         frame.add(back);
         frame.add(Hol);
@@ -402,7 +435,7 @@ public class mainGui extends JFrame {
 
         // Устанавливаем ширину остальных столбцов
         int otherColumnWidth = 80;
-        scrollPane.setBounds(0, 0, 650, 300);
+        scrollPane.setBounds(0, 0, 350, 568);
 
         for (int i = 1; i < columnCount; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);
