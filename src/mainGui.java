@@ -225,6 +225,7 @@ public class mainGui extends JFrame {
                     if (result == 0){
                         // вставить запись в файл изменений
                         int cellOfft = offset[1] - rowLen[0] * columnLen[0];
+                        dat[0] = sH.getData();
                         bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
@@ -350,6 +351,7 @@ public class mainGui extends JFrame {
                 sH.makeHandle(chH);
                 highlightCells[0] = new int[0][0];
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                changed[0] = true;
             }
         });
 

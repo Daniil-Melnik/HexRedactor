@@ -64,11 +64,23 @@ public class ByteIO {
     ////////////// Перевести массив 16-строк в байты ////////////////
     /////////////////////////////////////////////////////////////////
     public byte [] transformToBytesArr(String [] data){
-        byte [] res = new byte[data.length];
+        int endIndex = data.length - 1;
+        int nStars = 0;
+        for (int i = endIndex; i >= 0; i--){
+            if (data[i].equals("**")){
+                nStars++;
+            }  
+        }
+        int actualLen = data.length  - nStars;
+        byte [] res = new byte[actualLen];
+        int cnt = 0;
         for (int i = 0; i < data.length; i++){
-            res[i] = Byte.parseByte(data[i], 16);
+            if (!data[i].equals("**")){
+                res[cnt] = Byte.parseByte(data[i], 16);
+                cnt++;
+            }
             //res[i] = data[i].getBytes()[0];
-            System.out.println(res[i] + " " + (byte)(Integer.parseInt(data[i], 16)));
+            //System.out.println(res[i] + " " + (byte)(Integer.parseInt(data[i], 16)));
         }
         return res;
     }
