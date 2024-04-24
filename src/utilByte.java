@@ -86,6 +86,7 @@ public class utilByte {
         return res;
     }
 
+
     ///////////////////////////////////////////////  offt - сдвиг внутри таблицы
     ////////////Вставка нулей в массив/////////////
     ///////////////////////////////////////////////
@@ -108,6 +109,8 @@ public class utilByte {
         return res;
     }
 
+    
+
     //////////////////////////////////////////////  offt - сдвиг внутри таблицы
     /////////Дополнение массива звёздами//////////
     //////////////////////////////////////////////
@@ -121,6 +124,69 @@ public class utilByte {
         }
         for (int j = oldLen; j < newLen; j++) {
             res[j] = "**";
+        }
+        return res;
+    }
+
+    ///////////////////////////////////////////////
+    //////Подсчёт количества звёзд в массиве///////
+    ///////////////////////////////////////////////
+
+    public int getNumOfStars(String [] data){
+        int res = 0;
+        for (int i = 0; i < data.length; i++) res += data[i].equals("**") ? 1 : 0;
+        return res;
+    }
+
+    //////////////////////////////////////////////
+    //////////Очитстка массива от звёзд///////////
+    //////////////////////////////////////////////
+    public String [] clearStars(String [] oldData){
+        int starLen = getNumOfStars(oldData);
+        String [] res = new String[starLen];
+        int cnt = 0;
+
+        for (int j = 0; j < oldData.length; j++){
+            if (!oldData[j].equals("**")){
+                res[cnt] = oldData[j];
+                cnt++;
+            }
+        }
+        return res;
+    }
+
+    /////////////////////////////////////////////
+    /////////////Вставка со сдвигом//////////////
+    /////////////////////////////////////////////
+    public String [] addDataShift(String [] oldData, String [] addData, int offt){
+        int newDataLen = oldData.length + addData.length;
+        String [] res = new String [newDataLen];
+        int currIndex = 0;
+        for (int i = 0; i <= offt; i++){
+            res[currIndex] = oldData[i];
+            currIndex++;
+        }
+        for (int j = 0; j < addData.length; j++){
+            res[currIndex] = addData[j];
+            currIndex++;
+        }
+        for (int k = offt + 1; k < oldData.length; k++){
+            res[currIndex] = oldData[k];
+            currIndex++;
+        }
+        return res;
+    }
+
+    //////////////////////////////////////////////
+    //////////////Вставка с заменой///////////////
+    //////////////////////////////////////////////
+    public String [] addDataSubst(String [] oldData, String [] addData, int offt){
+        String [] res = oldData;
+        int rightBorder = offt + addData.length;
+        int newQ = 0;
+        for (int i = offt + 1; i < rightBorder; i++){
+            res[i] = addData[newQ];
+            newQ++;
         }
         return res;
     }
