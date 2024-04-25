@@ -164,8 +164,9 @@ public class ByteIO {
     public static void main(String[] args) {
         ByteIO bIO = new ByteIO("src/1.txt");
         //String [] hexBytes = bIO.getHexBytesOfft(0, 40);
-        String [] data = {"40", "40", "40", "40", "40", "40", "40", "40", "40", "40"};
-        bIO.printData(4, data, 0);
+        String in = "36;A8;2C;56;47;B8;36";
+        String [] data = bIO.splitHexBytes(in);
+        for (String str : data) System.out.print(str + " ");
     }
 }
 
