@@ -18,7 +18,7 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst, cutToBufferZero, cutToBufferShift;
+        JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst, cutToBufferZero, cutToBufferShift, fillInBuffer;
         JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0, 0};
@@ -370,6 +370,23 @@ public class mainGui extends JFrame {
         });
 
         //////////////////////////////////////////////////////////////////
+        /////////////// Кнопка вставки со сдвигом из буфера //////////////
+        //////////////////////////////////////////////////////////////////
+        fillInBuffer = new JButton("вст. буф.");
+        fillInBuffer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                int [] startCoord = highlightCells[0][0];
+                int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int len = buffer[0].length;
+                ChangeHandler chH = new ChangeHandler(4, currOfft, len, buffer[0]);
+                sH.makeHandle(chH);
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                changed[0] = true;
+            }
+        });
+
+        //////////////////////////////////////////////////////////////////
         /////////////////// Кнопка вставки с замещением //////////////////
         //////////////////////////////////////////////////////////////////
         fillSubst = new JButton("вст. зам.");
@@ -442,6 +459,7 @@ public class mainGui extends JFrame {
         fillZero.setBounds(600, 90, 110, 20);
         fillShift.setBounds(600, 120, 110, 20);
         fillSubst.setBounds(600, 150, 110, 20);
+        fillInBuffer.setBounds(600, 240, 110, 20);
 
         removeShift.setBounds(600, 50, 110, 20);
         removeZero.setBounds(600, 20, 110, 20);
@@ -465,6 +483,7 @@ public class mainGui extends JFrame {
         frame.add(fillZero);
         frame.add(fillShift);
         frame.add(fillSubst);
+        frame.add(fillInBuffer);
         frame.add(cutToBufferShift);
         frame.add(cutToBufferZero);
         frame.add(heightField);
