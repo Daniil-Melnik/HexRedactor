@@ -1,17 +1,12 @@
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 
 public class mainGui extends JFrame {
@@ -25,6 +20,7 @@ public class mainGui extends JFrame {
         int[] rowLen = {4};
         int[] columnLen = {4};
         int[] dLen = {0};
+
         final int[][][] highlightCells = {{}};
         boolean[] changed = {false};
         final String[][] dat = {null, null};
@@ -90,6 +86,31 @@ public class mainGui extends JFrame {
                         highlightCells[0] = new int[0][0];
                         setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                     }
+                }
+            }
+        });
+
+
+        table.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_D )
+                {
+                    int row = table.getSelectionModel().getLeadSelectionIndex();
+                    int column = table.getColumnModel().getSelectionModel().getLeadSelectionIndex();
+                    int [] coord = new int [2];
+                    coord[0] = row;
+                    coord[1] = column;
+                    mh.addCoord(coord);
+                    if (mh.getCond() == 2){
+                        highlightCells[0] = mh.getFullCoords(rowLen[0]);
+                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                    }
+                    else{
+                        highlightCells[0] = new int[0][0];
+                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                    }
+                    System.out.println(coord[0] + " " + coord[1]);
                 }
             }
         });
