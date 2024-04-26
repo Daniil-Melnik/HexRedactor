@@ -18,7 +18,7 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst;
+        JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst, cutToBufferZero, cutToBufferShift;
         JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
         int[] offset = {0, 0};
@@ -61,6 +61,7 @@ public class mainGui extends JFrame {
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
         final int[][][] errorCells = {{}};
+        final String[][] buffer = {{}};
 
         // Создаем экземпляр класса Renderer, передавая массив координат
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -355,7 +356,16 @@ public class mainGui extends JFrame {
         fillShift = new JButton("вст. cдв.");
         fillShift.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                
+                String adStr = dataField.getText();
+                String [] currData = bIO.splitHexBytes(adStr);
+                int [] startCoord = highlightCells[0][0];
+                int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int len = currData.length;
+                ChangeHandler chH = new ChangeHandler(4, currOfft, len, currData);
+                sH.makeHandle(chH);
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                changed[0] = true;
             }
         });
 
@@ -378,12 +388,66 @@ public class mainGui extends JFrame {
             }
         });
 
-        fillZero.setBounds(600, 90, 90, 20);
-        fillShift.setBounds(600, 120, 90, 20);
-        fillSubst.setBounds(600, 150, 90, 20);
+        ////////////////////////////////////////////////////////////////
+        /////////////////// Кнопка вырезки со сдвигом //////////////////
+        ////////////////////////////////////////////////////////////////
+        cutToBufferShift = new JButton("вырез. сдв.");
+        cutToBufferShift.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
 
-        removeShift.setBounds(600, 50, 90, 20);
-        removeZero.setBounds(600, 20, 90, 20);
+                int [] startCoord = highlightCells[0][0];
+                int offt = offset[1] + startCoord[0] * rowLen[0] + startCoord[1] - 1;
+                int highlightLen = highlightCells[0].length;
+
+                utilByte uB = new utilByte();
+                String [] strArr = uB.getValuesOfHighlt(table, highlightCells[0]);
+                buffer[0] = strArr;
+
+                ChangeHandler chH = new ChangeHandler(2, offt, highlightLen, null);
+                sH.makeHandle(chH);
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                changed[0] = true;  
+
+                for (String str : buffer[0]) System.out.println(str);
+            }
+        });
+
+        ////////////////////////////////////////////////////////////////
+        ////////////////// Кнопка вырезки с обнулением /////////////////
+        ////////////////////////////////////////////////////////////////
+        cutToBufferZero = new JButton("вырез. 0.");
+        cutToBufferZero.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+
+                int [] startCoord = highlightCells[0][0];
+                int offt = offset[1] + startCoord[0] * rowLen[0] + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+                int highlightLen = highlightCells[0].length;
+
+                utilByte uB = new utilByte();
+                String [] strArr = uB.getValuesOfHighlt(table, highlightCells[0]);
+                buffer[0] = strArr;
+
+                ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
+                sH.makeHandle(cHZero);
+                dat[0] = sH.getData();
+
+                changed[0] = true;
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+
+                for (String str : buffer[0]) System.out.println(str);
+            }
+        });
+
+        fillZero.setBounds(600, 90, 110, 20);
+        fillShift.setBounds(600, 120, 110, 20);
+        fillSubst.setBounds(600, 150, 110, 20);
+
+        removeShift.setBounds(600, 50, 110, 20);
+        removeZero.setBounds(600, 20, 110, 20);
+
+        cutToBufferShift.setBounds(600, 190, 110, 20);
+        cutToBufferZero.setBounds(600, 220, 110, 20);
 
         Hol.setBounds(440, 400, 90, 20);
         forward.setBounds(500, 500, 90, 20);
@@ -391,8 +455,8 @@ public class mainGui extends JFrame {
 
         widthField.setBounds(400, 350, 80, 20);
         heightField.setBounds(500, 350, 80, 20);
-        lenField.setBounds(710, 90, 80, 20);
-        dataField.setBounds(710, 150, 150, 20);
+        lenField.setBounds(720, 90, 80, 20);
+        dataField.setBounds(720, 150, 150, 20);
 
         frame.getContentPane().add(scrollPane);
         frame.add(widthField);
@@ -401,6 +465,8 @@ public class mainGui extends JFrame {
         frame.add(fillZero);
         frame.add(fillShift);
         frame.add(fillSubst);
+        frame.add(cutToBufferShift);
+        frame.add(cutToBufferZero);
         frame.add(heightField);
         frame.add(lenField);
         frame.add(dataField);

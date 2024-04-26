@@ -191,6 +191,19 @@ public class utilByte {
         return res;
     }
 
+    ///////////////////////////////////////////////
+    //////////Получить значения из ячеек///////////
+    ///////////////////////////////////////////////
+    public String [] getValuesOfHighlt(JTable table, int [][] highlightCells){
+        int arrLen = highlightCells.length;
+        String [] res = new String[arrLen];
+        for (int i = 0; i < arrLen; i++){
+            int [] cellArr = highlightCells[i];
+            res[i] = "" + table.getValueAt(cellArr[0],cellArr[1]);
+        }
+        return res;
+    }
+
     public static void main(String[] args){
         ByteIO bIO = new ByteIO("src/1.txt");
         String [] data = bIO.getHexBytesOfft(0, 16);
