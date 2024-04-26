@@ -94,9 +94,24 @@ public class SheetHolder {
                 this.data = uB.addDataSubst(this.data, newData, offt);           
                 break;
 
+            case 4:
+                len = chH.getLen();
+                offt = chH.getOfft();
+                String [] newDataShift = chH.getData();
+                // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
+                String [] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
+                int emptyCellDataShift;
+                if (tempDataShift.length % this.rowLen != 0){
+                    emptyCellDataShift = this.rowLen - tempDataShift.length % this.rowLen;
+                }
+                else emptyCellDataShift = 0;
+                this.data = uB.fillInStars(tempDataShift, emptyCellDataShift);
+                this.columnLen = this.data.length / this.rowLen;
+                break;
+
             case 7:
                 len = chH.getLen();
-                offt = chH.getOfft(); // необходимо дозабить массив звёздочками если потребуется
+                offt = chH.getOfft();
                 // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
                 String [] tempData = uB.fillInZeros(this.data, offt, len);
                 int emptyCellData;
