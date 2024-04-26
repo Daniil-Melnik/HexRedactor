@@ -87,6 +87,12 @@ public class SheetHolder {
                 this.offt += len; // 21.04.2024 разобраться с установкой в mainGUI
                 System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
                 break;
+            
+            case 3:
+                int offt = chH.getOfft();
+                String [] newData = chH.getData();
+                this.data = uB.addDataSubst(this.data, newData, offt);           
+                break;
 
             case 7:
                 len = chH.getLen();
@@ -100,9 +106,6 @@ public class SheetHolder {
                 else emptyCellData = 0;
                 this.data = uB.fillInStars(tempData, emptyCellData);
                 this.columnLen = this.data.length / this.rowLen;
-//                for (int i = 0; i < tempData.length; i++){
-//                    System.out.println(tempData[i]);
-//                }
             default:
                 break;
         } 

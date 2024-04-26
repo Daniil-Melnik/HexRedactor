@@ -184,7 +184,7 @@ public class utilByte {
         String [] res = oldData;
         int rightBorder = offt + addData.length;
         int newQ = 0;
-        for (int i = offt + 1; i < rightBorder; i++){
+        for (int i = offt + 1; i < rightBorder + 1; i++){
             res[i] = addData[newQ];
             newQ++;
         }

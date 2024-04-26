@@ -365,7 +365,16 @@ public class mainGui extends JFrame {
         fillSubst = new JButton("вст. зам.");
         fillSubst.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                
+                String adStr = dataField.getText();
+                String [] currData = bIO.splitHexBytes(adStr);
+                int [] startCoord = highlightCells[0][0];
+                int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1; // сдвиг в таблице по координате
+                int len = currData.length;
+                ChangeHandler chH = new ChangeHandler(3, currOfft, len, currData);
+                sH.makeHandle(chH);
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
+                changed[0] = true;                
             }
         });
 
