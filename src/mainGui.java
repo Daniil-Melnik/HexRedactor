@@ -480,7 +480,7 @@ public class mainGui extends JFrame {
         fillZero.setBounds(600, 90, 110, 20);
         fillShift.setBounds(600, 120, 110, 20);
         fillSubst.setBounds(600, 150, 110, 20);
-        fillInBuffer.setBounds(600, 240, 110, 20);
+        fillInBuffer.setBounds(600, 250, 110, 20);
 
         removeShift.setBounds(600, 50, 110, 20);
         removeZero.setBounds(600, 20, 110, 20);
