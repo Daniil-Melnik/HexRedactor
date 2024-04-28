@@ -558,6 +558,7 @@ public class mainGui extends JFrame {
 
         // Создаем экземпляр класса Renderer, передавая массив координат
         Renderer renderer = new Renderer(highlightCells, errorCells);
+        table.changeSelection(0, 1, false, false);
         // Устанавливаем рендерер для всех столбцов
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(renderer);
