@@ -1,9 +1,3 @@
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.util.jar.JarEntry;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,7 +12,7 @@ public class BlockSizePanel {
         this.yDim = y;
     }
 
-    public JPanel setPanel(){
+    public JPanel setPanel(int [] intArr, long [] longArr, float [] floatArr, double [] doubleArr){
         this.panel.setBounds(xDim, yDim, 350, 150);
         this.panel.setLayout(null);
         
@@ -29,27 +23,31 @@ public class BlockSizePanel {
         JLabel j05 = new JLabel("вещ. 2-тчн");
 
         JLabel j11 = new JLabel("1 : ");
-        JLabel j12 = new JLabel("*");
-        JLabel j13 = new JLabel("*");
-        JLabel j14 = new JLabel("*");
+        JLabel j12 = new JLabel("" + intArr[0]);
+        JLabel j13 = new JLabel("" + longArr[0]);
+        JLabel j14 = new JLabel("" + floatArr[0]);
+        //JLabel j15 = new JLabel("" + doubleArr[0]);
         JLabel j15 = new JLabel("*");
 
         JLabel j21 = new JLabel("2 : ");
-        JLabel j22 = new JLabel("*");
-        JLabel j23 = new JLabel("*");
-        JLabel j24 = new JLabel("*");
+        JLabel j22 = new JLabel("" + intArr[1]);
+        JLabel j23 = new JLabel("" + longArr[1]);
+        JLabel j24 = new JLabel("" + floatArr[1]);
+        //JLabel j25 = new JLabel("" + doubleArr[1]);
         JLabel j25 = new JLabel("*");
 
         JLabel j31 = new JLabel("4 : ");
-        JLabel j32 = new JLabel("*");
-        JLabel j33 = new JLabel("*");
-        JLabel j34 = new JLabel("*");
+        JLabel j32 = new JLabel("" + intArr[2]);
+        JLabel j33 = new JLabel("" + longArr[2]);
+        JLabel j34 = new JLabel("" + floatArr[2]);
+        //JLabel j35 = new JLabel("" + doubleArr[2]);
         JLabel j35 = new JLabel("*");
 
         JLabel j41 = new JLabel("8 : ");
-        JLabel j42 = new JLabel("*");
-        JLabel j43 = new JLabel("*");
-        JLabel j44 = new JLabel("*");
+        JLabel j42 = new JLabel("" + intArr[3]);
+        JLabel j43 = new JLabel("" + longArr[3]);
+        JLabel j44 = new JLabel("" + floatArr[3]);
+        //JLabel j45 = new JLabel("" + doubleArr[3]);
         JLabel j45 = new JLabel("*");
 
         j01.setBounds(0, 10, 60, 20);

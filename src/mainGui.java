@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +18,7 @@ public class mainGui extends JFrame {
         JButton Hol, forward, back, removeZero, removeShift, fillZero, fillShift, fillSubst, cutToBufferZero, cutToBufferShift, fillInBuffer;
         JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
+        ByteTransform bT = new ByteTransform();
         int[] offset = {0, 0};
         int[] rowLen = {4};
         int[] columnLen = {4};
@@ -63,6 +66,101 @@ public class mainGui extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
         table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells[0], errorCells[0]));
+
+        BlockSizePanel bSP = new BlockSizePanel(380, 10);
+        int [] intArr = {0, 0, 0, 0};
+        float [] floatArr = {0, 0, 0, 0};
+        long [] longArr = {0, 0, 0, 0};
+        double [] doubleArr = {0, 0, 0, 0};
+        //JPanel p = bSP.setPanel(intArr, longArr, floatArr, doubleArr);
+
+        // // Добавляем ListSelectionListener для отслеживания изменений выделения в таблице
+        // table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        //     @Override
+        //     public void valueChanged(ListSelectionEvent e) {
+        //         if (!e.getValueIsAdjusting()) {
+        //             //frame.remove(p);
+        //             /*int [] intArr = new int [4];
+        //             long [] longArr = new long[4];
+        //             float [] floatArr = new float[4];
+        //             double [] doubleArr  = new double[4];*/
+        //             //String [] data = sH.getData();
+
+        //             int row = table.getSelectedRow();
+        //             int col = table.getSelectedColumn();
+
+        //             //int offt = row * rowLen[0] + col - 1;
+
+        //             //System.out.println(bT.getSigned(data, offt, 1));
+
+                    
+
+        //             /*intArr[0] =  bT.getSigned(data, offt, 1);
+        //             intArr[1] = bT.getSigned(data, offt, 2);
+        //             intArr[2] = bT.getSigned(data, offt, 4);
+        //             //intArr[3] = bT.getSigned(data, offt, 8);
+
+        //             // longArr[0] = bT.getUnsigned(data, offt, 1);
+        //             // longArr[1] = bT.getUnsigned(data, offt, 2);
+        //             // longArr[2] = bT.getUnsigned(data, offt, 4);
+        //             // longArr[3] = bT.getUnsigned(data, offt, 8);
+
+        //             // floatArr[0] = bT.getFloat(data, offt, 1);
+        //             // floatArr[1] = bT.getFloat(data, offt, 2);
+        //             // floatArr[2] = bT.getFloat(data, offt, 4);
+        //             // floatArr[3] = bT.getFloat(data, offt, 8);
+
+        //             // doubleArr[0] = bT.getDouble(data, offt, 1);
+        //             // doubleArr[1] = bT.getDouble(data, offt, 2);
+        //             // doubleArr[2] = bT.getDouble(data, offt, 4);
+        //             // doubleArr[3] = bT.getDouble(data, offt, 8);
+
+        //             JPanel p = bSP.setPanel(intArr, longArr, floatArr, doubleArr);
+        //             frame.add(p);*/
+
+        //             // Печатаем текущую ячейку, на которой установлен фокус
+        //             System.out.println("Фокус установлен на ячейке: строка " + row + ", колонка " + col);
+        //         }
+        //     }
+        // });
+                // final int [] prewCol = {-1};
+                // final int [] prewRow = {-1};
+
+                // Добавляем ListSelectionListener к SelectionModel для строк (TableSelectionModel)
+                table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        // Проверяем, что событие не происходит из-за снятия выделения
+                        if (!e.getValueIsAdjusting()) {
+                            // Получаем текущую выделенную строку
+                            int row = table.getSelectedRow();
+        
+                            // Получаем текущую выделенную колонку
+                            int col = table.getSelectedColumn();
+        
+                            // Выводим информацию о текущей ячейке
+                            System.out.println("Фокус на ячейке: строка " + row + ", колонка " + col);
+                        }
+                    }
+                });
+        
+                // Добавляем ListSelectionListener к SelectionModel для столбцов (ColumnSelectionModel)
+                table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        // Проверяем, что событие не происходит из-за снятия выделения
+                        if (!e.getValueIsAdjusting()) {
+                            // Получаем текущую выделенную строку
+                            int row = table.getSelectedRow();
+                            // Получаем текущую выделенную колонку
+                            int col = table.getSelectedColumn();
+        
+                            // Выводим информацию о текущей ячейке
+                            System.out.println("Фокус на ячейке: строка " + row + ", колонка " + col);
+                        }
+                    }
+                });
+
 
         //////////////////////////////////////////////////////////////////
         //////////////////// Перехват правых кликаний ////////////////////
@@ -477,10 +575,6 @@ public class mainGui extends JFrame {
             }
         });
 
-        BlockSizePanel bSP = new BlockSizePanel(380, 10);
-        JPanel p = bSP.setPanel();
-
-        frame.add(p);
         fillZero.setBounds(600, 90, 110, 20);
         fillShift.setBounds(600, 120, 110, 20);
         fillSubst.setBounds(600, 150, 110, 20);
