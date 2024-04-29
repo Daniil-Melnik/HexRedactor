@@ -123,23 +123,21 @@ public class mainGui extends JFrame {
         //         }
         //     }
         // });
-                // final int [] prewCol = {-1};
-                // final int [] prewRow = {-1};
+                final int [] prevCol = {-1};
+                final int [] prevRow = {-1};
 
-                // Добавляем ListSelectionListener к SelectionModel для строк (TableSelectionModel)
                 table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         // Проверяем, что событие не происходит из-за снятия выделения
                         if (!e.getValueIsAdjusting()) {
-                            // Получаем текущую выделенную строку
-                            int row = table.getSelectedRow();
-        
-                            // Получаем текущую выделенную колонку
-                            int col = table.getSelectedColumn();
-        
-                            // Выводим информацию о текущей ячейке
-                            System.out.println("Фокус на ячейке: строка " + row + ", колонка " + col);
+                            int currentRow = table.getSelectedRow();
+                            int currentCol = table.getSelectedColumn();
+                            if ((currentRow != prevRow[0]) || (currentCol != prevCol[0])) {
+                                prevRow[0] = currentRow;
+                                prevCol[0] = currentCol;
+                                System.out.println("Фокус на ячейке: строка " + currentRow + ", колонка " + currentCol);
+                            }
                         }
                     }
                 });
@@ -148,15 +146,14 @@ public class mainGui extends JFrame {
                 table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
-                        // Проверяем, что событие не происходит из-за снятия выделения
                         if (!e.getValueIsAdjusting()) {
-                            // Получаем текущую выделенную строку
-                            int row = table.getSelectedRow();
-                            // Получаем текущую выделенную колонку
-                            int col = table.getSelectedColumn();
-        
-                            // Выводим информацию о текущей ячейке
-                            System.out.println("Фокус на ячейке: строка " + row + ", колонка " + col);
+                            int currentRow = table.getSelectedRow();
+                            int currentCol = table.getSelectedColumn();
+                            if ((currentRow != prevRow[0]) || (currentCol != prevCol[0])) {
+                                prevRow[0] = currentRow;
+                                prevCol[0] = currentCol;
+                                System.out.println("Фокус на ячейке: строка " + currentRow + ", колонка " + currentCol);
+                            }
                         }
                     }
                 });
