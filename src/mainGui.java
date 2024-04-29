@@ -477,6 +477,10 @@ public class mainGui extends JFrame {
             }
         });
 
+        BlockSizePanel bSP = new BlockSizePanel(500, 10);
+        JPanel p = bSP.setPanel();
+
+        frame.add(p);
         fillZero.setBounds(600, 90, 110, 20);
         fillShift.setBounds(600, 120, 110, 20);
         fillSubst.setBounds(600, 150, 110, 20);
@@ -497,22 +501,25 @@ public class mainGui extends JFrame {
         lenField.setBounds(720, 90, 80, 20);
         dataField.setBounds(720, 150, 150, 20);
 
+          
+        
+
         frame.getContentPane().add(scrollPane);
-        frame.add(widthField);
-        frame.add(removeZero);
-        frame.add(removeShift);
-        frame.add(fillZero);
-        frame.add(fillShift);
-        frame.add(fillSubst);
-        frame.add(fillInBuffer);
-        frame.add(cutToBufferShift);
-        frame.add(cutToBufferZero);
-        frame.add(heightField);
-        frame.add(lenField);
-        frame.add(dataField);
+        // frame.add(widthField);
+        // frame.add(removeZero);
+        // frame.add(removeShift);
+        // frame.add(fillZero);
+        // frame.add(fillShift);
+        // frame.add(fillSubst);
+        // frame.add(fillInBuffer);
+        // frame.add(cutToBufferShift);
+        // frame.add(cutToBufferZero);
+        // frame.add(heightField);
+        // frame.add(lenField);
+        // frame.add(dataField);
         frame.add(forward);
         frame.add(back);
-        frame.add(Hol);
+        // frame.add(Hol);
 
         frame.setSize(1000, 600);
         frame.setLayout(null);
