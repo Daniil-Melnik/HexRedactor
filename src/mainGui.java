@@ -477,7 +477,7 @@ public class mainGui extends JFrame {
             }
         });
 
-        BlockSizePanel bSP = new BlockSizePanel(500, 10);
+        BlockSizePanel bSP = new BlockSizePanel(380, 10);
         JPanel p = bSP.setPanel();
 
         frame.add(p);
