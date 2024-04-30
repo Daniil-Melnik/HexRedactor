@@ -318,19 +318,36 @@ public class mainGui extends JFrame {
                     columnLen[0] = Integer.parseInt(heightField.getText());
                     sH.setRowLen(rowLen[0]);
                     sH.setColumnLen(columnLen[0]);
+                    String [] data = bIO.getHexBytesOfft(offset[1], rowLen[0] * columnLen[0]);
+                    sH.setAllData(data);
                     setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                     if (result == 0){
-                        // вставить запись в файл изменений
+                        // какая то ошибка со сдвигами при печати
                         highlightCells[0] = new int[0][0];
+
+                        dat[0] = sH.getData();
+                        int cellOfft = offset[1] - rowLen[0] * columnLen[0];
+
+                        bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
+
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
                         sH.setRowLen(rowLen[0]);
                         sH.setColumnLen(columnLen[0]);
+
+                        dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
+                        sH.setAllData(dat[0]); // менять или нет сдвиг ??
+
+                        offset[0] = offset[1];
+                        
+                        String [] data = bIO.getHexBytesOfft(offset[1], rowLen[0] * columnLen[0]);
+                        sH.setAllData(data);
                         setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], sH);
                         changed[0] = false;
+                        dLen[0] = 0;
                     }
                     else if (result == 1){
                         // вставить оставить файл в старом виде
@@ -626,7 +643,7 @@ public class mainGui extends JFrame {
         
 
         frame.getContentPane().add(scrollPane);
-        // frame.add(widthField);
+        frame.add(widthField);
         // frame.add(removeZero);
         // frame.add(removeShift);
         // frame.add(fillZero);
@@ -635,12 +652,12 @@ public class mainGui extends JFrame {
         // frame.add(fillInBuffer);
         // frame.add(cutToBufferShift);
         // frame.add(cutToBufferZero);
-        // frame.add(heightField);
+        frame.add(heightField);
         // frame.add(lenField);
         // frame.add(dataField);
         frame.add(forward);
         frame.add(back);
-        // frame.add(Hol);
+        frame.add(Hol);
 
         frame.setSize(1000, 600);
         frame.setLayout(null);
