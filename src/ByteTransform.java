@@ -7,7 +7,7 @@ public class ByteTransform {
         int [] inIntArr = new int[len];
         System.out.println("------------------------------------------");
         for (int i = 0; i < len; i++){
-            inIntArr[i] = Byte.parseByte(data[offt + i], 16);
+            inIntArr[i] = Integer.parseInt(data[offt + i], 16);
         }
 
         String [] binaryArr = new String [len];
@@ -53,10 +53,12 @@ public class ByteTransform {
     //////////////////////////////////////////////////////////////// offt - сдвиг в таблице
     //////////////// Преобразование байт в знаковое ////////////////
     ////////////////////////////////////////////////////////////////
-    public int getSigned(String [] data, int offt, int len){
+    public long getSigned(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        // System.out.println(concBinStr);
-        int res = Integer.parseInt(concBinStr, 2);
+        String subStr = concBinStr.substring(1);
+        long res = Long.parseLong(subStr, 2);
+
+        res *= concBinStr.charAt(0) == '1' ? -1 : 1;
 
         return res;
     }
@@ -76,8 +78,11 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public float getFloat(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        int intValue = Integer.parseInt(concBinStr, 2);
+        String subStr = concBinStr.substring(1);
+        int intValue = Integer.parseInt(subStr, 2);
+
         float res = Float.intBitsToFloat(intValue);
+        res *= concBinStr.charAt(0) == '1' ? -1 : 1;
 
         return res;
     }
@@ -87,8 +92,11 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public double getDouble(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        long longValue = Long.parseLong(concBinStr, 2);
+        String subStr = concBinStr.substring(1);
+        long longValue = Long.parseLong(subStr, 2);
         double res = Double.longBitsToDouble(longValue);
+        
+        res *= concBinStr.charAt(0) == '1' ? -1 : 1;
 
         return res;
     }

@@ -87,7 +87,7 @@ public class mainGui extends JFrame {
                     if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1)) && (currentCol != (-1)) ) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        int [] intArr = new int [4];
+                        long [] intArr = new long [4];
                         long [] longArr = new long[4];
                         float [] floatArr = new float[4];
                         double [] doubleArr  = new double[4];
@@ -108,22 +108,22 @@ public class mainGui extends JFrame {
                         intArr[0] =  bT.getSigned(data, offt2, 1);
                         intArr[1] = bT.getSigned(data, offt2, 2);
                         intArr[2] = bT.getSigned(data, offt2, 4);
-                        //intArr[3] = bT.getSigned(data, offt2, 8);
+                        intArr[3] = bT.getSigned(data, offt2, 8);
 
                         longArr[0] = bT.getUnsigned(data, offt2, 1);
                         longArr[1] = bT.getUnsigned(data, offt2, 2);
                         longArr[2] = bT.getUnsigned(data, offt2, 4);
-                        //longArr[3] = bT.getUnsigned(data, offt2, 8);
+                        longArr[3] = bT.getUnsigned(data, offt2, 8);
 
                         floatArr[0] = bT.getFloat(data, offt2, 1);
                         floatArr[1] = bT.getFloat(data, offt2, 2);
                         floatArr[2] = bT.getFloat(data, offt2, 4);
-                        //floatArr[3] = bT.getFloat(data, offt2, 8);
+                        floatArr[3] = -1;
 
                         doubleArr[0] = bT.getDouble(data, offt2, 1);
                         doubleArr[1] = bT.getDouble(data, offt2, 2);
                         doubleArr[2] = bT.getDouble(data, offt2, 4);
-                        //doubleArr[3] = bT.getDouble(data, offt2, 8);
+                        doubleArr[3] = bT.getDouble(data, offt2, 8);
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
@@ -141,10 +141,10 @@ public class mainGui extends JFrame {
                     int currentRow = table.getSelectedRow();
                     int currentCol = table.getSelectedColumn();
                     utilByte uB = new utilByte();
-                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)) {
+                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1) && (currentCol != -1)) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        int [] intArr = new int [4];
+                        long [] intArr = new long [4];
                         long [] longArr = new long[4];
                         float [] floatArr = new float[4];
                         double [] doubleArr  = new double[4];
@@ -165,22 +165,22 @@ public class mainGui extends JFrame {
                         intArr[0] =  bT.getSigned(data, offt2, 1);
                         intArr[1] = bT.getSigned(data, offt2, 2);
                         intArr[2] = bT.getSigned(data, offt2, 4);
-                        //intArr[3] = bT.getSigned(data, offt2, 8);
+                        intArr[3] = bT.getSigned(data, offt2, 8);
 
                         longArr[0] = bT.getUnsigned(data, offt2, 1);
                         longArr[1] = bT.getUnsigned(data, offt2, 2);
                         longArr[2] = bT.getUnsigned(data, offt2, 4);
-                        //longArr[3] = bT.getUnsigned(data, offt2, 8);
+                        longArr[3] = bT.getUnsigned(data, offt2, 8);
 
                         floatArr[0] = bT.getFloat(data, offt2, 1);
                         floatArr[1] = bT.getFloat(data, offt2, 2);
                         floatArr[2] = bT.getFloat(data, offt2, 4);
-                        //floatArr[3] = bT.getFloat(data, offt2, 8);
+                        floatArr[3] = -1;
 
                         doubleArr[0] = bT.getDouble(data, offt2, 1);
                         doubleArr[1] = bT.getDouble(data, offt2, 2);
                         doubleArr[2] = bT.getDouble(data, offt2, 4);
-                        //doubleArr[3] = bT.getDouble(data, offt2, 8);
+                        doubleArr[3] = bT.getDouble(data, offt2, 8);
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }

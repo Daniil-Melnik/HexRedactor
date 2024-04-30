@@ -114,7 +114,7 @@ public class BlockSizePanel {
         return this.panel;
     }
 
-    public JPanel setPanel(int [] intArr, long [] longArr, float [] floatArr, double [] doubleArr){
+    public JPanel setPanel(long [] intArr, long [] longArr, float [] floatArr, double [] doubleArr){
         this.j12.setText("" + intArr[0]);
         this.j13.setText("" + longArr[0]);
         this.j14.setText("" + floatArr[0]);
