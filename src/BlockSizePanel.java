@@ -132,7 +132,7 @@ public class BlockSizePanel {
 
         this.j42.setText("" + intArr[3]);
         this.j43.setText("" + longArr[3]);
-        this.j44.setText("" + floatArr[3]);
+        this.j44.setText("*");
         this.j45.setText("" + doubleArr[3]);
 
         return this.panel;
