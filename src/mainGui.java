@@ -70,107 +70,123 @@ public class mainGui extends JFrame {
         BlockSizePanel bSP = new BlockSizePanel(380, 10);
         JPanel p = bSP.getPanel();
         frame.add(p);
-                final int [] prevCol = {0};
-                final int [] prevRow = {1};
 
-                table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        if (!e.getValueIsAdjusting()) {
-                            int currentRow = table.getSelectedRow();
-                            int currentCol = table.getSelectedColumn();
-                            if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1))) {
-                                prevRow[0] = currentRow;
-                                prevCol[0] = currentCol;
-                                int [] intArr = new int [4];
-                                long [] longArr = new long[4];
-                                float [] floatArr = new float[4];
-                                double [] doubleArr  = new double[4];
-                                String [] data = sH.getData();
+        final int [] prevCol = {0};
+        final int [] prevRow = {1};
 
-                                int row = table.getSelectedRow();
-                                int col = table.getSelectedColumn();
+        /////////////////////////////////////////////////////////////////
+        ////////////// Перехват изменения строки фокуса /////////////////
+        /////////////////////////////////////////////////////////////////
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int currentRow = table.getSelectedRow();
+                    int currentCol = table.getSelectedColumn();
+                    utilByte uB = new utilByte();
+                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1)) && (currentCol != (-1)) ) {
+                        prevRow[0] = currentRow;
+                        prevCol[0] = currentCol;
+                        int [] intArr = new int [4];
+                        long [] longArr = new long[4];
+                        float [] floatArr = new float[4];
+                        double [] doubleArr  = new double[4];
 
-                                int offt = row * rowLen[0] + col - 1;
+                        int row = table.getSelectedRow();
+                        int col = table.getSelectedColumn();
 
-                                System.out.println(offt);
+                        int offt1 = offset[1] + row * rowLen[0] + col - 1;
+                        String [] rightData = bIO.getHexBytesOfft(offt1, 7);
+                        String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
+                        System.out.println(data.length);
+                                
 
-                                intArr[0] =  bT.getSigned(data, offt, 1);
-                                intArr[1] = bT.getSigned(data, offt, 2);
-                                intArr[2] = bT.getSigned(data, offt, 4);
-                                //intArr[3] = bT.getSigned(data, offt, 8);
+                        int offt2 = row * rowLen[0] + col - 1;
 
-                                longArr[0] = bT.getUnsigned(data, offt, 1);
-                                longArr[1] = bT.getUnsigned(data, offt, 2);
-                                longArr[2] = bT.getUnsigned(data, offt, 4);
-                                //longArr[3] = bT.getUnsigned(data, offt, 8);
+                        System.out.println(offt2);
 
-                                floatArr[0] = bT.getFloat(data, offt, 1);
-                                floatArr[1] = bT.getFloat(data, offt, 2);
-                                floatArr[2] = bT.getFloat(data, offt, 4);
-                                //floatArr[3] = bT.getFloat(data, offt, 8);
+                        intArr[0] =  bT.getSigned(data, offt2, 1);
+                        intArr[1] = bT.getSigned(data, offt2, 2);
+                        intArr[2] = bT.getSigned(data, offt2, 4);
+                        //intArr[3] = bT.getSigned(data, offt2, 8);
 
-                                doubleArr[0] = bT.getDouble(data, offt, 1);
-                                doubleArr[1] = bT.getDouble(data, offt, 2);
-                                doubleArr[2] = bT.getDouble(data, offt, 4);
-                                //doubleArr[3] = bT.getDouble(data, offt, 8);
-                                bSP.setPanel(intArr, longArr, floatArr, doubleArr);
-                                // Печатаем текущую ячейку, на которой установлен фокус
-                                System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
-                            }
-                        }
+                        longArr[0] = bT.getUnsigned(data, offt2, 1);
+                        longArr[1] = bT.getUnsigned(data, offt2, 2);
+                        longArr[2] = bT.getUnsigned(data, offt2, 4);
+                        //longArr[3] = bT.getUnsigned(data, offt2, 8);
+
+                        floatArr[0] = bT.getFloat(data, offt2, 1);
+                        floatArr[1] = bT.getFloat(data, offt2, 2);
+                        floatArr[2] = bT.getFloat(data, offt2, 4);
+                        //floatArr[3] = bT.getFloat(data, offt2, 8);
+
+                        doubleArr[0] = bT.getDouble(data, offt2, 1);
+                        doubleArr[1] = bT.getDouble(data, offt2, 2);
+                        doubleArr[2] = bT.getDouble(data, offt2, 4);
+                        //doubleArr[3] = bT.getDouble(data, offt2, 8);
+                        bSP.setPanel(intArr, longArr, floatArr, doubleArr);
+                        System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
-                });
+                }
+            }
+        });
         
-                // Добавляем ListSelectionListener к SelectionModel для столбцов (ColumnSelectionModel)
-                table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        if (!e.getValueIsAdjusting()) {
-                            int currentRow = table.getSelectedRow();
-                            int currentCol = table.getSelectedColumn();
-                            if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)) {
-                                prevRow[0] = currentRow;
-                                prevCol[0] = currentCol;
-                                int [] intArr = new int [4];
-                                long [] longArr = new long[4];
-                                float [] floatArr = new float[4];
-                                double [] doubleArr  = new double[4];
-                                String [] data = sH.getData();
+        ////////////////////////////////////////////////////////////////
+        ///////////// Перехват изменения столбца фокуса ////////////////
+        ////////////////////////////////////////////////////////////////
+        table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int currentRow = table.getSelectedRow();
+                    int currentCol = table.getSelectedColumn();
+                    utilByte uB = new utilByte();
+                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)) {
+                        prevRow[0] = currentRow;
+                        prevCol[0] = currentCol;
+                        int [] intArr = new int [4];
+                        long [] longArr = new long[4];
+                        float [] floatArr = new float[4];
+                        double [] doubleArr  = new double[4];
 
-                                int row = table.getSelectedRow();
-                                int col = table.getSelectedColumn();
+                        int row = table.getSelectedRow();
+                        int col = table.getSelectedColumn();
 
-                                int offt = row * rowLen[0] + col - 1;
+                        int offt1 = offset[1] + row * rowLen[0] + col - 1;
+                        String [] rightData = bIO.getHexBytesOfft(offt1, 7);
+                        String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
+                        System.out.println(data.length);
+                                
 
-                                System.out.println(offt);
+                        int offt2 = row * rowLen[0] + col - 1;
 
-                                intArr[0] =  bT.getSigned(data, offt, 1);
-                                intArr[1] = bT.getSigned(data, offt, 2);
-                                intArr[2] = bT.getSigned(data, offt, 4);
-                                // intArr[3] = bT.getSigned(data, offt, 8);
-                                System.out.println(intArr[0]);
+                        System.out.println(offt2);
 
-                                longArr[0] = bT.getUnsigned(data, offt, 1);
-                                longArr[1] = bT.getUnsigned(data, offt, 2);
-                                longArr[2] = bT.getUnsigned(data, offt, 4);
-                                //longArr[3] = bT.getUnsigned(data, offt, 8);
+                        intArr[0] =  bT.getSigned(data, offt2, 1);
+                        intArr[1] = bT.getSigned(data, offt2, 2);
+                        intArr[2] = bT.getSigned(data, offt2, 4);
+                        //intArr[3] = bT.getSigned(data, offt2, 8);
 
-                                floatArr[0] = bT.getFloat(data, offt, 1);
-                                floatArr[1] = bT.getFloat(data, offt, 2);
-                                floatArr[2] = bT.getFloat(data, offt, 4);
-                                //floatArr[3] = bT.getFloat(data, offt, 8);
+                        longArr[0] = bT.getUnsigned(data, offt2, 1);
+                        longArr[1] = bT.getUnsigned(data, offt2, 2);
+                        longArr[2] = bT.getUnsigned(data, offt2, 4);
+                        //longArr[3] = bT.getUnsigned(data, offt2, 8);
 
-                                doubleArr[0] = bT.getDouble(data, offt, 1);
-                                doubleArr[1] = bT.getDouble(data, offt, 2);
-                                doubleArr[2] = bT.getDouble(data, offt, 4);
-                                //doubleArr[3] = bT.getDouble(data, offt, 8);
-                                bSP.setPanel(intArr, longArr, floatArr, doubleArr);
-                                System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
-                            }
-                        }
+                        floatArr[0] = bT.getFloat(data, offt2, 1);
+                        floatArr[1] = bT.getFloat(data, offt2, 2);
+                        floatArr[2] = bT.getFloat(data, offt2, 4);
+                        //floatArr[3] = bT.getFloat(data, offt2, 8);
+
+                        doubleArr[0] = bT.getDouble(data, offt2, 1);
+                        doubleArr[1] = bT.getDouble(data, offt2, 2);
+                        doubleArr[2] = bT.getDouble(data, offt2, 4);
+                        //doubleArr[3] = bT.getDouble(data, offt2, 8);
+                        bSP.setPanel(intArr, longArr, floatArr, doubleArr);
+                        System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
-                });
+                }
+            }
+        });
 
 
         //////////////////////////////////////////////////////////////////

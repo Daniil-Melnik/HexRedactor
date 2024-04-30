@@ -128,6 +128,7 @@ public class utilByte {
         return res;
     }
 
+
     ///////////////////////////////////////////////
     //////Подсчёт количества звёзд в массиве///////
     ///////////////////////////////////////////////
@@ -143,7 +144,7 @@ public class utilByte {
     //////////////////////////////////////////////
     public String [] clearStars(String [] oldData){
         int starLen = getNumOfStars(oldData);
-        String [] res = new String[starLen];
+        String [] res = new String[oldData.length - starLen];
         int cnt = 0;
 
         for (int j = 0; j < oldData.length; j++){
@@ -154,6 +155,21 @@ public class utilByte {
         }
         return res;
     }
+
+    ///////////////////////////////////////////////  offt - сдвиг внутри файла
+    ///////Дополнение массива семью байтами////////
+    ///////////////////////////////////////////////
+
+    public String [] fillInSevenBytes(String [] leftData, String [] rightData){
+        int oldLen = leftData.length;
+        int newLen = oldLen + 7;
+        String [] res = new String[newLen];
+
+        String [] unZeroData = clearStars(leftData);
+
+        res = concatArrs(unZeroData, rightData);
+        return res;
+    }    
 
     /////////////////////////////////////////////
     /////////////Вставка со сдвигом//////////////
