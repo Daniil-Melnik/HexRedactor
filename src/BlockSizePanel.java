@@ -17,6 +17,7 @@ public class BlockSizePanel {
         this.yDim = y;
 
         this.panel.setBounds(xDim, yDim, 450, 150);
+        this.panel.setBorder(new RoundedBorder(10));
         this.panel.setLayout(null);
 
         this.j01 = new JLabel("n байт");

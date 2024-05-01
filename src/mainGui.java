@@ -67,12 +67,12 @@ public class mainGui extends JFrame {
         scrollPane.setBounds(0, 0, 0, 0);
         table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells[0], errorCells[0]));
 
-        BlockSizePanel bSP = new BlockSizePanel(380, 10);
-        //JPanel p = bSP.getPanel();
-        // frame.add(p);
+        BlockSizePanel bSP = new BlockSizePanel(400, 10);
+        JPanel p = bSP.getPanel();
+        frame.add(p);
 
         SearchPanel searchPanel = new SearchPanel();
-        searchPanel.setBounds(100, 100, 400, 150);
+        searchPanel.setBounds(400, 200, 400, 150);
         frame.add(searchPanel);
 
         searchPanel.addSearchButtonListener(new ActionListener() {
@@ -682,7 +682,7 @@ public class mainGui extends JFrame {
         // frame.add(back);
         // frame.add(Hol);
 
-        frame.setSize(1000, 600);
+        frame.setSize(1100, 600);
         frame.setLayout(null);
         frame.setVisible(true);
     }
