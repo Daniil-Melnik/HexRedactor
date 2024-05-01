@@ -68,11 +68,11 @@ public class mainGui extends JFrame {
         table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells[0], errorCells[0]));
 
         BlockSizePanel bSP = new BlockSizePanel(380, 10);
-        JPanel p = bSP.getPanel();
+        //JPanel p = bSP.getPanel();
         // frame.add(p);
 
         SearchPanel searchPanel = new SearchPanel();
-        searchPanel.setBounds(100, 100, 300, 150);
+        searchPanel.setBounds(100, 100, 400, 150);
         frame.add(searchPanel);
 
         searchPanel.addSearchButtonListener(new ActionListener() {
@@ -292,12 +292,12 @@ public class mainGui extends JFrame {
                         hQ.addChange(chH, row * rowLen[0] + column - 1); 
                     }
                     else{
-                        String msgErrCells = "Значения в ячейках по сдвигу: ";
-                        for (Integer integer : aL) {
-                            msgErrCells += integer + " ";
-                            //System.out.println(integer);
-                        }
-                        msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
+                        //String msgErrCells = "Значения в ячейках по сдвигу: ";
+                        // for (Integer integer : aL) {
+                        //     msgErrCells += integer + " ";
+                        //     //System.out.println(integer);
+                        // }
+                        // msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
                         //hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
                     }
                     // ??
