@@ -1,132 +1,105 @@
+import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BlockSizePanel extends JPanel {
-    private JLabel j01, j02, j03, j04, j05;
-    private JLabel j11, j12, j13, j14, j15;
-    private JLabel j21, j22, j23, j24, j25;
-    private JLabel j31, j32, j33, j34, j35;
-    private JLabel j41, j42, j43, j44, j45;
+    private JLabel [][] j = new JLabel[5][5];
+    private JLabel mainLabel;
+
+    int [] columnX = {5, 100, 210, 340, 500};
+    int [] rowY = {40, 75, 100, 125, 150};
+    int [] columnWidth = {80, 80, 100, 150, 220};
 
     public BlockSizePanel(){
-
+        
+    Font font20 = new Font("Arial", Font.PLAIN, 20);
+    Font font15p = new Font("Arial", Font.PLAIN, 15);
+    Font font15b = new Font("Arial", Font.BOLD, 15);
 
     setBorder(new RoundedBorder(10));
     setLayout(null);
 
-    j01 = new JLabel("n байт");
-    j02 = new JLabel("10-я с зн.");
-    j03 = new JLabel("10-я б зн.");
-    j04 = new JLabel("вещ. 1-тчн");
-    j05 = new JLabel("вещ. 2-тчн");
+    mainLabel = new JLabel("Значения по блокам");
+    mainLabel.setFont(font20);
+    mainLabel.setBounds(260, 10, 280, 20);
+    add(mainLabel);
 
-    j11 = new JLabel("1 : ");
-    j12 = new JLabel();
-    j13 = new JLabel();
-    j14 = new JLabel();
-    j15 = new JLabel("*");
+    j[0][0] = new JLabel("");
+    j[1][0] = new JLabel("целое сзн");
+    j[2][0] = new JLabel("целое бзн");
+    j[3][0] = new JLabel("вещ. 1-тчн");
+    j[4][0] = new JLabel("вещ. 2-тчн");
 
-    j21 = new JLabel("2 : ");
-    j22 = new JLabel();
-    j23 = new JLabel();
-    j24 = new JLabel();
-    j25 = new JLabel("*");
+    for (int i = 1; i < 5; i++){
+        for (int k = 1; k < 5; k++){
+            j[k][i] = new JLabel();
+            j[k][i].setFont(font15p);
+        }
+    }
 
-    j31 = new JLabel("4 : ");
-    j32 = new JLabel();
-    j33 = new JLabel();
-    j34 = new JLabel();
-    j35 = new JLabel("*");
+    for (int k = 0; k < 5; k++){
+        j[k][0].setFont(font15b);
+    }
 
-    j41 = new JLabel("8 : ");
-    j42 = new JLabel();
-    j43 = new JLabel();
-    j44 = new JLabel();
-    j45 = new JLabel("*");
+    j[0][1] = new JLabel("1 байт");
+    j[0][2] = new JLabel("2 байта");
+    j[0][3] = new JLabel("4 байта");
+    j[0][4] = new JLabel("8 байт");
 
-    j01.setBounds(0, 10, 60, 20);
-    j02.setBounds(60, 10, 60, 20);
-    j03.setBounds(120, 10, 60, 20);
-    j04.setBounds(220, 10, 80, 20);
-    j05.setBounds(310, 10, 80, 20);
+    j[0][1].setFont(font15b);
+    j[0][2].setFont(font15b);
+    j[0][3].setFont(font15b);
+    j[0][4].setFont(font15b);
 
-    j11.setBounds(0, 30, 60, 20);
-    j12.setBounds(70, 30, 60, 20);
-    j13.setBounds(150, 30, 60, 20);
-    j14.setBounds(230, 30, 80, 20);
-    j15.setBounds(320, 30, 80, 20);
+    j[0][0].setBounds(columnX[0], rowY[0], columnWidth[0], 20);
+    j[0][1].setBounds(columnX[1], rowY[0], columnWidth[1], 20);
+    j[0][2].setBounds(columnX[2], rowY[0], columnWidth[2], 20);
+    j[0][3].setBounds(columnX[3], rowY[0], columnWidth[3], 20);
+    j[0][4].setBounds(columnX[4], rowY[0], columnWidth[4], 20);
 
-    j21.setBounds(0, 50, 60, 20);
-    j22.setBounds(70, 50, 60, 20);
-    j23.setBounds(150, 50, 60, 20);
-    j24.setBounds(230, 50, 80, 20);
-    j25.setBounds(320, 50, 80, 20);
+    j[1][0].setBounds(columnX[0], rowY[1], columnWidth[0], 20);
+    j[1][1].setBounds(columnX[1], rowY[1], columnWidth[1], 20);
+    j[1][2].setBounds(columnX[2], rowY[1], columnWidth[2], 20);
+    j[1][3].setBounds(columnX[3], rowY[1], columnWidth[3], 20);
+    j[1][4].setBounds(columnX[4], rowY[1], columnWidth[4], 20);
 
-    j31.setBounds(0, 70, 60, 20);
-    j32.setBounds(70, 70, 60, 20);
-    j33.setBounds(150, 70, 60, 20);
-    j34.setBounds(230, 70, 80, 20);
-    j35.setBounds(320, 70, 80, 20);
+    j[2][0].setBounds(columnX[0], rowY[2], columnWidth[0], 20);
+    j[2][1].setBounds(columnX[1], rowY[2], columnWidth[1], 20);
+    j[2][2].setBounds(columnX[2], rowY[2], columnWidth[2], 20);
+    j[2][3].setBounds(columnX[3], rowY[2], columnWidth[3], 20);
+    j[2][4].setBounds(columnX[4], rowY[2], columnWidth[4], 20);
 
-    j41.setBounds(0, 90, 60, 20);
-    j42.setBounds(70, 90, 60, 20);
-    j43.setBounds(150, 90, 60, 20);
-    j44.setBounds(230, 90, 80, 20);
-    j45.setBounds(320, 90, 80, 20);
+    j[3][0].setBounds(columnX[0], rowY[3], columnWidth[0], 20);
+    j[3][1].setBounds(columnX[1], rowY[3], columnWidth[1], 20);
+    j[3][2].setBounds(columnX[2], rowY[3], columnWidth[2], 20);
+    j[3][3].setBounds(columnX[3], rowY[3], columnWidth[3], 20);
+    j[3][4].setBounds(columnX[4], rowY[3], columnWidth[4], 20);
+
+    j[4][0].setBounds(columnX[0], rowY[4], columnWidth[0], 20);
+    j[4][1].setBounds(columnX[1], rowY[4], columnWidth[1], 20);
+    j[4][2].setBounds(columnX[2], rowY[4], columnWidth[2], 20);
+    j[4][3].setBounds(columnX[3], rowY[4], columnWidth[3], 20);
+    j[4][4].setBounds(columnX[4], rowY[4], columnWidth[4], 20);
         
-    add(j01);
-    add(j02);
-    add(j03);
-    add(j04);
-    add(j05);
-
-    add(j11);
-    add(j12);
-    add(j13);
-    add(j14);
-    add(j15);
-
-    add(j21);
-    add(j22);
-    add(j23);
-    add(j24);
-    add(j25);
-
-    add(j31);
-    add(j32);
-    add(j33);
-    add(j34);
-    add(j35);
-
-    add(j41);
-    add(j42);
-    add(j43);
-    add(j44);
-    add(j45);
+    for (int i = 0; i < 5; i++){
+        for (int k = 0; k < 5; k++){
+            add(j[i][k]);
+        }
+    }
     }
 
 
     public JPanel setPanel(long [] intArr, long [] longArr, float [] floatArr, double [] doubleArr){
-        this.j12.setText("" + intArr[0]);
-        this.j13.setText("" + longArr[0]);
-        this.j14.setText("" + floatArr[0]);
-        this.j15.setText("" + doubleArr[0]);
-
-        this.j22.setText("" + intArr[1]);
-        this.j23.setText("" + longArr[1]);
-        this.j24.setText("" + floatArr[1]);
-        this.j25.setText("" + doubleArr[1]);
-
-        this.j32.setText("" + intArr[2]);
-        this.j33.setText("" + longArr[2]);
-        this.j34.setText("" + floatArr[2]);
-        this.j35.setText("" + doubleArr[2]);
-
-        this.j42.setText("" + intArr[3]);
-        this.j43.setText("" + longArr[3]);
-        this.j44.setText("*");
-        this.j45.setText("" + doubleArr[3]);
-
+        int index;
+        for (int i = 1; i < 5; i++){
+            index = i - 1;
+            this.j[1][i].setText("" + intArr[index]);
+            this.j[2][i].setText("" + longArr[index]);
+            this.j[3][i].setText( i != 4 ? "" + floatArr[index] : "*");
+            this.j[4][i].setText("" + doubleArr[index]);
+        }
+        
         return this;
     }
 
