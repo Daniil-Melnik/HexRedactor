@@ -67,9 +67,9 @@ public class mainGui extends JFrame {
         scrollPane.setBounds(0, 0, 0, 0);
         table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells[0], errorCells[0]));
 
-        BlockSizePanel bSP = new BlockSizePanel(400, 10);
-        JPanel p = bSP.getPanel();
-        frame.add(p);
+        BlockSizePanel bSP = new BlockSizePanel();
+        bSP.setBounds(400, 10, 450, 150);
+        frame.add(bSP);
 
         SearchPanel searchPanel = new SearchPanel();
         searchPanel.setBounds(400, 200, 400, 150);
@@ -78,18 +78,13 @@ public class mainGui extends JFrame {
         searchPanel.addSearchButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ваша логика поиска здесь
                 System.out.println("Кнопка 'Найти' нажата.");
                 
-                // Пример: получить введенное значение
                 String inputText = searchPanel.inputField.getText();
                 System.out.println("Введенное значение/маска: " + inputText);
                 
-                // Пример: получить выбранное количество байтов
                 String byteSize = (String) searchPanel.byteSizeComboBox.getSelectedItem();
                 System.out.println("Количество байтов: " + byteSize);
-                
-                // Ваш код для выполнения поиска
             }
         });
 
