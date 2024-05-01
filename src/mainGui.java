@@ -69,7 +69,30 @@ public class mainGui extends JFrame {
 
         BlockSizePanel bSP = new BlockSizePanel(380, 10);
         JPanel p = bSP.getPanel();
-        frame.add(p);
+        // frame.add(p);
+
+        SearchPanel searchPanel = new SearchPanel();
+        searchPanel.setBounds(100, 100, 300, 150);
+        frame.add(searchPanel);
+
+        searchPanel.addSearchButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ваша логика поиска здесь
+                System.out.println("Кнопка 'Найти' нажата.");
+                
+                // Пример: получить введенное значение
+                String inputText = searchPanel.inputField.getText();
+                System.out.println("Введенное значение/маска: " + inputText);
+                
+                // Пример: получить выбранное количество байтов
+                String byteSize = (String) searchPanel.byteSizeComboBox.getSelectedItem();
+                System.out.println("Количество байтов: " + byteSize);
+                
+                // Ваш код для выполнения поиска
+            }
+        });
+
 
         final int [] prevCol = {0};
         final int [] prevRow = {1};
@@ -642,8 +665,8 @@ public class mainGui extends JFrame {
           
         
 
-        frame.getContentPane().add(scrollPane);
-        frame.add(widthField);
+        // frame.getContentPane().add(scrollPane);
+        // frame.add(widthField);
         // frame.add(removeZero);
         // frame.add(removeShift);
         // frame.add(fillZero);
@@ -652,12 +675,12 @@ public class mainGui extends JFrame {
         // frame.add(fillInBuffer);
         // frame.add(cutToBufferShift);
         // frame.add(cutToBufferZero);
-        frame.add(heightField);
+        // frame.add(heightField);
         // frame.add(lenField);
         // frame.add(dataField);
-        frame.add(forward);
-        frame.add(back);
-        frame.add(Hol);
+        // frame.add(forward);
+        // frame.add(back);
+        // frame.add(Hol);
 
         frame.setSize(1000, 600);
         frame.setLayout(null);
