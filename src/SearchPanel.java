@@ -107,6 +107,16 @@ public class SearchPanel extends JPanel {
         inputLabel.setText("Значение:");
     }
 
+        // Метод для проверки, выбрана ли радио-кнопка "По маске"
+        public boolean isSearchByMaskSelected() {
+            return searchByMaskRadioButton.isSelected();
+        }
+    
+        // Метод для проверки, выбрана ли радио-кнопка "По значению"
+        public boolean isSearchByValueSelected() {
+            return searchByValueRadioButton.isSelected();
+        }
+
     // Метод для добавления слушателя для кнопки "Найти"
     public void addSearchButtonListener(ActionListener listener) {
         findButton.addActionListener(listener);

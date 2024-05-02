@@ -86,6 +86,13 @@ public class mainGui extends JFrame {
                 
                 String byteSize = (String) searchPanel.byteSizeComboBox.getSelectedItem();
                 System.out.println("Количество байтов: " + byteSize);
+
+                        // Проверка, какая радио-кнопка выбрана
+                if (searchPanel.isSearchByMaskSelected()) {
+                    System.out.println("Выбран поиск по маске.");
+                } else if (searchPanel.isSearchByValueSelected()) {
+                    System.out.println("Выбран поиск по значению.");
+                }
             }
         });
 
