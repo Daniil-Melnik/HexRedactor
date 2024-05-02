@@ -1,4 +1,5 @@
 import java.awt.Font;
+import java.math.BigInteger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -90,7 +91,7 @@ public class BlockSizePanel extends JPanel {
     }
 
 
-    public JPanel setPanel(long [] intArr, long [] longArr, float [] floatArr, double [] doubleArr){
+    public JPanel setPanel(long [] intArr, BigInteger [] longArr, float [] floatArr, double [] doubleArr){
         int index;
         for (int i = 1; i < 5; i++){
             index = i - 1;

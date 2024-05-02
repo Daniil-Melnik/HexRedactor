@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 public class ByteTransform {
     
     /////////////////////////////////////////////////////////////// offt - сдвиг в таблице
@@ -5,7 +7,7 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public String getBinaryStr(String [] data, int offt, int len){
         int [] inIntArr = new int[len];
-        System.out.println("------------------------------------------");
+        //System.out.println("------------------------------------------");
         for (int i = 0; i < len; i++){
             inIntArr[i] = Integer.parseInt(data[offt + i], 16);
         }
@@ -66,10 +68,11 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////// offt - сдвиг в таблице
     /////////////// Преобразование байт в беззнаковое ///////////////
     /////////////////////////////////////////////////////////////////
-    public long getUnsigned(String [] data, int offt, int len){
+    public BigInteger getUnsigned(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        long res = Long.parseUnsignedLong(concBinStr, 2);
 
+        BigInteger res = new BigInteger(concBinStr, 2);
+   
         return res;
     }
 

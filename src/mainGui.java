@@ -1,5 +1,6 @@
 import java.awt.event.*;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -106,7 +107,7 @@ public class mainGui extends JFrame {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
                         long [] intArr = new long [4];
-                        long [] longArr = new long[4];
+                        BigInteger [] longArr = new BigInteger[4];
                         float [] floatArr = new float[4];
                         double [] doubleArr  = new double[4];
 
@@ -163,7 +164,7 @@ public class mainGui extends JFrame {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
                         long [] intArr = new long [4];
-                        long [] longArr = new long[4];
+                        BigInteger [] longArr = new BigInteger[4];
                         float [] floatArr = new float[4];
                         double [] doubleArr  = new double[4];
 
