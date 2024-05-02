@@ -49,6 +49,12 @@ public class ByteTransform {
         String concBinStr = "";
         for (String str : binaryArr) concBinStr += str;
 
+        int lenConc = 64 - concBinStr.length();
+        for (int i = 0; i < lenConc; i++){
+            concBinStr = "0" + concBinStr;
+        }
+        // System.out.println(concBinStr);
+
         return concBinStr;
     }    
     
@@ -100,6 +106,37 @@ public class ByteTransform {
         double res = Double.longBitsToDouble(longValue);
         
         res *= concBinStr.charAt(0) == '1' ? -1 : 1;
+
+        return res;
+    }
+
+    public int [] getByteOffsets124(String [] data, int len, BigInteger  num){
+        int cnt = 0;
+        String cntStr = "";
+        String targetStr = num.toString(2);
+        int tmp = 64 - targetStr.length();
+        for (int i = 0; i < tmp; i++){
+            targetStr = "0" + targetStr;
+        }
+        System.out.println("**" + targetStr);
+        for (int i = 0; i < data.length - 7; i++){
+            cntStr = getBinaryStr(data, i, len);
+            System.out.println(cntStr);
+            if (cntStr.equals(targetStr)){
+                cnt++;
+            }
+        }
+
+        int [] res = new int[cnt];
+        // int [] res = {5, 5, 5};
+        int tCnt = 0;
+        for (int j = 0; j < data.length - 7; j++){
+            cntStr = getBinaryStr(data, j, len);
+            if (cntStr.equals(targetStr)){
+                res[tCnt] = j;
+                tCnt++;
+            }
+        }
 
         return res;
     }

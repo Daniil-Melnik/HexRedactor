@@ -93,6 +93,16 @@ public class mainGui extends JFrame {
                 } else if (searchPanel.isSearchByValueSelected()) {
                     System.out.println("Выбран поиск по значению.");
                 }
+
+                utilByte uB = new utilByte();
+                int offt1 = offset[1] + rowLen[0] * columnLen[0];
+                String [] rightData = bIO.getHexBytesOfft(offt1, 7);
+                String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
+
+                BigInteger bK = new BigInteger(inputText);
+
+                int [] offts = bT.getByteOffsets124(data, 1, bK);
+                for (Integer i : offts) System.out.print(i + " ");
             }
         });
 
@@ -121,10 +131,10 @@ public class mainGui extends JFrame {
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
 
-                        int offt1 = offset[1] + row * rowLen[0] + col - 1;
+                        int offt1 = offset[1] + rowLen[0] * columnLen[0];
                         String [] rightData = bIO.getHexBytesOfft(offt1, 7);
                         String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
-                        System.out.println(data.length);
+                        // for (String str : data) System.out.print(str + " ");
                                 
 
                         int offt2 = row * rowLen[0] + col - 1;
@@ -178,10 +188,10 @@ public class mainGui extends JFrame {
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
 
-                        int offt1 = offset[1] + row * rowLen[0] + col - 1;
+                        int offt1 = offset[1] + rowLen[0] * columnLen[0];
                         String [] rightData = bIO.getHexBytesOfft(offt1, 7);
                         String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
-                        System.out.println(data.length);
+                        // for (String str : data) System.out.print(str + " ");
                                 
 
                         int offt2 = row * rowLen[0] + col - 1;
@@ -681,8 +691,8 @@ public class mainGui extends JFrame {
         // frame.add(heightField);
         // frame.add(lenField);
         // frame.add(dataField);
-        // frame.add(forward);
-        // frame.add(back);
+        frame.add(forward);
+        frame.add(back);
         // frame.add(Hol);
 
         frame.setSize(1150, 600);
