@@ -100,8 +100,9 @@ public class mainGui extends JFrame {
                 String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
 
                 BigInteger bK = new BigInteger(inputText);
+                int len = Integer.parseInt(byteSize);
 
-                int [] offts = bT.getByteOffsets124(data, 1, bK);
+                int [] offts = bT.getByteOffsets124(data, len, bK);
                 for (Integer i : offts) System.out.print(i + " ");
             }
         });

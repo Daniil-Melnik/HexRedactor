@@ -7,7 +7,6 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public String getBinaryStr(String [] data, int offt, int len){
         int [] inIntArr = new int[len];
-        //System.out.println("------------------------------------------");
         for (int i = 0; i < len; i++){
             inIntArr[i] = Integer.parseInt(data[offt + i], 16);
         }
@@ -43,17 +42,10 @@ public class ByteTransform {
                 case 8:
                     break;
             }
-            //System.out.println(binaryArr[j]);
         }
         
         String concBinStr = "";
         for (String str : binaryArr) concBinStr += str;
-
-//        int lenConc = 64 - concBinStr.length();
-//        for (int i = 0; i < lenConc; i++){
-//            concBinStr = "0" + concBinStr;
-//        }
-        // System.out.println(concBinStr);
 
         return concBinStr;
     }    
@@ -88,7 +80,6 @@ public class ByteTransform {
     public float getFloat(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
 
-//        System.out.println("***" + tmpStr);
         String subStr = concBinStr.substring(1);
         int intValue = Integer.parseInt(subStr, 2);
 
@@ -120,10 +111,8 @@ public class ByteTransform {
         for (int i = 0; i < tmp; i++){
             targetStr = "0" + targetStr;
         }
-        System.out.println("**" + targetStr);
         for (int i = 0; i < data.length - 7; i++){
             cntStr = getBinaryStr(data, i, len);
-            System.out.println(cntStr);
             if (cntStr.equals(targetStr)){
                 cnt++;
             }
