@@ -49,10 +49,10 @@ public class ByteTransform {
         String concBinStr = "";
         for (String str : binaryArr) concBinStr += str;
 
-        int lenConc = 64 - concBinStr.length();
-        for (int i = 0; i < lenConc; i++){
-            concBinStr = "0" + concBinStr;
-        }
+//        int lenConc = 64 - concBinStr.length();
+//        for (int i = 0; i < lenConc; i++){
+//            concBinStr = "0" + concBinStr;
+//        }
         // System.out.println(concBinStr);
 
         return concBinStr;
@@ -87,10 +87,9 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public float getFloat(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        String tmpStr = concBinStr.substring(32);
 
 //        System.out.println("***" + tmpStr);
-        String subStr = tmpStr.substring(1);
+        String subStr = concBinStr.substring(1);
         int intValue = Integer.parseInt(subStr, 2);
 
         float res = Float.intBitsToFloat(intValue);
@@ -117,7 +116,7 @@ public class ByteTransform {
         int cnt = 0;
         String cntStr = "";
         String targetStr = num.toString(2);
-        int tmp = 64 - targetStr.length();
+        int tmp = len * 8 - targetStr.length();
         for (int i = 0; i < tmp; i++){
             targetStr = "0" + targetStr;
         }
