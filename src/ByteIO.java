@@ -76,11 +76,9 @@ public class ByteIO {
         int cnt = 0;
         for (int i = 0; i < data.length; i++){
             if (!data[i].equals("**")){
-                res[cnt] = Byte.parseByte(data[i], 16);
+                res[cnt] = (byte) (Integer.parseInt(data[i], 16));
                 cnt++;
             }
-            //res[i] = data[i].getBytes()[0];
-            //System.out.println(res[i] + " " + (byte)(Integer.parseInt(data[i], 16)));
         }
         return res;
     }
