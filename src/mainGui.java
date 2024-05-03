@@ -99,10 +99,12 @@ public class mainGui extends JFrame {
                 String [] rightData = bIO.getHexBytesOfft(offt1, 7);
                 String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
 
-                BigInteger bK = new BigInteger(inputText);
+//                BigInteger bK = new BigInteger(inputText);
+                String mask = inputText;
                 int len = Integer.parseInt(byteSize);
 
-                int [] offts = bT.getByteOffsets124(data, len, bK);
+//                int [] offts = bT.getByteOffsets124(data, len, bK);
+                int [] offts = bT.getBytesOffsetMask(data, len, mask);
                 for (Integer i : offts) System.out.print(i + " ");
             }
         });

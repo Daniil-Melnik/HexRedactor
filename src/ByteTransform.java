@@ -131,4 +131,35 @@ public class ByteTransform {
 
         return res;
     }
+
+    public boolean isValidForMask(String dataEl, String mask){
+        int cnt = 0;
+//        System.out.println();
+//        System.out.println(dataEl + "\n" + mask);
+        while ((dataEl.charAt(cnt) == mask.charAt(cnt)) || (mask.charAt(cnt) == '*') && (cnt != mask.length() - 1)){
+            cnt++;
+        }
+//        System.out.println (mask.length() + " " + cnt);
+        return mask.length() - 1 == cnt;
+    }
+
+    public int [] getBytesOffsetMask(String [] data, int len, String mask){
+        int numEl = 0;
+        for (int i = 0; i < data.length - 1; i++){
+            String tmpStr = getBinaryStr(data, i, len);
+            if (isValidForMask(tmpStr, mask)) numEl++;
+        }
+
+        int [] res = new int [numEl];
+        int k = 0;
+
+        for (int i = 0; i < data.length - 1; i++){
+            String tmpStr = getBinaryStr(data, i, len);
+            if (isValidForMask(tmpStr, mask)) {
+                res[k] = i;
+                k++;
+            }
+        }
+        return res;
+    }
 }
