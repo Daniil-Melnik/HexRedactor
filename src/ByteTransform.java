@@ -87,7 +87,10 @@ public class ByteTransform {
     ///////////////////////////////////////////////////////////////
     public float getFloat(String [] data, int offt, int len){
         String concBinStr = getBinaryStr(data, offt, len);
-        String subStr = concBinStr.substring(1);
+        String tmpStr = concBinStr.substring(32);
+
+//        System.out.println("***" + tmpStr);
+        String subStr = tmpStr.substring(1);
         int intValue = Integer.parseInt(subStr, 2);
 
         float res = Float.intBitsToFloat(intValue);
