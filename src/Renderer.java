@@ -5,9 +5,9 @@ import java.awt.*;
 public class Renderer extends DefaultTableCellRenderer {
     private HighLightRenderer highlightRenderer;
 
-    public Renderer(int[][] highlightCells, int[][] errorCells) {
+    public Renderer(int[][] highlightCells, int[][] errorCells, int[][] findedCells) {
         
-        this.highlightRenderer = new HighLightRenderer(highlightCells, errorCells);
+        this.highlightRenderer = new HighLightRenderer(highlightCells, errorCells, findedCells);
     }
 
     @Override

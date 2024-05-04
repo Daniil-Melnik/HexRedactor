@@ -6,10 +6,12 @@ import java.util.Arrays;
 public class HighLightRenderer extends DefaultTableCellRenderer {
     private final int[][] highlightCells;
     private final int[][] errorCells;
+    private final int[][] findedCells;
 
-    public HighLightRenderer(int[][] highlightCells, int[][] errorCells) {
+    public HighLightRenderer(int[][] highlightCells, int[][] errorCells, int[][] findedCells) {
         this.highlightCells = highlightCells;
         this.errorCells = errorCells;
+        this.findedCells = findedCells;
     }
 
     @Override
@@ -20,6 +22,9 @@ public class HighLightRenderer extends DefaultTableCellRenderer {
         }
         else if (Arrays.stream(highlightCells).anyMatch(coord -> coord[0] == row && coord[1] == column)){
             c.setBackground(Color.GREEN);
+        }
+        else if (Arrays.stream(findedCells).anyMatch(coord -> coord[0] == row && coord[1] == column)){
+            c.setBackground(Color.GRAY);
         }
         else{
             c.setBackground(Color.WHITE); // Сбрасываем фон обратно на белый, если ячейка не выделена
