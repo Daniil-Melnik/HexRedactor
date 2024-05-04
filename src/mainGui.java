@@ -105,7 +105,11 @@ public class mainGui extends JFrame {
 
 //                int [] offts = bT.getByteOffsets124(data, len, bK);
                 int [] offts = bT.getBytesOffsetMask(data, len, mask);
-                for (Integer i : offts) System.out.print(i + " ");
+                int [][] cellCoords = sH.getTableCellCoords(offts);
+                // for (Integer  i : offts) System.out.print(i + " ");
+                // for (int i = 0; i < cellCoords.length; i++){
+                //     System.out.println(cellCoords[i][0] + " " + cellCoords[i][1]);
+                // }
             }
         });
 

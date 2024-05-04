@@ -56,6 +56,20 @@ public class SheetHolder {
         this.fName = fName;
     }
 
+    ///////////////////////////////////////////////////////////////
+    ////////////////// Получение координат ячеек //////////////////
+    ///////////////////////////////////////////////////////////////
+
+    public int [][] getTableCellCoords(int [] offts){
+        int offtLen = offts.length;
+        int [][] res = new int [offtLen][2];
+        for (int i = 0; i < offtLen; i++){
+            int singleOfft = offts[i];
+            res[i][0] = singleOfft / this.rowLen;
+            res[i][1] = singleOfft % this.rowLen + 1;
+        }
+        return res;
+    }
 
 
     public void makeHandle(ChangeHandler chH){
