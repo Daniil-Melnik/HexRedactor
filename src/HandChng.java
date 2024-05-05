@@ -17,4 +17,8 @@ public class HandChng {
                                       JOptionPane.YES_NO_CANCEL_OPTION);
         return res;
     }
+
+    public void showOk(String title, String msg){
+        JOptionPane.showMessageDialog(frame, msg, title, 0);;
+    } 
 }

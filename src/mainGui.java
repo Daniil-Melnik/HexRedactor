@@ -83,16 +83,10 @@ public class mainGui extends JFrame {
         searchPanel.addSearchButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Кнопка 'Найти' нажата.");
                 
                 String inputText = searchPanel.inputField.getText();
-                System.out.println("Введенное значение/маска: " + inputText);
                 
                 byteSize[0] = (String) searchPanel.byteSizeComboBox.getSelectedItem();
-                System.out.println("Количество байтов: " + byteSize[0]);
-
-                        // Проверка, какая радио-кнопка выбрана
-
 
                 utilByte uB = new utilByte();
                 int offt1 = offset[1] + rowLen[0] * columnLen[0];
@@ -103,9 +97,14 @@ public class mainGui extends JFrame {
                 int len = Integer.parseInt(byteSize[0]);
 
                 int [] offts = {};
-
+                RegExp rG = new RegExp();
                 if (searchPanel.isSearchByMaskSelected()) {
-                    offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                    if (rG.isMask(maskValue[0])){
+                        offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                    }
+                    else {
+                        hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
+                    }
                 } else if (searchPanel.isSearchByValueSelected()) {
                     BigInteger val = new BigInteger(maskValue[0]);
                     offts = bT.getByteOffsetsValue(data, len, val);
