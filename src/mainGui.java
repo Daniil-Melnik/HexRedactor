@@ -31,6 +31,7 @@ public class mainGui extends JFrame {
         final String[][] dat = {null, null};
 
         String [] maskValue = {""};
+        final String[] byteSize = {""};
         SheetHolder sH = new SheetHolder("src/1.txt");
 
         MouseHig mh = new MouseHig();
@@ -87,8 +88,8 @@ public class mainGui extends JFrame {
                 String inputText = searchPanel.inputField.getText();
                 System.out.println("Введенное значение/маска: " + inputText);
                 
-                String byteSize = (String) searchPanel.byteSizeComboBox.getSelectedItem();
-                System.out.println("Количество байтов: " + byteSize);
+                byteSize[0] = (String) searchPanel.byteSizeComboBox.getSelectedItem();
+                System.out.println("Количество байтов: " + byteSize[0]);
 
                         // Проверка, какая радио-кнопка выбрана
 
@@ -99,7 +100,7 @@ public class mainGui extends JFrame {
                 String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
 
                 maskValue[0] = inputText;
-                int len = Integer.parseInt(byteSize);
+                int len = Integer.parseInt(byteSize[0]);
 
                 int [] offts = {};
 
@@ -423,13 +424,14 @@ public class mainGui extends JFrame {
                 offset[0] = offset[0] + rowLen[0] * columnLen[0];
                 offset[1] = offset[1] + rowLen[0] * columnLen[0];
                 sH.setOfft(offset[0]);
-                sH.setColumnLen(columnLen[0]);
+                sH.setColumnLen(columnLen[0]);            
+
                 if (!changed[0]){
                     //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     sH.setAllData(dat[0]);
                     dLen[0] = 0;
-                    setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                    // setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                 }
                 else{
                     int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -441,7 +443,7 @@ public class mainGui extends JFrame {
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест
-                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                        // setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         dLen[0] = 0;
                         changed[0] = false;
@@ -450,12 +452,37 @@ public class mainGui extends JFrame {
                         // оставить файл в старом виде
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]);
-                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                        // setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         changed[0] = false;
                     }
                     // Cancel - ничего не делать
                 }
+
+                // наследование поиска начало
+                if ((!maskValue.equals("")) && (!byteSize[0].equals(""))){
+
+                    utilByte uB = new utilByte();
+                    int offt1 = offset[1] + rowLen[0] * columnLen[0];
+                    String [] rightData = bIO.getHexBytesOfft(offt1, 7);
+                    String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
+
+                    int len = Integer.parseInt(byteSize[0]);
+
+                    int [] offts = {};
+
+                    if (searchPanel.isSearchByMaskSelected()) {
+                        offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                    } else if (searchPanel.isSearchByValueSelected()) {
+                        BigInteger val = new BigInteger(maskValue[0]);
+                        offts = bT.getByteOffsetsValue(data, len, val);
+                    }
+
+                    findedCells[0] = sH.getTableCellCoords(offts);
+                }
+
+                // наследование поиска конец    
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
             }
         });
 
