@@ -103,7 +103,7 @@ public class ByteTransform {
         return res;
     }
 
-    public int [] getByteOffsets124(String [] data, int len, BigInteger  num){
+    public int [] getByteOffsetsValue(String [] data, int len, BigInteger  num){
         int cnt = 0;
         String cntStr = "";
         String targetStr = num.toString(2);

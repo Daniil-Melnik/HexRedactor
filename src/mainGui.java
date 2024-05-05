@@ -29,6 +29,8 @@ public class mainGui extends JFrame {
         final int[][][] findedCells = {{}};
         boolean[] changed = {false};
         final String[][] dat = {null, null};
+
+        String [] maskValue = {""};
         SheetHolder sH = new SheetHolder("src/1.txt");
 
         MouseHig mh = new MouseHig();
@@ -89,29 +91,30 @@ public class mainGui extends JFrame {
                 System.out.println("Количество байтов: " + byteSize);
 
                         // Проверка, какая радио-кнопка выбрана
-                if (searchPanel.isSearchByMaskSelected()) {
-                    System.out.println("Выбран поиск по маске.");
-                } else if (searchPanel.isSearchByValueSelected()) {
-                    System.out.println("Выбран поиск по значению.");
-                }
+
 
                 utilByte uB = new utilByte();
                 int offt1 = offset[1] + rowLen[0] * columnLen[0];
                 String [] rightData = bIO.getHexBytesOfft(offt1, 7);
                 String [] data = uB.fillInSevenBytes(sH.getData(), rightData);
 
-//                BigInteger bK = new BigInteger(inputText);
-                String mask = inputText;
+                maskValue[0] = inputText;
                 int len = Integer.parseInt(byteSize);
 
-//                int [] offts = bT.getByteOffsets124(data, len, bK);
-                int [] offts = bT.getBytesOffsetMask(data, len, mask);
+                int [] offts = {};
+
+                if (searchPanel.isSearchByMaskSelected()) {
+                    offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                } else if (searchPanel.isSearchByValueSelected()) {
+                    BigInteger val = new BigInteger(maskValue[0]);
+                    offts = bT.getByteOffsetsValue(data, len, val);
+                }
+
                 findedCells[0] = sH.getTableCellCoords(offts);
+
+                
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
-                // for (Integer  i : offts) System.out.print(i + " ");
-                // for (int i = 0; i < cellCoords.length; i++){
-                //     System.out.println(cellCoords[i][0] + " " + cellCoords[i][1]);
-                // }
+
             }
         });
 
