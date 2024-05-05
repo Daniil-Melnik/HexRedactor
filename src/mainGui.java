@@ -471,9 +471,13 @@ public class mainGui extends JFrame {
 
                     int [] offts = {};
 
-                    if (searchPanel.isSearchByMaskSelected()) {
+                    RegExp rG = new RegExp();
+
+                    boolean isMask = rG.isMask(maskValue[0]);
+
+                    if (isMask) {
                         offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
-                    } else if (searchPanel.isSearchByValueSelected()) {
+                    } else {
                         BigInteger val = new BigInteger(maskValue[0]);
                         offts = bT.getByteOffsetsValue(data, len, val);
                     }
