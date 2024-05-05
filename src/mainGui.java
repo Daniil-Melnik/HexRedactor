@@ -106,8 +106,13 @@ public class mainGui extends JFrame {
                         hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
                     }
                 } else if (searchPanel.isSearchByValueSelected()) {
-                    BigInteger val = new BigInteger(maskValue[0]);
-                    offts = bT.getByteOffsetsValue(data, len, val);
+                    if (rG.isValue(maskValue[0])){
+                        BigInteger val = new BigInteger(maskValue[0]);
+                        offts = bT.getByteOffsetsValue(data, len, val);
+                    }
+                    else {
+                        hc.showOk("Ошибка", "Значение - целое беззнаковое число");
+                    }
                 }
 
                 findedCells[0] = sH.getTableCellCoords(offts);
