@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditPanel extends JPanel {
-    private JComboBox<String> comboBox;
+    private JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
     private JLabel mainLabel, opLabel;
     private JButton executeButton;
@@ -34,10 +34,11 @@ public class EditPanel extends JPanel {
         comboBox.addActionListener(new ComboBoxListener());
         comboBox.setBounds(90, 35, 300, 25);
         comboBox.setFont(font15);
-        add(comboBox, BorderLayout.NORTH);
+        add(comboBox);
 
         // Создаем динамическую панель для переключаемых элементов
         dynamicContent = new JPanel();
+        dynamicContent.setLayout(null);
         dynamicContent.setBorder(new RoundedBorder(10));
         dynamicContent.setBounds(1, 60, 398, 80);
         add(dynamicContent);
@@ -57,6 +58,9 @@ public class EditPanel extends JPanel {
 
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
+        
+        Font font15 = new Font("Arial", Font.PLAIN, 15);        
+
         String selectedItem = (String) comboBox.getSelectedItem();
 
         if ("Удалить".equals(selectedItem) || "Вырезать".equals(selectedItem)) {
@@ -66,6 +70,12 @@ public class EditPanel extends JPanel {
             group.add(shiftRadio);
             group.add(zeroRadio);
 
+            shiftRadio.setBounds(55, 25, 150, 30);
+            zeroRadio.setBounds(215, 25, 150, 30);
+
+            shiftRadio.setFont(font15);
+            zeroRadio.setFont(font15);
+
             dynamicContent.add(shiftRadio);
             dynamicContent.add(zeroRadio);
 
@@ -73,8 +83,15 @@ public class EditPanel extends JPanel {
             JRadioButton replaceRadio = new JRadioButton("с замещением");
             JRadioButton shiftRadio = new JRadioButton("со сдвигом");
             ButtonGroup actionGroup = new ButtonGroup();
+
             actionGroup.add(replaceRadio);
             actionGroup.add(shiftRadio);
+
+            replaceRadio.setBounds(55, 10, 150, 30);
+            shiftRadio.setBounds(215, 10, 150, 30);
+
+            replaceRadio.setFont(font15);
+            shiftRadio.setFont(font15);
 
             dynamicContent.add(replaceRadio);
             dynamicContent.add(shiftRadio);
@@ -85,12 +102,27 @@ public class EditPanel extends JPanel {
             sourceGroup.add(bufferRadio);
             sourceGroup.add(valueRadio);
 
-            dynamicContent.add(bufferRadio);
-            dynamicContent.add(valueRadio);
+            bufferRadio.setBounds(215, 15, 150, 30);
+            valueRadio.setBounds(215, 40, 150, 30); 
+            
+            bufferRadio.setFont(font15);
+            valueRadio.setFont(font15);
 
-            // Добавляем действие при выборе radio-кнопок
-            bufferRadio.addActionListener(new RadioActionListener());
-            valueRadio.addActionListener(new RadioActionListener());
+            valueBuffer = new JComboBox<String>(new String []{"из буфера", "задать"});
+            valueBuffer.setBounds(30, 40, 120, 20);
+            valueBuffer.setFont(font15);
+            dynamicContent.add(valueBuffer);
+
+            valueBuffer.addActionListener(new ComboBoxVBListener());
+
+            valueField = new JTextField();
+            valueField.setBounds(180, 40, 200, 25);
+            valueField.setEditable(false);
+            valueField.setFont(font15);
+            dynamicContent.add(valueField);
+
+            // bufferRadio.addActionListener(new RadioActionListener());
+            // valueRadio.addActionListener(new RadioActionListener());
 
         } else if ("Вставить нули".equals(selectedItem)) {
             JTextField zeroField = new JTextField(10);
@@ -101,13 +133,14 @@ public class EditPanel extends JPanel {
         dynamicContent.repaint();
     }
 
-    private class RadioActionListener implements ActionListener {
+    private class ComboBoxVBListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == valueRadio && valueRadio.isSelected()) {
-                dynamicContent.add(valueField);
-            } else if (e.getSource() == bufferRadio && bufferRadio.isSelected()) {
-                dynamicContent.remove(valueField);
+            String str = (String) valueBuffer.getSelectedItem();
+            if (str.equals("из буфера")) {
+                valueField.setEditable(false);
+            } else if (str.equals("задать")) {
+                valueField.setEditable(true);
             }
             dynamicContent.revalidate();
             dynamicContent.repaint();
