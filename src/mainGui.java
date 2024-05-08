@@ -123,6 +123,10 @@ public class mainGui extends JFrame {
             }
         });
 
+        EditPanel editPanel = new EditPanel();
+        editPanel.setBounds(400, 370, 400, 150);
+        frame.add(editPanel);
+
 
         final int [] prevCol = {0};
         final int [] prevRow = {1};
@@ -739,8 +743,8 @@ public class mainGui extends JFrame {
         // frame.add(heightField);
         // frame.add(lenField);
         // frame.add(dataField);
-        frame.add(forward);
-        frame.add(back);
+        // frame.add(forward);
+        // frame.add(back);
         // frame.add(Hol);
 
         frame.setSize(1150, 600);

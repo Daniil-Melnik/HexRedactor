@@ -6,17 +6,34 @@ import java.awt.event.ActionListener;
 public class EditPanel extends JPanel {
     private JComboBox<String> comboBox;
     private JPanel dynamicContent;
+    private JLabel mainLabel, opLabel;
     private JButton executeButton;
     private JTextField valueField;
     private JRadioButton bufferRadio;
     private JRadioButton valueRadio;
 
     public EditPanel() {
-        setLayout(new BorderLayout());
+        setLayout(null);
+        setBorder(new RoundedBorder(10));
+
+        Font font20 = new Font("Arial", Font.PLAIN, 20);
+        Font font15 = new Font("Arial", Font.PLAIN, 15);
+
+        mainLabel = new JLabel("Редактирование");
+        mainLabel.setFont(font20);
+        mainLabel.setBounds(125, 0, 200, 30);
+        add(mainLabel);
+
+        opLabel = new JLabel("Операция: ");
+        opLabel.setFont(font15);
+        opLabel.setBounds(10, 38, 80, 20);
+        add(opLabel);
 
         // Создаем выпадающее меню
         comboBox = new JComboBox<>(new String[]{"Удалить", "Вырезать", "Вставить", "Вставить нули"});
         comboBox.addActionListener(new ComboBoxListener());
+        comboBox.setBounds(90, 35, 300, 25);
+        comboBox.setFont(font15);
         add(comboBox, BorderLayout.NORTH);
 
         // Создаем динамическую панель для переключаемых элементов
