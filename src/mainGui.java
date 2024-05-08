@@ -127,6 +127,10 @@ public class mainGui extends JFrame {
         editPanel.setBounds(400, 360, 400, 180);
         frame.add(editPanel);
 
+        TableInfoPanel tableInfoPanel = new TableInfoPanel(0, 0, 0, 0);
+        tableInfoPanel.setBounds(820, 360, 280, 180);
+        frame.add(tableInfoPanel);
+
 
         final int [] prevCol = {0};
         final int [] prevRow = {1};

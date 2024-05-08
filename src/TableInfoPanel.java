@@ -11,7 +11,7 @@ public class TableInfoPanel extends JPanel {
 
     public TableInfoPanel(int sizeX, int sizeY, int focus, int selectionStart) {
         setLayout(new GridLayout(3, 2)); // 3 строки, 2 столбца
-
+        setBorder(new RoundedBorder(10));
         // Размеры
         sizeLabel = new JLabel("Размер: " + sizeX + " x " + sizeY + " ячеек");
         add(sizeLabel);
