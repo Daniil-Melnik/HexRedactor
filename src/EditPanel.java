@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class EditPanel extends JPanel {
     private JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
-    private JLabel mainLabel, opLabel;
+    private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
     private JTextField valueField;
     private JRadioButton bufferRadio;
@@ -21,32 +21,32 @@ public class EditPanel extends JPanel {
 
         mainLabel = new JLabel("Редактирование");
         mainLabel.setFont(font20);
-        mainLabel.setBounds(125, 0, 200, 30);
+        mainLabel.setBounds(125, 10, 200, 30);
         add(mainLabel);
 
         opLabel = new JLabel("Операция: ");
         opLabel.setFont(font15);
-        opLabel.setBounds(10, 38, 80, 20);
+        opLabel.setBounds(10, 52, 80, 20);
         add(opLabel);
 
         // Создаем выпадающее меню
         comboBox = new JComboBox<>(new String[]{"Удалить", "Вырезать", "Вставить", "Вставить нули"});
         comboBox.addActionListener(new ComboBoxListener());
-        comboBox.setBounds(90, 35, 300, 25);
+        comboBox.setBounds(90, 50, 300, 25);
         comboBox.setFont(font15);
         add(comboBox);
 
         // Создаем динамическую панель для переключаемых элементов
         dynamicContent = new JPanel();
         dynamicContent.setLayout(null);
-        dynamicContent.setBorder(new RoundedBorder(10));
-        dynamicContent.setBounds(1, 60, 398, 80);
+        // dynamicContent.setBorder(new RoundedBorder(10));
+        dynamicContent.setBounds(1, 65, 398, 80);
         add(dynamicContent);
 
         // Создаем кнопку "Выполнить"
         executeButton = new JButton("Выполнить");
         executeButton.addActionListener(new ExecuteButtonListener());
-        executeButton.setBounds(1, 139, 398,30);
+        executeButton.setBounds(1, 149, 398,30);
         add(executeButton);
 
         // Создаем поле для ввода заранее
@@ -58,7 +58,7 @@ public class EditPanel extends JPanel {
 
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
-        
+
         Font font15 = new Font("Arial", Font.PLAIN, 15);        
 
         String selectedItem = (String) comboBox.getSelectedItem();
@@ -87,8 +87,8 @@ public class EditPanel extends JPanel {
             actionGroup.add(replaceRadio);
             actionGroup.add(shiftRadio);
 
-            replaceRadio.setBounds(55, 10, 150, 30);
-            shiftRadio.setBounds(215, 10, 150, 30);
+            replaceRadio.setBounds(55, 13, 150, 30);
+            shiftRadio.setBounds(215, 13, 150, 30);
 
             replaceRadio.setFont(font15);
             shiftRadio.setFont(font15);
@@ -96,37 +96,30 @@ public class EditPanel extends JPanel {
             dynamicContent.add(replaceRadio);
             dynamicContent.add(shiftRadio);
 
-            bufferRadio = new JRadioButton("из буфера");
-            valueRadio = new JRadioButton("задать значение");
-            ButtonGroup sourceGroup = new ButtonGroup();
-            sourceGroup.add(bufferRadio);
-            sourceGroup.add(valueRadio);
-
-            bufferRadio.setBounds(215, 15, 150, 30);
-            valueRadio.setBounds(215, 40, 150, 30); 
-            
-            bufferRadio.setFont(font15);
-            valueRadio.setFont(font15);
-
             valueBuffer = new JComboBox<String>(new String []{"из буфера", "задать"});
-            valueBuffer.setBounds(30, 40, 120, 20);
+            valueBuffer.setBounds(10, 49, 120, 25);
             valueBuffer.setFont(font15);
             dynamicContent.add(valueBuffer);
 
             valueBuffer.addActionListener(new ComboBoxVBListener());
 
             valueField = new JTextField();
-            valueField.setBounds(180, 40, 200, 25);
+            valueField.setBounds(135, 49, 260, 25);
             valueField.setEditable(false);
             valueField.setFont(font15);
             dynamicContent.add(valueField);
 
-            // bufferRadio.addActionListener(new RadioActionListener());
-            // valueRadio.addActionListener(new RadioActionListener());
-
         } else if ("Вставить нули".equals(selectedItem)) {
             JTextField zeroField = new JTextField(10);
+            zeroField.setFont(font15);
+            zeroField.setBounds(120, 35, 150, 25);
+
+            zeroLabel = new JLabel("Кол-во нулей:");
+            zeroLabel.setFont(font15);
+            zeroLabel.setBounds(10, 35, 150, 25);
+
             dynamicContent.add(zeroField);
+            dynamicContent.add(zeroLabel);
         }
 
         dynamicContent.revalidate();

@@ -124,7 +124,7 @@ public class mainGui extends JFrame {
         });
 
         EditPanel editPanel = new EditPanel();
-        editPanel.setBounds(400, 370, 400, 170);
+        editPanel.setBounds(400, 360, 400, 180);
         frame.add(editPanel);
 
 
@@ -747,7 +747,7 @@ public class mainGui extends JFrame {
         // frame.add(back);
         // frame.add(Hol);
 
-        frame.setSize(1150, 600);
+        frame.setSize(1150, 620);
         frame.setLayout(null);
         frame.setVisible(true);
     }
@@ -783,7 +783,7 @@ public class mainGui extends JFrame {
 
         // Устанавливаем ширину остальных столбцов
         int otherColumnWidth = 80;
-        scrollPane.setBounds(0, 0, 350, 568);
+        scrollPane.setBounds(0, 0, 350, 588);
 
         for (int i = 1; i < columnCount; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(otherColumnWidth);
