@@ -124,7 +124,7 @@ public class mainGui extends JFrame {
         });
 
         EditPanel editPanel = new EditPanel();
-        editPanel.setBounds(400, 370, 400, 150);
+        editPanel.setBounds(400, 370, 400, 170);
         frame.add(editPanel);
 
 
