@@ -9,8 +9,6 @@ public class EditPanel extends JPanel {
     private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
     private JTextField valueField;
-    private JRadioButton bufferRadio;
-    private JRadioButton valueRadio;
 
     public EditPanel() {
         setLayout(null);
