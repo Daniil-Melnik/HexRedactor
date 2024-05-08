@@ -10,6 +10,8 @@ public class FileManagerPanel extends JPanel {
     public FileManagerPanel(String initialFileName) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Вертикальная компоновка
 
+        setBorder(new RoundedBorder(10));
+
         // Label для отображения текущего файла
         currentFileLabel = new JLabel("Текущий файл: " + initialFileName);
         add(currentFileLabel);

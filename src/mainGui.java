@@ -131,6 +131,10 @@ public class mainGui extends JFrame {
         tableInfoPanel.setBounds(820, 360, 280, 180);
         frame.add(tableInfoPanel);
 
+        FileManagerPanel fileManagerPanel = new FileManagerPanel("initial.txt");
+        fileManagerPanel.setBounds(820, 200, 280, 150);
+        frame.add(fileManagerPanel);
+
 
         final int [] prevCol = {0};
         final int [] prevRow = {1};
