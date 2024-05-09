@@ -25,6 +25,8 @@ public class mainGui extends JFrame {
         int[] columnLen = {4};
         int[] dLen = {0};
 
+        EditBtnActions eBA = new EditBtnActions();
+
         final int[][][] highlightCells = {{}};
         final int[][][] findedCells = {{}};
         boolean[] changed = {false};
@@ -125,6 +127,26 @@ public class mainGui extends JFrame {
 
         EditPanel editPanel = new EditPanel();
         editPanel.setBounds(400, 360, 400, 180);
+        editPanel.addEditButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                String optText = (String) editPanel.comboBox.getSelectedItem();
+
+                if (optText.equals("Вставить нули")){
+
+                    JTextField lenField = editPanel.zeroField;
+                    eBA.btnFillInZero(sH, lenField, highlightCells[0]);
+                }
+                else if (optText.equals("Удалить")){
+                    System.out.println("qq");
+                }
+                highlightCells[0] = new int[0][0];
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                changed[0] = true;
+                System.out.println(optText);
+            }
+        });
         frame.add(editPanel);
 
         TableInfoPanel tableInfoPanel = new TableInfoPanel(0, 0, 0, 0);
@@ -598,11 +620,15 @@ public class mainGui extends JFrame {
         fillZero = new JButton("вст. 0");
         fillZero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int [] startCoord = highlightCells[0][0];
-                int len = Integer.parseInt(lenField.getText());
-                int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1; // сдвиг в таблице по координате
-                ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
-                sH.makeHandle(chH);
+
+                // int [] startCoord = highlightCells[0][0];
+                // int len = Integer.parseInt(lenField.getText());
+                // int currOfft = startCoord[0] * rowLen[0] + startCoord[1] - 1; // сдвиг в таблице по координате
+                // ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
+                // sH.makeHandle(chH);
+
+                eBA.btnFillInZero(sH, lenField, highlightCells[0]);
+
                 highlightCells[0] = new int[0][0];
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                 changed[0] = true;
@@ -715,7 +741,7 @@ public class mainGui extends JFrame {
             }
         });
 
-        fillZero.setBounds(600, 90, 110, 20);
+        fillZero.setBounds(700, 610, 110, 20);
         fillShift.setBounds(600, 120, 110, 20);
         fillSubst.setBounds(600, 150, 110, 20);
         fillInBuffer.setBounds(600, 250, 110, 20);
@@ -742,7 +768,7 @@ public class mainGui extends JFrame {
         // frame.add(widthField);
         // frame.add(removeZero);
         // frame.add(removeShift);
-        // frame.add(fillZero);
+        frame.add(fillZero);
         // frame.add(fillShift);
         // frame.add(fillSubst);
         // frame.add(fillInBuffer);

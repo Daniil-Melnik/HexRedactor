@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditPanel extends JPanel {
-    private JComboBox<String> comboBox, valueBuffer;
+    JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
     private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
-    private JTextField valueField;
+    JTextField valueField, zeroField;
 
     public EditPanel() {
         setLayout(null);
@@ -43,7 +43,7 @@ public class EditPanel extends JPanel {
 
         // Создаем кнопку "Выполнить"
         executeButton = new JButton("Выполнить");
-        executeButton.addActionListener(new ExecuteButtonListener());
+        //executeButton.addActionListener(new ExecuteButtonListener());
         executeButton.setBounds(1, 149, 398,30);
         add(executeButton);
 
@@ -108,7 +108,7 @@ public class EditPanel extends JPanel {
             dynamicContent.add(valueField);
 
         } else if ("Вставить нули".equals(selectedItem)) {
-            JTextField zeroField = new JTextField(10);
+            zeroField = new JTextField(10);
             zeroField.setFont(font15);
             zeroField.setBounds(120, 35, 150, 25);
 
@@ -145,12 +145,18 @@ public class EditPanel extends JPanel {
         }
     }
 
-    private class ExecuteButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
-        }
+    // private class ExecuteButtonListener implements ActionListener {
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
+    //     }
+    // }
+
+        // Метод для добавления слушателя для кнопки "Найти"
+    public void addEditButtonListener(ActionListener listener) {
+        executeButton.addActionListener(listener);
     }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Тестовое окно");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
