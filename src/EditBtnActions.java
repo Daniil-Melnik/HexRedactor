@@ -14,13 +14,25 @@ public class EditBtnActions {
 
     }
 
-    public void btnRemoveZero(SheetHolder sH, int offset, int[][] highlightCells) {
+    public void btnRemoveZero(SheetHolder sH, int [] offset, int[][] highlightCells) {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
-        int offt = offset + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
-        int highlightLen = highlightCells[0].length;
+        int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int highlightLen = highlightCells.length;
         ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
         sH.makeHandle(cHZero);
+    }
+
+    public void btnRemoveShift(SheetHolder sH, int [] offset, int [][] highlightCells){
+
+        int [] startCoord = highlightCells[0];
+        int rowLen = sH.getRowLen();
+
+        int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int highlightLen = highlightCells.length;
+        offset[0] = offset[0] + highlightLen;
+        ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
+        sH.makeHandle(cHShift);
     }
 }

@@ -145,10 +145,10 @@ public class mainGui extends JFrame {
 
                 else if (optText.equals("Удалить")){
                     if (editPanel.isZeroSelected()){
-                        eBA.btnRemoveZero(sH, offset[1], highlightCells[0]);
+                        eBA.btnRemoveZero(sH, offset, highlightCells[0]);
                     }
                     if (editPanel.isShiftSelected()){
-                        System.out.println("q1");
+                        eBA.btnRemoveShift(sH, offset, highlightCells[0]);
                     }
                 }
                 highlightCells[0] = new int[0][0];
@@ -383,6 +383,7 @@ public class mainGui extends JFrame {
         });
         sH.setColumnLen(columnLen[0]); // что-то не то, где то задана константа
         sH.setRowLen(rowLen[0]);
+        sH.setDLen(0);
         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
         sH.setAllData(dat[0]);
 
@@ -479,6 +480,7 @@ public class mainGui extends JFrame {
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                     sH.setAllData(dat[0]);
                     dLen[0] = 0;
+                    sH.setDLen(0);
                     // setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                 }
                 else{
@@ -495,6 +497,7 @@ public class mainGui extends JFrame {
                         //hQ.setData(bIO, offset[0], rowLen[0] * columnLen[0]);
                         dLen[0] = 0;
                         changed[0] = false;
+                        sH.setDLen(0);
                     }
                     else if (result == 1){
                         // оставить файл в старом виде
@@ -763,7 +766,7 @@ public class mainGui extends JFrame {
         cutToBufferZero.setBounds(600, 220, 110, 20);
 
         Hol.setBounds(440, 400, 90, 20);
-        forward.setBounds(500, 500, 90, 20);
+        forward.setBounds(500, 0, 90, 20);
         back.setBounds(400, 500, 90, 20);
 
         widthField.setBounds(400, 350, 80, 20);
@@ -787,8 +790,8 @@ public class mainGui extends JFrame {
         // frame.add(heightField);
         // frame.add(lenField);
         // frame.add(dataField);
-        // frame.add(forward);
-        // frame.add(back);
+        frame.add(forward);
+        frame.add(back);
         // frame.add(Hol);
 
         frame.setSize(1150, 620);

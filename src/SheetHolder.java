@@ -4,6 +4,7 @@ public class SheetHolder {
     private String fName;
     private int rowLen;
     private int columnLen;
+    private int dLen;
     private int offt;
 
     public void setRowLen(int width){
@@ -71,6 +72,10 @@ public class SheetHolder {
         return res;
     }
 
+    public void setDLen(int dLen){
+        this.dLen = dLen;
+    }
+
 
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
@@ -93,12 +98,12 @@ public class SheetHolder {
             case 2:
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
-                int newOfft = this.offt + this.rowLen * this.columnLen + len - 1; // 21.04.2024
+                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen; // 09.05.2024
                 //int newOfft = this.offt + len;
                 String [] leftData = uB.removeFromArr(this.data, len, currOfft);
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
                 this.data = uB.concatArrs(leftData, rightData);
-                this.offt += len; // 21.04.2024 разобраться с установкой в mainGUI
+                this.dLen += len;
                 System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
                 break;
             
