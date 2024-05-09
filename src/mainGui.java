@@ -151,6 +151,32 @@ public class mainGui extends JFrame {
                         eBA.btnRemoveShift(sH, offset, highlightCells[0]);
                     }
                 }
+
+                else if (optText.equals("Вставить")){
+                    boolean shiftCond = editPanel.isShiftPasteSelected();
+                    boolean replaceCond = editPanel.isReplaceSelected();
+
+                    String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
+
+                    if (bufferValue.equals("задать")){
+                        String adStr = editPanel.valueField.getText();
+                        String [] currData = bIO.splitHexBytes(adStr);
+                        if (shiftCond){
+                            eBA.btnPasteShift(sH, currData, highlightCells[0]);
+                        }
+                        else if (replaceCond){
+                            eBA.btnPasteSubst(sH, currData, highlightCells[0]);
+                        }
+                    }
+                    if ((bufferValue.equals("из буфера"))){
+                        if (shiftCond){
+                            eBA.btnPasteShift(sH, buffer[0], highlightCells[0]);
+                        }
+                        else if (replaceCond){
+                            eBA.btnPasteSubst(sH, buffer[0], highlightCells[0]);
+                        }
+                    }
+                }
                 highlightCells[0] = new int[0][0];
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                 changed[0] = true;

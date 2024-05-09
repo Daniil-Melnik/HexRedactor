@@ -35,4 +35,25 @@ public class EditBtnActions {
         ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
         sH.makeHandle(cHShift);
     }
+
+    public void btnPasteShift(SheetHolder sH, String [] currData, int [][] highlightCells){
+        int [] startCoord = highlightCells[0];
+        int rowLen = sH.getRowLen();
+
+        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1;
+        int len = currData.length;
+        ChangeHandler chH = new ChangeHandler(4, currOfft, len, currData);
+        sH.makeHandle(chH);
+    }
+
+    public void btnPasteSubst(SheetHolder sH, String [] currData, int [][] highlightCells){
+        int [] startCoord = highlightCells[0];
+        int rowLen = sH.getRowLen();
+
+        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1; // сдвиг в таблице по координате
+
+        int len = currData.length;
+        ChangeHandler chH = new ChangeHandler(3, currOfft, len, currData);
+        sH.makeHandle(chH);
+    }
 }

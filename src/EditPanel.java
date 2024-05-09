@@ -10,6 +10,7 @@ public class EditPanel extends JPanel {
     private JButton executeButton;
     JTextField valueField, zeroField;
     private JRadioButton shiftRadio, zeroRadio;
+    private JRadioButton replaceRadio, shiftPasteRadio;
 
     public EditPanel() {
         setLayout(null);
@@ -63,6 +64,14 @@ public class EditPanel extends JPanel {
         return zeroRadio.isSelected();
     }
 
+    public boolean isReplaceSelected(){
+        return replaceRadio.isSelected();
+    }
+
+    public boolean isShiftPasteSelected(){
+        return shiftPasteRadio.isSelected();
+    }
+
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
 
@@ -87,8 +96,8 @@ public class EditPanel extends JPanel {
             dynamicContent.add(zeroRadio);
 
         } else if ("Вставить".equals(selectedItem)) {
-            JRadioButton replaceRadio = new JRadioButton("с замещением");
-            JRadioButton shiftRadio = new JRadioButton("со сдвигом");
+            replaceRadio = new JRadioButton("с замещением");
+            shiftPasteRadio = new JRadioButton("со сдвигом");
             ButtonGroup actionGroup = new ButtonGroup();
 
             actionGroup.add(replaceRadio);
