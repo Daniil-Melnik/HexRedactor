@@ -39,13 +39,11 @@ public class EditPanel extends JPanel {
         // Создаем динамическую панель для переключаемых элементов
         dynamicContent = new JPanel();
         dynamicContent.setLayout(null);
-        // dynamicContent.setBorder(new RoundedBorder(10));
         dynamicContent.setBounds(1, 65, 398, 80);
         add(dynamicContent);
 
         // Создаем кнопку "Выполнить"
         executeButton = new JButton("Выполнить");
-        //executeButton.addActionListener(new ExecuteButtonListener());
         executeButton.setBounds(1, 149, 398,30);
         add(executeButton);
 
