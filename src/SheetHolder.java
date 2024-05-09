@@ -89,7 +89,7 @@ public class SheetHolder {
         ByteIO bIO = new ByteIO(this.fName);
         switch (chH.getType()) {
             case 0:
-                System.out.println("GET HANDLE ZERO");
+                // System.out.println("GET HANDLE ZERO");
                 this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
                 break;
             
@@ -108,7 +108,7 @@ public class SheetHolder {
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
                 this.data = uB.concatArrs(leftData, rightData);
                 this.dLen += len;
-                System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
+                // System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
                 break;
             
             case 3:

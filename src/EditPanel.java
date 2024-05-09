@@ -101,16 +101,16 @@ public class EditPanel extends JPanel {
             ButtonGroup actionGroup = new ButtonGroup();
 
             actionGroup.add(replaceRadio);
-            actionGroup.add(shiftRadio);
+            actionGroup.add(shiftPasteRadio);
 
             replaceRadio.setBounds(55, 13, 150, 30);
-            shiftRadio.setBounds(215, 13, 150, 30);
+            shiftPasteRadio.setBounds(215, 13, 150, 30);
 
             replaceRadio.setFont(font15);
-            shiftRadio.setFont(font15);
+            shiftPasteRadio.setFont(font15);
 
             dynamicContent.add(replaceRadio);
-            dynamicContent.add(shiftRadio);
+            dynamicContent.add(shiftPasteRadio);
 
             valueBuffer = new JComboBox<String>(new String []{"из буфера", "задать"});
             valueBuffer.setBounds(10, 49, 120, 25);

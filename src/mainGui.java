@@ -156,12 +156,15 @@ public class mainGui extends JFrame {
                     boolean shiftCond = editPanel.isShiftPasteSelected();
                     boolean replaceCond = editPanel.isReplaceSelected();
 
+                    System.out.println(shiftCond + " " + replaceCond);
+
                     String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
 
                     if (bufferValue.equals("задать")){
                         String adStr = editPanel.valueField.getText();
                         String [] currData = bIO.splitHexBytes(adStr);
                         if (shiftCond){
+                            System.out.println("****");
                             eBA.btnPasteShift(sH, currData, highlightCells[0]);
                         }
                         else if (replaceCond){
