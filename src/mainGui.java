@@ -428,8 +428,8 @@ public class mainGui extends JFrame {
 
                         dat[0] = sH.getData();
                         int cellOfft = offset[1] - rowLen[0] * columnLen[0];
-
-                        bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
+                        int tmpDLen = sH.getDLen();
+                        bIO.printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
 
                         rowLen[0] = Integer.parseInt(widthField.getText());
                         columnLen[0] = Integer.parseInt(heightField.getText());
@@ -446,6 +446,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                         changed[0] = false;
                         dLen[0] = 0;
+                        sH.setDLen(0);
                     }
                     else if (result == 1){
                         // вставить оставить файл в старом виде
@@ -489,7 +490,8 @@ public class mainGui extends JFrame {
                         // вставить запись в файл изменений
                         int cellOfft = offset[1] - rowLen[0] * columnLen[0];
                         dat[0] = sH.getData();
-                        bIO.printData(cellOfft, dat[0], dLen[0]); // добавлена печать в файл изменённого фрагмента
+                        int tmpDLen = sH.getDLen();
+                        bIO.printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen[0]*columnLen[0]);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест

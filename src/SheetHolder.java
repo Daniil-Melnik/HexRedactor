@@ -52,6 +52,10 @@ public class SheetHolder {
         return this.columnLen;
     }
 
+    public int getDLen(){
+        return this.dLen;
+    }
+
     public SheetHolder(String fName){
         this.offt = 0;
         this.fName = fName;
