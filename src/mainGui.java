@@ -180,6 +180,14 @@ public class mainGui extends JFrame {
                         }
                     }
                 }
+                else if(optText.equals("Вырезать")){
+                    if (editPanel.isShiftSelected()){
+                        eBA.btnCutShift(table, sH, offset, buffer, highlightCells[0]);
+                    }
+                    if (editPanel.isZeroSelected()){
+                        eBA.btnCutZero(table, sH, offset, buffer, highlightCells[0]);
+                    }
+                }
                 highlightCells[0] = new int[0][0];
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                 changed[0] = true;
