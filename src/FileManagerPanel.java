@@ -1,20 +1,30 @@
 import javax.swing.*;
+
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FileManagerPanel extends JPanel {
-    private JLabel currentFileLabel;
+    private JLabel currentFileLabel, mainLabel;
     private JButton openFileButton;
     private JButton saveAsButton;
 
     public FileManagerPanel(String initialFileName) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Вертикальная компоновка
+        setLayout(null); // Вертикальная компоновка
 
         setBorder(new RoundedBorder(10));
+
+        Font font20 = new Font("Arial", Font.PLAIN, 20);
+        Font font15 = new Font("Arial", Font.PLAIN, 15);
 
         // Label для отображения текущего файла
         currentFileLabel = new JLabel("Текущий файл: " + initialFileName);
         add(currentFileLabel);
+
+        mainLabel = new JLabel("Файловый менеджер");
+        mainLabel.setFont(font20);
+        mainLabel.setBounds(45, 10, 200, 20);
+        add(mainLabel);
 
         // Кнопка "Открыть файл"
         openFileButton = new JButton("Открыть файл");
