@@ -125,6 +125,10 @@ public class mainGui extends JFrame {
             }
         });
 
+        ////////////////////////////////////////////////////////////////
+        //////////////////////// Операции панели ///////////////////////
+        ////////////////////////////////////////////////////////////////
+
         EditPanel editPanel = new EditPanel();
         editPanel.setBounds(400, 360, 400, 180);
         editPanel.addEditButtonListener(new ActionListener() {
@@ -138,8 +142,14 @@ public class mainGui extends JFrame {
                     JTextField lenField = editPanel.zeroField;
                     eBA.btnFillInZero(sH, lenField, highlightCells[0]);
                 }
+
                 else if (optText.equals("Удалить")){
-                    System.out.println("qq");
+                    if (editPanel.isZeroSelected()){
+                        eBA.btnRemoveZero(sH, offset[1], highlightCells[0]);
+                    }
+                    if (editPanel.isShiftSelected()){
+                        System.out.println("q1");
+                    }
                 }
                 highlightCells[0] = new int[0][0];
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);

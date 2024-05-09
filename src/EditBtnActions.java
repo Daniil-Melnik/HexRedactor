@@ -13,4 +13,14 @@ public class EditBtnActions {
         sH.makeHandle(chH);
 
     }
+
+    public void btnRemoveZero(SheetHolder sH, int offset, int[][] highlightCells) {
+        int [] startCoord = highlightCells[0];
+        int rowLen = sH.getRowLen();
+
+        int offt = offset + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int highlightLen = highlightCells[0].length;
+        ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
+        sH.makeHandle(cHZero);
+    }
 }

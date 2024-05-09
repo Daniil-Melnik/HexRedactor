@@ -9,6 +9,7 @@ public class EditPanel extends JPanel {
     private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
     JTextField valueField, zeroField;
+    private JRadioButton shiftRadio, zeroRadio;
 
     public EditPanel() {
         setLayout(null);
@@ -54,6 +55,14 @@ public class EditPanel extends JPanel {
         updateDynamicPanel();
     }
 
+    public boolean isShiftSelected(){
+        return shiftRadio.isSelected();
+    }
+
+    public boolean isZeroSelected(){
+        return zeroRadio.isSelected();
+    }
+
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
 
@@ -62,8 +71,8 @@ public class EditPanel extends JPanel {
         String selectedItem = (String) comboBox.getSelectedItem();
 
         if ("Удалить".equals(selectedItem) || "Вырезать".equals(selectedItem)) {
-            JRadioButton shiftRadio = new JRadioButton("со сдвигом");
-            JRadioButton zeroRadio = new JRadioButton("с обнулением");
+            shiftRadio = new JRadioButton("со сдвигом");
+            zeroRadio = new JRadioButton("с обнулением");
             ButtonGroup group = new ButtonGroup();
             group.add(shiftRadio);
             group.add(zeroRadio);
