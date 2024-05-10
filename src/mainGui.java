@@ -21,7 +21,6 @@ public class mainGui extends JFrame {
         HandlerQueue hQ = new  HandlerQueue();
         ByteTransform bT = new ByteTransform();
         int[] offset = {0, 0};
-        int[] dLen = {0};
 
         EditBtnActions eBA = new EditBtnActions();
 
@@ -507,7 +506,6 @@ public class mainGui extends JFrame {
 
                         setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                         changed[0] = false;
-                        dLen[0] = 0;
                         sH.setDLen(0);
                     }
                     else if (result == 1){
@@ -546,7 +544,6 @@ public class mainGui extends JFrame {
                 if (!changed[0]){
                     dat[0] = bIO.getHexBytesOfft(offset[0], rowLen*columnLen);
                     sH.setAllData(dat[0]);
-                    dLen[0] = 0;
                     sH.setDLen(0);
                 }
                 else{
@@ -560,7 +557,6 @@ public class mainGui extends JFrame {
                         dat[0] = bIO.getHexBytesOfft(offset[0], rowLen*columnLen);
                         sH.setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест
-                        dLen[0] = 0;
                         changed[0] = false;
                         sH.setDLen(0);
                     }
