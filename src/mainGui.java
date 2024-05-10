@@ -218,10 +218,71 @@ public class mainGui extends JFrame {
                 );
 
                 if (result == JOptionPane.OK_OPTION) {
-                    String value1 = changeSizeDialog.getFirstValue();
-                    String value2 = changeSizeDialog.getSecondValue();
-                    System.out.println("Первое значение: " + value1);
-                    System.out.println("Второе значение: " + value2);
+                    String height = changeSizeDialog.getHeightValue();
+                    String width = changeSizeDialog.getWidthValue();
+
+                    int rowLen;
+                    int columnLen;
+                    if (!changed[0]){
+                        highlightCells[0] = new int [0][0];
+
+                        rowLen = Integer.parseInt(height);
+                        sH.setRowLen(rowLen);
+
+                        columnLen = Integer.parseInt(height);
+                        sH.setColumnLen(columnLen);
+
+                        String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
+                        sH.setAllData(data);
+                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                    }
+                    else{
+                        int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
+                        if (resultChng == 0){
+                            highlightCells[0] = new int[0][0];
+
+                            dat[0] = sH.getData();
+
+                            rowLen = sH.getRowLen();
+                            columnLen = sH.getColumnLen();
+
+                            int cellOfft = offset[1] - rowLen * columnLen;
+                            int tmpDLen = sH.getDLen();
+                            bIO.printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
+
+                            rowLen = Integer.parseInt(height);
+                            columnLen = Integer.parseInt(width);
+
+                            sH.setRowLen(rowLen);
+                            sH.setColumnLen(columnLen);
+
+                            dat[0] = bIO.getHexBytesOfft(offset[0], rowLen*columnLen);
+                            sH.setAllData(dat[0]); // менять или нет сдвиг ??
+
+                            offset[0] = offset[1];
+                            
+                            String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
+                            sH.setAllData(data);
+
+                            setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                            changed[0] = false;
+                            sH.setDLen(0);
+                        }
+                        else if (resultChng == 1){
+                            // вставить оставить файл в старом виде
+                            highlightCells[0] = new int[0][0];
+                            rowLen = Integer.parseInt(height);
+                            columnLen = Integer.parseInt(width);
+
+                            sH.setRowLen(rowLen);
+                            sH.setColumnLen(columnLen);
+
+                            setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
+                            changed[0] = false;
+                        }
+                    }
+                    
+
                 } else {
                     System.out.println("Отмена или закрытие");
                 }
@@ -680,10 +741,6 @@ public class mainGui extends JFrame {
         
 
         frame.getContentPane().add(scrollPane);
-        frame.add(widthField);
-        frame.add(heightField);
-        frame.add(lenField);
-        frame.add(dataField);
         frame.add(forward);
         frame.add(back);
         // frame.add(Hol);
