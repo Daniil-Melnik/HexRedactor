@@ -232,7 +232,6 @@ public class mainGui extends JFrame {
 
                         String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
                         sH.setAllData(data);
-                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                     }
                     else{
                         int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -262,7 +261,6 @@ public class mainGui extends JFrame {
                             String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
                             sH.setAllData(data);
 
-                            setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                             changed[0] = false;
                             sH.setDLen(0);
                         }
@@ -274,8 +272,6 @@ public class mainGui extends JFrame {
 
                             sH.setRowLen(rowLen);
                             sH.setColumnLen(columnLen);
-
-                            setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                             changed[0] = false;
                         }
                     }
@@ -284,6 +280,7 @@ public class mainGui extends JFrame {
                 } else {
                     System.out.println("Отмена или закрытие");
                 }
+                setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
             }
         });
 
@@ -715,6 +712,7 @@ public class mainGui extends JFrame {
 
         // Создаем экземпляр класса Renderer, передавая массив координат
         Renderer renderer = new Renderer(highlightCells, errorCells, findedCells);
+        table.requestFocus(); 
         table.changeSelection(0, 1, false, false);
         // Устанавливаем рендерер для всех столбцов
         for (int i = 0; i < table.getColumnCount(); i++) {
