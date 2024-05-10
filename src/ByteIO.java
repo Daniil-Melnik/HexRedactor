@@ -94,7 +94,7 @@ public class ByteIO {
     ////////////////////////////////////////////////////////////////
     ////////// Разбить входную строку вставки на массив ////////////
     ////////////////////////////////////////////////////////////////
-    public void printData(int offt, String[] data, int dLen) {
+    public void printData(int offt, String[] data, int dLen, String newName) {
         File file = new File("example.txt");
         int index = 0;
 
@@ -152,7 +152,9 @@ public class ByteIO {
 
             randomAccessFile.close();
             FileManager fM = new FileManager();
-            fM.setFile("example.txt", "src/1.txt");
+            boolean isCopy = newName.equals(this.fName) ? false : true;
+            
+            fM.setFile("example.txt", newName, isCopy);
             
         } catch (IOException e) {
             e.printStackTrace();

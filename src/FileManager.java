@@ -10,8 +10,8 @@ public class FileManager {
     ///////////////////////////////////////////////////////////////
     ////////////////////// Переставить файлы //////////////////////
     ///////////////////////////////////////////////////////////////
-    public void setFile(String fNameOld, String fNameNew) throws IOException {
-        clearFile(fNameNew);
+    public void setFile(String fNameOld, String fNameNew, boolean isCopy) throws IOException {
+        if (!isCopy) clearFile(fNameNew);
         copyFileUsingStream(fNameOld, fNameNew);
         Path pathOld = Paths.get(fNameOld);
         Files.delete(pathOld);

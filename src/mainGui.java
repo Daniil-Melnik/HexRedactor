@@ -250,7 +250,7 @@ public class mainGui extends JFrame {
 
                             int cellOfft = offset[1] - rowLen * columnLen;
                             int tmpDLen = sH[0].getDLen();
-                            bIO[0].printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
+                            bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл изменённого фрагмента
 
                             rowLen = Integer.parseInt(height);
                             columnLen = Integer.parseInt(width);
@@ -609,7 +609,8 @@ public class mainGui extends JFrame {
                         int cellOfft = offset[1] - rowLen * columnLen;
                         dat[0] = sH[0].getData();
                         int tmpDLen = sH[0].getDLen();
-                        bIO[0].printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
+                        // bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл изменённого фрагмента
+                        bIO[0].printData(cellOfft, dat[0], tmpDLen, "C:\\Users\\danii\\OneDrive\\Документы\\GitHub\\HexRedactor\\src\\2.txt");
                         dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen*columnLen);
                         sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест
