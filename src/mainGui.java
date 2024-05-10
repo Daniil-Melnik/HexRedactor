@@ -30,8 +30,8 @@ public class mainGui extends JFrame {
         final String[][] dat = {null, null};
 
         String [] maskValue = {""};
-        final String [] fName = {""};
-        final String[] byteSize = {""};
+        final String [] fName = {"src/1.txt"};
+        final String[] byteSize = {"src/1.txt"};
 
         SheetHolder sH = new SheetHolder(fName[0]);
         ByteIO bIO = new ByteIO(fName[0]);
@@ -292,10 +292,22 @@ public class mainGui extends JFrame {
         FileManagerPanel fileManagerPanel = new FileManagerPanel("initial.txt");
         fileManagerPanel.setBounds(820, 200, 280, 150);
         frame.add(fileManagerPanel);
-        tableInfoPanel.addChangeSizeButtonListener(new ActionListener() {
+        fileManagerPanel.addOpenFileButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
+                // Открываем диалоговое окно для выбора файла
+                int result = fileChooser.showOpenDialog(frame);
+
+                // Если пользователь выбрал файл, получаем путь к нему
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                    System.out.println("Selected file: " + filePath);
+                } else {
+                    System.out.println("File selection cancelled.");
+                }
             }
         });
         
