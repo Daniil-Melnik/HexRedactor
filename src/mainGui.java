@@ -16,7 +16,7 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton Hol, forward, back;
+        JButton forward, back;
         JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
         ByteTransform bT = new ByteTransform();
@@ -37,7 +37,6 @@ public class mainGui extends JFrame {
         RegExp rE = new RegExp();
 
         ByteIO bIO = new ByteIO("src/1.txt");
-        //bIO.getByteOfFile();
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,7 +118,6 @@ public class mainGui extends JFrame {
                 }
 
                 findedCells[0] = sH.getTableCellCoords(offts);
-
                 
                 setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
 
@@ -304,8 +302,10 @@ public class mainGui extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int currentRow = table.getSelectedRow();
-                    int currentCol = table.getSelectedColumn();
+                    sH.setCurrentRow(table.getSelectedRow());
+                    sH.setCurrentColumn(table.getSelectedColumn());
+                    int currentRow = sH.getCurrentRow(); 
+                    int currentCol = sH.getCurrentColumn();
                     utilByte uB = new utilByte();
                     if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1)) && (currentCol != (-1)) ) {
                         prevRow[0] = currentRow;
@@ -353,6 +353,7 @@ public class mainGui extends JFrame {
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
+                    tableInfoPanel.updTableInfo(sH, highlightCells[0], offset);
                 }
             }
         });
@@ -364,8 +365,12 @@ public class mainGui extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int currentRow = table.getSelectedRow();
-                    int currentCol = table.getSelectedColumn();
+
+                    sH.setCurrentRow(table.getSelectedRow());
+                    sH.setCurrentColumn(table.getSelectedColumn());
+                    int currentRow = sH.getCurrentRow(); 
+                    int currentCol = sH.getCurrentColumn();
+
                     utilByte uB = new utilByte();
                     if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1) && (currentCol != -1)) {
                         prevRow[0] = currentRow;
@@ -412,7 +417,8 @@ public class mainGui extends JFrame {
                         doubleArr[3] = bT.getDouble(data, offt2, 8);
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
-                    }
+                    }                   
+                    tableInfoPanel.updTableInfo(sH, highlightCells[0], offset);
                 }
             }
         });
@@ -496,9 +502,6 @@ public class mainGui extends JFrame {
                     System.out.println("Данные: " + chH.getData()[0]);
                     sH.makeHandle(chH); // добавть изменения в SheetHolder
                     ArrayList<Integer> aL = rE.isValidArr(sH.getData(), offset[0]);
-                    // for (Integer integer : aL) {
-                    //     System.out.println(integer);
-                    // }
                     errorCells[0] = rE.getErrorCells(rowLen, offset[0], aL);
                     for (int i = 0; i < errorCells[0].length; i++){
                         System.out.println(errorCells[0][i][0] + " " + errorCells[0][i][1]);
@@ -543,75 +546,6 @@ public class mainGui extends JFrame {
         dataField.setToolTipText("Данные вставки");
 
         ///////////////////////////////////////////////////////////////////
-        //////////////////// Кнопка установки размеров ////////////////////
-        ///////////////////////////////////////////////////////////////////
-
-        Hol = new JButton("размер");;
-        Hol.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                int rowLen;
-                int columnLen;
-                if (!changed[0]){
-                    highlightCells[0] = new int [0][0];
-
-                    rowLen = Integer.parseInt(widthField.getText());
-                    sH.setRowLen(rowLen);
-
-                    columnLen = Integer.parseInt(heightField.getText());
-                    sH.setColumnLen(columnLen);
-
-                    String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
-                    sH.setAllData(data);
-                    setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
-                }
-                else{
-                    int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                    if (result == 0){
-                        highlightCells[0] = new int[0][0];
-
-                        dat[0] = sH.getData();
-
-                        rowLen = sH.getRowLen();
-                        columnLen = sH.getColumnLen();
-
-                        int cellOfft = offset[1] - rowLen * columnLen;
-                        int tmpDLen = sH.getDLen();
-                        bIO.printData(cellOfft, dat[0], tmpDLen); // добавлена печать в файл изменённого фрагмента
-
-                        rowLen = Integer.parseInt(widthField.getText());
-                        columnLen = Integer.parseInt(heightField.getText());
-
-                        sH.setRowLen(rowLen);
-                        sH.setColumnLen(columnLen);
-
-                        dat[0] = bIO.getHexBytesOfft(offset[0], rowLen*columnLen);
-                        sH.setAllData(dat[0]); // менять или нет сдвиг ??
-
-                        offset[0] = offset[1];
-                        
-                        String [] data = bIO.getHexBytesOfft(offset[1], rowLen * columnLen);
-                        sH.setAllData(data);
-
-                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
-                        changed[0] = false;
-                        sH.setDLen(0);
-                    }
-                    else if (result == 1){
-                        // вставить оставить файл в старом виде
-                        highlightCells[0] = new int[0][0];
-                        rowLen = Integer.parseInt(widthField.getText());
-                        columnLen = Integer.parseInt(heightField.getText());
-
-                        sH.setRowLen(rowLen);
-                        sH.setColumnLen(columnLen);
-
-                        setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
-                        changed[0] = false;
-                    }
-                }
-            }
-        });
-        ///////////////////////////////////////////////////////////////////
         //////////////////// Кнопка проллистать вперёд ////////////////////
         ///////////////////////////////////////////////////////////////////
         forward = new JButton("далее");
@@ -654,7 +588,6 @@ public class mainGui extends JFrame {
                         sH.setAllData(dat[0]);
                         changed[0] = false;
                     }
-                    // Cancel - ничего не делать
                 }
 
                 // наследование поиска начало
@@ -722,13 +655,10 @@ public class mainGui extends JFrame {
                             setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH);
                             changed[0] = false;
                         }
-                        // Cancel - ничего не делать
                     }
                 }
             }
         });
-
-        Hol.setBounds(440, 400, 90, 20);
         forward.setBounds(500, 0, 90, 20);
         back.setBounds(400, 500, 90, 20);
 
@@ -737,13 +667,9 @@ public class mainGui extends JFrame {
         lenField.setBounds(720, 90, 80, 20);
         dataField.setBounds(720, 150, 150, 20);
 
-          
-        
-
         frame.getContentPane().add(scrollPane);
         frame.add(forward);
         frame.add(back);
-        // frame.add(Hol);
 
         frame.setSize(1150, 620);
         frame.setLayout(null);

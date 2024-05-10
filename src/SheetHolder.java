@@ -4,6 +4,7 @@ public class SheetHolder {
     private String fName;
     private int rowLen;
     private int columnLen;
+    private int currentRow, currentColumn;
     private int dLen;
     private int offt;
 
@@ -34,6 +35,22 @@ public class SheetHolder {
     public void setAllData(String [] data){
         this.reserveData = data;
         this.data = data;
+    }
+
+    public void setCurrentRow(int currentRow){
+        this.currentRow = currentRow;
+    }
+
+    public void setCurrentColumn(int currentColumn){
+        this.currentColumn = currentColumn;
+    }
+
+    public int getCurrentRow(){
+        return this.currentRow;
+    }
+
+    public int getCurrentColumn(){
+        return this.currentColumn;
     }
 
     public String [] getData (){

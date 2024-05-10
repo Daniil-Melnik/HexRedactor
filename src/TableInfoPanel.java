@@ -54,15 +54,34 @@ public class TableInfoPanel extends JPanel {
         changeButton.addActionListener(listener);
     }
 
-    public void updateInfo(int sizeX, int sizeY, int focus, int selectionStart) {
+    public void updateInfo(int sizeX, int sizeY, int focus, int selectionStart, int selectionLen) {
         // Обновление значений в JLabel
         sizeLabel.setText("Размер: " + sizeX + " x " + sizeY + " ячеек");
         focusLabel.setText("Текущий фокус: " + focus);
         selectionStartLabel.setText("Начало выделения: " + selectionStart);
+        lenLabel.setText("Длина выделения:   " + selectionLen);
 
         // Обязательно обновить панель, чтобы изменения были видны
         revalidate();
         repaint();
+    }
+
+    public void updTableInfo(SheetHolder sH, int [][] highlightCells, int [] offset){
+        int currentCol = sH.getCurrentColumn();
+        int currentRow = sH.getCurrentRow();
+
+        int currOfft = offset[1] + currentRow * sH.getRowLen() + currentCol - 1;
+        int highOfft, highLen;
+        if (highlightCells.length != 0){
+            int [] startCoord = highlightCells[0];
+            highOfft = startCoord[0] * sH.getRowLen() + startCoord[1] + offset[1] - 1;
+            highLen = highlightCells[0].length;
+        } else {
+            highOfft = -0;
+            highLen = -0;
+        }
+                    
+        this.updateInfo(sH.getRowLen() , sH.getColumnLen(), currOfft, highOfft, highLen);
     }
 
     public static void main(String[] args) {
@@ -81,7 +100,7 @@ public class TableInfoPanel extends JPanel {
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                infoPanel.updateInfo(15, 20, 7, 1); // Новые значения
+                infoPanel.updateInfo(15, 20, 7, 1, 1); // Новые значения
             }
         });
         timer.setRepeats(false); // Однократное выполнение таймера
