@@ -1,40 +1,31 @@
+// DualInputDialogExample.java
 import javax.swing.*;
 import java.awt.*;
 
-public class ChangeSizeDialog {
+public class ChangeSizeDialog extends JPanel {
+    private JTextField textField1;
+    private JTextField textField2;
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Dual Input Dialog Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 200);
-
-        frame.setVisible(true);
-
-        // Создаем JPanel для размещения полей ввода
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 2)); // Два ряда, два столбца
+    public ChangeSizeDialog() {
+        setLayout(new GridLayout(2, 2));
 
         JLabel label1 = new JLabel("Первое значение:");
-        JTextField textField1 = new JTextField(10);
+        textField1 = new JTextField(10);
 
         JLabel label2 = new JLabel("Второе значение:");
-        JTextField textField2 = new JTextField(10);
+        textField2 = new JTextField(10);
 
-        panel.add(label1);
-        panel.add(textField1);
-        panel.add(label2);
-        panel.add(textField2);
+        add(label1);
+        add(textField1);
+        add(label2);
+        add(textField2);
+    }
 
-        // Отображаем JOptionPane с панелью
-        int result = JOptionPane.showConfirmDialog(frame, panel, "Введите значения", JOptionPane.OK_CANCEL_OPTION);
+    public String getFirstValue() {
+        return textField1.getText();
+    }
 
-        if (result == JOptionPane.OK_OPTION) {
-            String value1 = textField1.getText();
-            String value2 = textField2.getText();
-            System.out.println("Первое значение: " + value1);
-            System.out.println("Второе значение: " + value2);
-        } else {
-            System.out.println("Отмена или закрытие");
-        }
+    public String getSecondValue() {
+        return textField2.getText();
     }
 }

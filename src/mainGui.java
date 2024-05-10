@@ -197,9 +197,36 @@ public class mainGui extends JFrame {
         });
         frame.add(editPanel);
 
+        ////////////////////////////////////////////////////////////////
+        ////////////////// Изменение размеров таблицы //////////////////
+        ////////////////////////////////////////////////////////////////
+
         TableInfoPanel tableInfoPanel = new TableInfoPanel(0, 0, 0, 0);
         tableInfoPanel.setBounds(820, 360, 280, 180);
         frame.add(tableInfoPanel);
+        tableInfoPanel.addChangeSizeButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ChangeSizeDialog changeSizeDialog = new ChangeSizeDialog();
+
+                int result = JOptionPane.showConfirmDialog(
+                        frame,
+                        changeSizeDialog,
+                        "Введите значения",
+                        JOptionPane.OK_CANCEL_OPTION
+                );
+
+                if (result == JOptionPane.OK_OPTION) {
+                    String value1 = changeSizeDialog.getFirstValue();
+                    String value2 = changeSizeDialog.getSecondValue();
+                    System.out.println("Первое значение: " + value1);
+                    System.out.println("Второе значение: " + value2);
+                } else {
+                    System.out.println("Отмена или закрытие");
+                }
+            }
+        });
 
         FileManagerPanel fileManagerPanel = new FileManagerPanel("initial.txt");
         fileManagerPanel.setBounds(820, 200, 280, 150);

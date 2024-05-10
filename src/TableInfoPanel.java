@@ -48,15 +48,10 @@ public class TableInfoPanel extends JPanel {
         lenLabel.setFont(font15);
         lenLabel.setBounds(10, 140, 200, 20);
         add(lenLabel);
+    }
 
-        // Добавление обработчика событий для кнопки "Изменить"
-        changeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Пример реакции на нажатие кнопки
-                JOptionPane.showMessageDialog(TableInfoPanel.this, "Нажата кнопка 'Изменить'");
-            }
-        });
+    public void addChangeSizeButtonListener(ActionListener listener) {
+        changeButton.addActionListener(listener);
     }
 
     public void updateInfo(int sizeX, int sizeY, int focus, int selectionStart) {
