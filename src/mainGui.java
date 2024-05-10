@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -324,7 +325,43 @@ public class mainGui extends JFrame {
             }
         });
         
+        fileManagerPanel.addSaveAsButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Создаем JFileChooser для сохранения файла
+                JFileChooser fileChooser = new JFileChooser();
+                    
+                // Настраиваем диалог на режим сохранения
+                fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    
+                // Предлагаем имя по умолчанию (можно изменить по желанию)
+                fileChooser.setSelectedFile(new File("default_filename.txt"));
+    
+                // Открываем диалоговое окно "Сохранить как"
+                int result = fileChooser.showSaveDialog(frame);
+    
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String filePath = selectedFile.getAbsolutePath();
+    
+                    // Убеждаемся, что файл имеет нужное расширение, например, ".txt"
+                    if (!filePath.toLowerCase().endsWith(".txt")) {
+                        filePath += ".txt";
+                    }
+                    int rowLen = sH[0].getRowLen();
+                    int columnLen = sH[0].getColumnLen();
 
+                    int cellOfft = offset[1] - rowLen * columnLen;
+                    dat[0] = sH[0].getData();
+                    int tmpDLen = sH[0].getDLen();
+                    bIO[0].printData(cellOfft, dat[0], tmpDLen, filePath);
+                } else {
+                    System.out.println("Save operation cancelled.");
+                }
+            }
+            
+        });
 
         final int [] prevCol = {0};
         final int [] prevRow = {1};
@@ -609,8 +646,7 @@ public class mainGui extends JFrame {
                         int cellOfft = offset[1] - rowLen * columnLen;
                         dat[0] = sH[0].getData();
                         int tmpDLen = sH[0].getDLen();
-                        // bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл изменённого фрагмента
-                        bIO[0].printData(cellOfft, dat[0], tmpDLen, "C:\\Users\\danii\\OneDrive\\Документы\\GitHub\\HexRedactor\\src\\2.txt");
+                        bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
                         dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen*columnLen);
                         sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
                         offset[0] = offset[1]; // добавленого в тест

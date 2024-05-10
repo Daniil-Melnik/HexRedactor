@@ -62,6 +62,10 @@ public class FileManagerPanel extends JPanel {
         openFileButton.addActionListener(listener);
     }
 
+    public void addSaveAsButtonListener(ActionListener listener) {
+        saveAsButton.addActionListener(listener);
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Пример панели файла");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
