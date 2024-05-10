@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class FileManagerPanel extends JPanel {
     private JLabel currentFileLabel, mainLabel;
-    private JButton openFileButton;
+    JButton openFileButton;
     private JButton saveAsButton;
 
     public FileManagerPanel(String initialFileName) {
@@ -56,6 +56,10 @@ public class FileManagerPanel extends JPanel {
     public JButton getSaveAsButton() {
         // Возвращает кнопку "Сохранить как" для установки обработчика в главном приложении
         return saveAsButton;
+    }
+
+    public void addOpenFileButtonListener(ActionListener listener) {
+        openFileButton.addActionListener(listener);
     }
 
     public static void main(String[] args) {

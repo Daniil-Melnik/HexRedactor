@@ -47,6 +47,8 @@ public class FileManager {
         Files.writeString(path, "");
     }
 
+    
+
     public static void main(String [] args) throws IOException {
         FileManager fM = new FileManager();
         fM.clearFile("example.txt");

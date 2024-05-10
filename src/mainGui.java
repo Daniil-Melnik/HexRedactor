@@ -30,13 +30,16 @@ public class mainGui extends JFrame {
         final String[][] dat = {null, null};
 
         String [] maskValue = {""};
+        final String [] fName = {""};
         final String[] byteSize = {""};
-        SheetHolder sH = new SheetHolder("src/1.txt");
+
+        SheetHolder sH = new SheetHolder(fName[0]);
+        ByteIO bIO = new ByteIO(fName[0]);
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
 
-        ByteIO bIO = new ByteIO("src/1.txt");
+        
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -284,9 +287,18 @@ public class mainGui extends JFrame {
             }
         });
 
+        
+
         FileManagerPanel fileManagerPanel = new FileManagerPanel("initial.txt");
         fileManagerPanel.setBounds(820, 200, 280, 150);
         frame.add(fileManagerPanel);
+        tableInfoPanel.addChangeSizeButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        
 
 
         final int [] prevCol = {0};
