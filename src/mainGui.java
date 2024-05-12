@@ -292,7 +292,7 @@ public class mainGui extends JFrame {
 
         
 
-        FileManagerPanel fileManagerPanel = new FileManagerPanel("initial.txt");
+        FileManagerPanel fileManagerPanel = new FileManagerPanel("null");
         fileManagerPanel.setBounds(820, 200, 280, 150);
         frame.add(fileManagerPanel);
         fileManagerPanel.addOpenFileButtonListener(new ActionListener() {
@@ -318,7 +318,9 @@ public class mainGui extends JFrame {
                     sH[0].setAllData(dat[0]);
 
                     setTable(table, scrollPane, offset[1], highlightCells[0], errorCells[0], findedCells[0], sH[0]);
-                    System.out.println("Selected file: " + fName[0]);
+                    String [] smallFName = fName[0].split("\\\\");
+                    fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
+                    //System.out.println("Selected file: " + fName[0]);
                 } else {
                     System.out.println("File selection cancelled.");
                 }
