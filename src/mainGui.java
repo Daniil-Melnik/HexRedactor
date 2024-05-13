@@ -1,9 +1,11 @@
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -621,7 +623,9 @@ public class mainGui extends JFrame {
         ///////////////////////////////////////////////////////////////////
         //////////////////// Кнопка проллистать вперёд ////////////////////
         ///////////////////////////////////////////////////////////////////
-        forward = new JButton("далее");
+
+        forward = new JButton();
+        forward.setIcon(new ImageIcon("src/icons/forward.png"));
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 highlightCells[0] = new int[0][0];
@@ -697,7 +701,8 @@ public class mainGui extends JFrame {
         //////////////////// Кнопка проллистать назад ////////////////////
         //////////////////////////////////////////////////////////////////
 
-        back = new JButton("назад");
+        back = new JButton();
+        back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 highlightCells[0] = new int[0][0];
