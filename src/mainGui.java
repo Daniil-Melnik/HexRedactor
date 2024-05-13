@@ -235,7 +235,7 @@ public class mainGui extends JFrame {
                         rowLen = Integer.parseInt(height);
                         sH[0].setRowLen(rowLen);
 
-                        columnLen = Integer.parseInt(height);
+                        columnLen = Integer.parseInt(width);
                         sH[0].setColumnLen(columnLen);
 
                         String [] data = bIO[0].getHexBytesOfft(offset[1], rowLen * columnLen);
