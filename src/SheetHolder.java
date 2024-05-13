@@ -7,6 +7,7 @@ public class SheetHolder {
     private int currentRow, currentColumn;
     private int dLen;
     private int offt;
+    private int [][] hCells;
 
     public void setRowLen(int width){
         this.rowLen = width;
@@ -30,6 +31,14 @@ public class SheetHolder {
 
     public void setfName(String fName){
         this.fName = fName;
+    }
+
+    public void setHCells(int [][] hCells){
+        this.hCells = hCells;
+    }
+
+    public int [][] getHCells(){
+        return this.hCells;
     }
 
     public void setAllData(String [] data){
@@ -76,6 +85,7 @@ public class SheetHolder {
     public SheetHolder(String fName){
         this.offt = 0;
         this.fName = fName;
+        this.hCells = new int [0][0];
     }
 
     ///////////////////////////////////////////////////////////////
