@@ -199,7 +199,7 @@ public class mainGui extends JFrame {
                 System.out.println(optText);
             }
         });
-//        frame.add(editPanel);
+        frame.add(editPanel);
 
         ////////////////////////////////////////////////////////////////
         ////////////////// Изменение размеров таблицы //////////////////
@@ -732,11 +732,11 @@ public class mainGui extends JFrame {
                 }
             }
         });
-        forward.setBounds(500, 500, 90, 20);
-        back.setBounds(400, 500, 90, 20);
+        forward.setBounds(755, 550, 345, 40);
+        back.setBounds(400, 550, 345, 40);
 
-        widthField.setBounds(400, 350, 80, 20);
-        heightField.setBounds(500, 350, 80, 20);
+        widthField.setBounds(400, 350, 350, 20);
+        heightField.setBounds(500, 350, 350, 20);
         lenField.setBounds(720, 90, 80, 20);
         dataField.setBounds(720, 150, 150, 20);
 
