@@ -199,7 +199,7 @@ public class mainGui extends JFrame {
                 System.out.println(optText);
             }
         });
-        frame.add(editPanel);
+//        frame.add(editPanel);
 
         ////////////////////////////////////////////////////////////////
         ////////////////// Изменение размеров таблицы //////////////////
@@ -697,7 +697,7 @@ public class mainGui extends JFrame {
         //////////////////// Кнопка проллистать назад ////////////////////
         //////////////////////////////////////////////////////////////////
 
-        back = new JButton("назад");;
+        back = new JButton("назад");
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 highlightCells[0] = new int[0][0];
@@ -732,7 +732,7 @@ public class mainGui extends JFrame {
                 }
             }
         });
-        forward.setBounds(500, 0, 90, 20);
+        forward.setBounds(500, 500, 90, 20);
         back.setBounds(400, 500, 90, 20);
 
         widthField.setBounds(400, 350, 80, 20);
