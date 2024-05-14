@@ -8,6 +8,7 @@ public class SheetHolder {
     private int dLen;
     private int offt;
     private int [][] hCells;
+    private int [][] fCells;
 
     public void setRowLen(int width){
         this.rowLen = width;
@@ -82,10 +83,17 @@ public class SheetHolder {
         return this.dLen;
     }
 
+    public int [][] getFCells(){ return this.fCells; }
+
+    public void setFCells(int [][] fCells) {
+        this.fCells = fCells;
+    }
+
     public SheetHolder(String fName){
         this.offt = 0;
         this.fName = fName;
         this.hCells = new int [0][0];
+        this.fCells = new int[0][0];
     }
 
     ///////////////////////////////////////////////////////////////
