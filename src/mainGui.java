@@ -26,8 +26,6 @@ public class mainGui extends JFrame {
 
         EditBtnActions eBA = new EditBtnActions();
 
-//        final int[][][] highlightCells = {{}};
-//        final int[][][] findedCells = {{}};
         boolean[] changed = {false};
         final String[][] dat = {null, null};
 
@@ -35,42 +33,24 @@ public class mainGui extends JFrame {
         final String [] fName = {""};
         final String[] byteSize = {""};
 
-        // final SheetHolder [] sH = {new SheetHolder(fName[0])};
-        // final ByteIO [] bIO = {new ByteIO(fName[0])};
-
         final SheetHolder [] sH = {null};
         final ByteIO [] bIO = {null};
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
 
-        
-
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         HandChng hc = new HandChng(frame);
 
-        // String[] columnNames = new String[sH[0].getRowLen()];
-        // Arrays.fill(columnNames, "");
-
         Object[][] data = {};
 
-        // Создаем модель таблицы
-        // MyModel mm = new MyModel(data, columnNames) {
-        //     @Override
-        //     public boolean isCellEditable(int row, int column) {
-        //         return !(column == 0);
-        //     }
-        // };
         JTable table = new JTable();
-
-        // table.setModel(mm);
 
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
-//        final int[][][] errorCells = {{}};
+
         final String[][] buffer = {{}};
 
         // Создаем экземпляр класса Renderer, передавая массив координат
@@ -417,25 +397,13 @@ public class mainGui extends JFrame {
 
                         System.out.println(offt2);
 
-                        intArr[0] =  bT.getSigned(data, offt2, 1);
-                        intArr[1] = bT.getSigned(data, offt2, 2);
-                        intArr[2] = bT.getSigned(data, offt2, 4);
-                        intArr[3] = bT.getSigned(data, offt2, 8);
+                        for (int i = 0; i < 4; i++){
+                            intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
+                            longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
+                            floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
+                            doubleArr[i] = bT.getDouble(data, offt2, (int) Math.pow(2, i));
+                        }
 
-                        longArr[0] = bT.getUnsigned(data, offt2, 1);
-                        longArr[1] = bT.getUnsigned(data, offt2, 2);
-                        longArr[2] = bT.getUnsigned(data, offt2, 4);
-                        longArr[3] = bT.getUnsigned(data, offt2, 8);
-
-                        floatArr[0] = bT.getFloat(data, offt2, 1);
-                        floatArr[1] = bT.getFloat(data, offt2, 2);
-                        floatArr[2] = bT.getFloat(data, offt2, 4);
-                        floatArr[3] = -1;
-
-                        doubleArr[0] = bT.getDouble(data, offt2, 1);
-                        doubleArr[1] = bT.getDouble(data, offt2, 2);
-                        doubleArr[2] = bT.getDouble(data, offt2, 4);
-                        doubleArr[3] = bT.getDouble(data, offt2, 8);
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
@@ -483,25 +451,13 @@ public class mainGui extends JFrame {
 
                         System.out.println(offt2);
 
-                        intArr[0] =  bT.getSigned(data, offt2, 1);
-                        intArr[1] = bT.getSigned(data, offt2, 2);
-                        intArr[2] = bT.getSigned(data, offt2, 4);
-                        intArr[3] = bT.getSigned(data, offt2, 8);
+                        for (int i = 0; i < 4; i++){
+                            intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
+                            longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
+                            floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
+                            doubleArr[i] = bT.getDouble(data, offt2, (int) Math.pow(2, i));
+                        }
 
-                        longArr[0] = bT.getUnsigned(data, offt2, 1);
-                        longArr[1] = bT.getUnsigned(data, offt2, 2);
-                        longArr[2] = bT.getUnsigned(data, offt2, 4);
-                        longArr[3] = bT.getUnsigned(data, offt2, 8);
-
-                        floatArr[0] = bT.getFloat(data, offt2, 1);
-                        floatArr[1] = bT.getFloat(data, offt2, 2);
-                        floatArr[2] = bT.getFloat(data, offt2, 4);
-                        floatArr[3] = -1;
-
-                        doubleArr[0] = bT.getDouble(data, offt2, 1);
-                        doubleArr[1] = bT.getDouble(data, offt2, 2);
-                        doubleArr[2] = bT.getDouble(data, offt2, 4);
-                        doubleArr[3] = bT.getDouble(data, offt2, 8);
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
@@ -618,12 +574,6 @@ public class mainGui extends JFrame {
                 }
             }
         });
-        // sH[0].setColumnLen(4); // что-то не то, где то задана константа
-        // sH[0].setRowLen(4);
-        // sH[0].setDLen(0);
-        // dat[0] = bIO[0].getHexBytesOfft(offset[0], 4*4);
-        // sH[0].setAllData(dat[0]);
-        // setTable(table, scrollPane, offset[1], sH[0]);
 
         widthField = new JTextField(15);
         widthField.setToolTipText("Ширина");

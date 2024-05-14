@@ -101,6 +101,7 @@ public class SheetHolder {
         this.fName = fName;
         this.hCells = new int [0][0];
         this.fCells = new int[0][0];
+        this.erCells = new int[0][0];
     }
 
     ///////////////////////////////////////////////////////////////
