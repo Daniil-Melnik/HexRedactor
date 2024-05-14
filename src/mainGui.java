@@ -131,7 +131,7 @@ public class mainGui extends JFrame {
                 int [][] findedCells = sH[0].getTableCellCoords(offts);
                 sH[0].setFCells(findedCells);
                 int [][] highlightCells = sH[0].getHCells();
-                setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
 
             }
         });
@@ -204,7 +204,7 @@ public class mainGui extends JFrame {
                 int [][] findedCells = new int[0][0];
                 sH[0].setHCells(highlightCells);
                 sH[0].setFCells(findedCells);
-                setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                 changed[0] = true;
                 System.out.println(optText);
             }
@@ -301,7 +301,7 @@ public class mainGui extends JFrame {
                 }
                 int [][] highlightCells = sH[0].getHCells();
                 int [][] findedCells = sH[0].getFCells();
-                setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
             }
         });
 
@@ -333,7 +333,7 @@ public class mainGui extends JFrame {
                     sH[0].setAllData(dat[0]);
                     int [][] highlightCells = sH[0].getHCells();
                     int [][] findedCells = sH[0].getFCells();
-                    setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                    setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     String [] smallFName = fName[0].split("\\\\");
                     fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
                     //System.out.println("Selected file: " + fName[0]);
@@ -536,13 +536,13 @@ public class mainGui extends JFrame {
                         int [][] highlightCells = mh.getFullCoords(rowLen);
                         int [][] findedCells = sH[0].getFCells();
                         sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                        setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     }
                     else{
                         int [][] highlightCells = new int[0][0]; // reset
                         int [][] findedCells = sH[0].getFCells();
                         sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                        setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     }
                 }
             }
@@ -567,13 +567,13 @@ public class mainGui extends JFrame {
                         int [][] highlightCells = mh.getFullCoords(rowLen);
                         int [][] findedCells = sH[0].getFCells();
                         sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                        setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     }
                     else{
                         int [][] highlightCells = new int[0][0]; // reset
                         int [][] findedCells = sH[0].getFCells();
                         sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                        setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     }
                     System.out.println(coord[0] + " " + coord[1]);
                 }
@@ -620,7 +620,7 @@ public class mainGui extends JFrame {
                     // ??
                     int [][] highlightCells = sH[0].getHCells();
                     int [][] findedCells = sH[0].getFCells();
-                    setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                    setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     changed[0] = true;
 
                 }
@@ -727,7 +727,7 @@ public class mainGui extends JFrame {
                 // наследование поиска конец
                 highlightCells = sH[0].getHCells();
                 findedCells = sH[0].getFCells();
-                setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
             }
         });
 
@@ -753,7 +753,7 @@ public class mainGui extends JFrame {
                     if (!changed[0]){
                         sH[0].setAllData(dat[0]);
                         int [][] findedCells = sH[0].getFCells();
-                        setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                        setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                     }
                     else{
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -761,14 +761,14 @@ public class mainGui extends JFrame {
                             // вставить запись в файл изменений
                             sH[0].setAllData(dat[0]);
                             int [][] findedCells = sH[0].getFCells();
-                            setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                            setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                             changed[0] = false;
                         }
                         else if (result == 1){
                             // вставить оставить файл в старом виде
-                            sH[0].setAllData(dat[0]); 
+                            sH[0].setAllData(dat[0]);
                             int [][] findedCells = sH[0].getFCells();
-                            setTable(table, scrollPane, offset[1], highlightCells, errorCells[0], findedCells, sH[0]);
+                            setTable(table, scrollPane, offset[1], errorCells[0], findedCells, sH[0]);
                             changed[0] = false;
                         }
                     }
@@ -792,12 +792,14 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, JScrollPane scrollPane, int offt, int [][] highlightCells, int[][] errorCells, int[][] findedCells, SheetHolder sH){
+    public static void setTable(JTable table, JScrollPane scrollPane, int offt, int[][] errorCells, int[][] findedCells, SheetHolder sH){
         String [] data = null;
         data = sH.getData();
         utilByte ub = new utilByte();
         int rowLen = sH.getRowLen();
         int columnLen = sH.getColumnLen();
+
+        int [][] highlightCells = sH.getHCells();
 
         System.out.println("Количество строк = " + columnLen);
         Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
