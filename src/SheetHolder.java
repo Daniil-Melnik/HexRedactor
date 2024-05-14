@@ -123,6 +123,12 @@ public class SheetHolder {
         this.dLen = dLen;
     }
 
+    public void resetSheet(MouseHig mH){
+        this.setErCells(new int [0][0]);
+        this.setHCells(new int [0][0]);
+
+        mH.setCond((byte) 0);
+    }
 
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);

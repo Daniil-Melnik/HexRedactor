@@ -180,10 +180,7 @@ public class mainGui extends JFrame {
                         eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
                     }
                 }
-                highlightCells = new int[0][0];
-                int [][] findedCells = new int[0][0];
-                sH[0].setHCells(highlightCells);
-                sH[0].setFCells(findedCells);
+                sH[0].resetSheet(mh);
                 setTable(table, scrollPane, offset[1], sH[0]);
                 changed[0] = true;
                 System.out.println(optText);
@@ -233,8 +230,7 @@ public class mainGui extends JFrame {
                     else{
                         int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                         if (resultChng == 0){
-                            int [][] highlightCells = new int[0][0]; // reset
-                            sH[0].setHCells(highlightCells);
+                            sH[0].setHCells(new int[0][0]);
 
                             dat[0] = sH[0].getData();
 
@@ -264,8 +260,7 @@ public class mainGui extends JFrame {
                         }
                         else if (resultChng == 1){
                             // вставить оставить файл в старом виде
-                            int [][] highlightCells = new int[0][0];
-                            sH[0].setHCells(highlightCells);
+                            sH[0].setHCells(new int[0][0]);
                             rowLen = Integer.parseInt(height);
                             columnLen = Integer.parseInt(width);
 
@@ -491,8 +486,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                     else{
-                        int [][] highlightCells = new int[0][0]; // reset
-                        sH[0].setHCells(highlightCells);
+                        sH[0].setHCells(new int[0][0]);
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                 }
@@ -520,8 +514,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                     else{
-                        int [][] highlightCells = new int[0][0]; // reset
-                        sH[0].setHCells(highlightCells);
+                        sH[0].setHCells(new int[0][0]);
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                     System.out.println(coord[0] + " " + coord[1]);
@@ -595,8 +588,7 @@ public class mainGui extends JFrame {
         forward.setIcon(new ImageIcon("src/icons/forward.png"));
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int [][] highlightCells = new int[0][0];
-                sH[0].setHCells(highlightCells);
+                sH[0].setHCells(new int[0][0]);
 
                 int [][] findedCells = new int[0][0];
                 sH[0].setFCells(findedCells);
@@ -665,6 +657,7 @@ public class mainGui extends JFrame {
                 }
 
                 // наследование поиска конец
+                sH[0].resetSheet(mh);
                 setTable(table, scrollPane, offset[1], sH[0]);
             }
         });
@@ -677,8 +670,7 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int [][] highlightCells = new int[0][0];
-                sH[0].setHCells(highlightCells);
+                sH[0].setHCells(new int[0][0]);
 
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();

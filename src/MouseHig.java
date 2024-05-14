@@ -7,6 +7,10 @@ public class MouseHig {
         cond = 0;
     }
 
+    public void setCond(byte newCond){
+        this.cond = newCond;
+    }
+
     public void addCoord(int [] coord){
         switch (this.cond) {
             case 0:
