@@ -179,7 +179,7 @@ public class SheetHolder {
                 }
                 else emptyCellDataShift = 0;
                 this.data = uB.fillInStars(tempDataShift, emptyCellDataShift);
-                this.columnLen = this.data.length / this.rowLen;
+                // this.columnLen = this.data.length / this.rowLen; // Возможно ошибка здесь
                 break;
 
             case 7:

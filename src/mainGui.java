@@ -731,7 +731,8 @@ public class mainGui extends JFrame {
         int [][] errorCells = sH.getErCells();
 
         System.out.println("Количество строк = " + columnLen);
-        Object [][] tableData = ub.toLabeledArr(rowLen, columnLen, data, offt);
+        int tmpColumnLen = (sH.getData().length % sH.getRowLen() == 0) ? sH.getData().length / sH.getRowLen() : sH.getData().length / sH.getRowLen() + 1;
+        Object [][] tableData = ub.toLabeledArr(rowLen, tmpColumnLen, data, offt); // 16.05.2024
 
         String[] newColumnNames = new String[rowLen + 1];
 
