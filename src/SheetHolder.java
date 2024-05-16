@@ -136,6 +136,7 @@ public class SheetHolder {
         int currOfft = 0;
         utilByte uB = new utilByte();
         ByteIO bIO = new ByteIO(this.fName);
+        System.out.println("cN = " + this.columnLen + "\n rN = " + this.rowLen);
         switch (chH.getType()) {
             case 0:
                 // System.out.println("GET HANDLE ZERO");
@@ -151,7 +152,7 @@ public class SheetHolder {
             case 2:
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
-                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen; // 09.05.2024
+                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen; // ОШИБКА. COLUMNLEN меняется из-за звёзд!!!
                 //int newOfft = this.offt + len;
                 String [] leftData = uB.removeFromArr(this.data, len, currOfft);
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
