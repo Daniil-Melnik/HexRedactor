@@ -182,9 +182,11 @@ public class SheetHolder {
                 break;
             
             case 3:
+                this.clearStarsOnSheet();
                 int offt = chH.getOfft();
                 String [] newData = chH.getData();
-                this.data = uB.addDataSubst(this.data, newData, offt);           
+                this.data = uB.addDataSubst(this.data, newData, offt);
+                this.fillInStarsOnSheet();
                 break;
 
             case 4:
