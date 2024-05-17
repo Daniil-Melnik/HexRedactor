@@ -30,8 +30,6 @@ public class EditBtnActions {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
-        sH.clearStarsOnSheet();
-
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
         offset[0] = offset[0] + highlightLen;

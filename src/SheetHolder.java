@@ -168,6 +168,7 @@ public class SheetHolder {
                 break;
 
             case 2:
+                this.clearStarsOnSheet();
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
                 int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen; // ОШИБКА. COLUMNLEN меняется из-за звёзд!!!
@@ -176,6 +177,7 @@ public class SheetHolder {
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
                 this.data = uB.concatArrs(leftData, rightData);
                 this.dLen += len;
+                this.fillInStarsOnSheet();
                 
                 break;
             
@@ -186,6 +188,7 @@ public class SheetHolder {
                 break;
 
             case 4:
+                this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
                 String [] newDataShift = chH.getData();

@@ -128,62 +128,65 @@ public class mainGui extends JFrame {
                 
                 String optText = (String) editPanel.comboBox.getSelectedItem();
                 int [][] highlightCells = sH[0].getHCells();
+                try {
+                    if (optText.equals("Вставить нули")){
 
-                if (optText.equals("Вставить нули")){
-
-                    JTextField lenField = editPanel.zeroField;
-                    eBA.btnFillInZero(sH[0], lenField, highlightCells);
-                }
-
-                else if (optText.equals("Удалить")){
-                    if (editPanel.isZeroSelected()){
-                        eBA.btnRemoveZero(sH[0], offset, highlightCells);
+                        JTextField lenField = editPanel.zeroField;
+                        eBA.btnFillInZero(sH[0], lenField, highlightCells);
                     }
-                    if (editPanel.isShiftSelected()){
-                        eBA.btnRemoveShift(sH[0], offset, highlightCells);
-                    }
-                }
 
-                else if (optText.equals("Вставить")){
-                    boolean shiftCond = editPanel.isShiftPasteSelected();
-                    boolean replaceCond = editPanel.isReplaceSelected();
-
-                    System.out.println(shiftCond + " " + replaceCond);
-
-                    String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
-
-                    if (bufferValue.equals("задать")){
-                        String adStr = editPanel.valueField.getText();
-                        String [] currData = bIO[0].splitHexBytes(adStr);
-                        if (shiftCond){
-                            System.out.println("****");
-                            eBA.btnPasteShift(sH[0], currData, highlightCells);
+                    else if (optText.equals("Удалить")){
+                        if (editPanel.isZeroSelected()){
+                            eBA.btnRemoveZero(sH[0], offset, highlightCells);
                         }
-                        else if (replaceCond){
-                            eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                        if (editPanel.isShiftSelected()){
+                            eBA.btnRemoveShift(sH[0], offset, highlightCells);
                         }
                     }
-                    if ((bufferValue.equals("из буфера"))){
-                        if (shiftCond){
-                            eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
+
+                    else if (optText.equals("Вставить")){
+                        boolean shiftCond = editPanel.isShiftPasteSelected();
+                        boolean replaceCond = editPanel.isReplaceSelected();
+
+                        System.out.println(shiftCond + " " + replaceCond);
+
+                        String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
+
+                        if (bufferValue.equals("задать")){
+                            String adStr = editPanel.valueField.getText();
+                            String [] currData = bIO[0].splitHexBytes(adStr);
+                            if (shiftCond){
+                                System.out.println("****");
+                                eBA.btnPasteShift(sH[0], currData, highlightCells);
+                            }
+                            else if (replaceCond){
+                                eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                            }
                         }
-                        else if (replaceCond){
-                            eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
+                        if ((bufferValue.equals("из буфера"))){
+                            if (shiftCond){
+                                eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
+                            }
+                            else if (replaceCond){
+                                eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
+                            }
                         }
                     }
-                }
-                else if(optText.equals("Вырезать")){
-                    if (editPanel.isShiftSelected()){
-                        eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
+                    else if(optText.equals("Вырезать")){
+                        if (editPanel.isShiftSelected()){
+                            eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
+                        }
+                        if (editPanel.isZeroSelected()){
+                            eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
+                        }
                     }
-                    if (editPanel.isZeroSelected()){
-                        eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
-                    }
+                    sH[0].resetSheet(mh);
+                    setTable(table, scrollPane, offset[1], sH[0]);
+                    changed[0] = true;
+                    System.out.println(optText);
+                } catch (ArrayIndexOutOfBoundsException exception) {
+                    hc.showOk("Ошибка", "Нельзя редактировать область **");
                 }
-                sH[0].resetSheet(mh);
-                setTable(table, scrollPane, offset[1], sH[0]);
-                changed[0] = true;
-                System.out.println(optText);
             }
         });
         frame.add(editPanel);
@@ -476,18 +479,20 @@ public class mainGui extends JFrame {
                     int [] coord = new int [2];
                     coord[0] = row;
                     coord[1] = column;
-                    mh.addCoord(coord);
+                    if (!((String) table.getValueAt(row, column)).equals("**")){
+                        mh.addCoord(coord);
 
-                    int rowLen = sH[0].getRowLen();
+                        int rowLen = sH[0].getRowLen();
 
-                    if (mh.getCond() == 2){
-                        int [][] highlightCells = mh.getFullCoords(rowLen);
-                        sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], sH[0]);
-                    }
-                    else{
-                        sH[0].setHCells(new int[0][0]);
-                        setTable(table, scrollPane, offset[1], sH[0]);
+                        if (mh.getCond() == 2){
+                            int [][] highlightCells = mh.getFullCoords(rowLen);
+                            sH[0].setHCells(highlightCells);
+                            setTable(table, scrollPane, offset[1], sH[0]);
+                        }
+                        else{
+                            sH[0].setHCells(new int[0][0]);
+                            setTable(table, scrollPane, offset[1], sH[0]);
+                        }
                     }
                 }
             }
