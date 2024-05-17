@@ -148,6 +148,14 @@ public class SheetHolder {
         this.data = uB.fillInStars(this.data, emptyCellDataShift);
     }
 
+    public boolean isEmptyVolume(int addLen){
+        boolean res = true;
+        int currLen = this.data.length;
+
+        res = currLen + addLen < 1048577;
+        return res;
+    }
+
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
         int len = 0;
