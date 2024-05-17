@@ -130,6 +130,24 @@ public class SheetHolder {
         mH.setCond((byte) 0);
     }
 
+    public void clearStarsOnSheet(){
+        utilByte uB = new utilByte();
+        String [] newData =  uB.clearStars(this.data);
+        this.data = newData;
+    }
+
+    public void fillInStarsOnSheet(){
+        utilByte uB = new utilByte();
+
+        int emptyCellDataShift;
+        if (this.data.length % this.rowLen != 0){
+            emptyCellDataShift = this.rowLen - this.data.length % this.rowLen;
+        }
+        else emptyCellDataShift = 0;
+
+        this.data = uB.fillInStars(this.data, emptyCellDataShift);
+    }
+
     public void makeHandle(ChangeHandler chH){
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
         int len = 0;
@@ -158,7 +176,7 @@ public class SheetHolder {
                 String [] rightData = bIO.getHexBytesOfft(newOfft, len);
                 this.data = uB.concatArrs(leftData, rightData);
                 this.dLen += len;
-                // System.out.println("НОВЫЙ СДВИГ = " + newOfft + '\n' + "СВИГ В ТАБЛИЦЕ = " + this.offt + "\nДЛИНА = " + len);
+                
                 break;
             
             case 3:
@@ -173,13 +191,9 @@ public class SheetHolder {
                 String [] newDataShift = chH.getData();
                 // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
                 String [] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
-                int emptyCellDataShift;
-                if (tempDataShift.length % this.rowLen != 0){
-                    emptyCellDataShift = this.rowLen - tempDataShift.length % this.rowLen;
-                }
-                else emptyCellDataShift = 0;
-                this.data = uB.fillInStars(tempDataShift, emptyCellDataShift);
-                // this.columnLen = this.data.length / this.rowLen; // Возможно ошибка здесь
+                this.data = tempDataShift;
+                this.fillInStarsOnSheet();
+                // this.columnLen = this.data.length / this.rowLen; // Возможно ошибка здесь 16.05.2024
                 break;
 
             case 7:

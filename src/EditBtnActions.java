@@ -30,11 +30,7 @@ public class EditBtnActions {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
-// удаление звёзд начало
-        utilByte uB = new utilByte();
-        String [] oldData = sH.getData();
-        sH.setAllData(uB.clearStars(oldData));
-// удаление звёзд конец
+        sH.clearStarsOnSheet();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
