@@ -155,12 +155,16 @@ public class mainGui extends JFrame {
                         if (bufferValue.equals("задать")){
                             String adStr = editPanel.valueField.getText();
                             String [] currData = bIO[0].splitHexBytes(adStr);
-                            if (shiftCond){
-                                System.out.println("****");
-                                eBA.btnPasteShift(sH[0], currData, highlightCells);
+                            if (rE.isValidArrBool(currData)) {
+                                if (shiftCond) {
+                                    System.out.println("****");
+                                    eBA.btnPasteShift(sH[0], currData, highlightCells);
+                                } else if (replaceCond) {
+                                    eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                                }
                             }
-                            else if (replaceCond){
-                                eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                            else{
+                                hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
                             }
                         }
                         if ((bufferValue.equals("из буфера"))){
