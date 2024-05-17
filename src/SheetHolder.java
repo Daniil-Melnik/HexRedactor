@@ -202,17 +202,12 @@ public class SheetHolder {
                 break;
 
             case 7:
+                this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
                 // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
-                String [] tempData = uB.fillInZeros(this.data, offt, len);
-                int emptyCellData;
-                if (tempData.length % this.rowLen != 0){
-                    emptyCellData = this.rowLen - tempData.length % this.rowLen;
-                }
-                else emptyCellData = 0;
-                this.data = uB.fillInStars(tempData, emptyCellData);
-                this.columnLen = this.data.length / this.rowLen;
+                this.data = uB.fillInZeros(this.data, offt, len);
+                this.fillInStarsOnSheet();
             default:
                 break;
         } 
