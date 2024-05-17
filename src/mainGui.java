@@ -559,13 +559,13 @@ public class mainGui extends JFrame {
                         hQ.addChange(chH, row * rowLen + column - 1); 
                     }
                     else{
-                        //String msgErrCells = "Значения в ячейках по сдвигу: ";
-                        // for (Integer integer : aL) {
-                        //     msgErrCells += integer + " ";
-                        //     //System.out.println(integer);
-                        // }
-                        // msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
-                        //hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
+                        String msgErrCells = "Значения в ячейках по сдвигу: ";
+                         for (Integer integer : aL) {
+                             msgErrCells += integer + " ";
+                             //System.out.println(integer);
+                         }
+                         msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
+                        hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
                     }
                     // ??
                     setTable(table, scrollPane, offset[1], sH[0]);
