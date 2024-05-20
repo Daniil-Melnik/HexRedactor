@@ -60,6 +60,10 @@ public class ByteIO {
         return res;
     }
 
+    public long getFLen(){
+        return getFileLength();
+    }
+
     /////////////////////////////////////////////////////////////////
     ////////////// Перевести массив 16-строк в байты ////////////////
     /////////////////////////////////////////////////////////////////
@@ -141,7 +145,8 @@ public class ByteIO {
                 index += 8;
                 System.out.println(index + " - полная после даты");
             }
-            System.out.println(index + " - перед огузком");
+            System.out.println(index + " - перед огузком, остаток " + (getFileLength() - index));
+
             int nPreEmptyBytes = toIntExact((getFileLength() - index) % 8);
             preEmptyDataStr = getHexBytesOfft(index,  nPreEmptyBytes);
             preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
