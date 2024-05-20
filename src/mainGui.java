@@ -1,11 +1,9 @@
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -695,35 +693,78 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                sH[0].setHCells(new int[0][0]);
-
+                long fileLen = bIO[0].getFileLength();
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
+                if ((offset[0] - (long) rowLen * columnLen) >= 0) {
+                    sH[0].setHCells(new int[0][0]);
 
-                if (offset[1] - rowLen * columnLen >= 0){
+                    int[][] findedCells = new int[0][0];
+                    sH[0].setFCells(findedCells);
+
+
                     offset[0] = offset[0] - rowLen * columnLen;
                     offset[1] = offset[1] - rowLen * columnLen;
+
+                    System.out.println("offt1 = " + offset[1] + "\nofft0 = " + offset[0]);
+
                     sH[0].setOfft(offset[0]);
-                    dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen*columnLen);
-                    if (!changed[0]){
+                    sH[0].setColumnLen(columnLen);
+
+                    if (!changed[0]) {
+                        dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
                         sH[0].setAllData(dat[0]);
-                        setTable(table, scrollPane, offset[1], sH[0]);
-                    }
-                    else{
+                        sH[0].setDLen(0);
+                    } else {
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                        if (result == 0){
+                        if (result == 0) {
                             // вставить запись в файл изменений
-                            sH[0].setAllData(dat[0]);
-                            setTable(table, scrollPane, offset[1], sH[0]);
+                            int cellOfft = offset[1] + rowLen * columnLen;
+                            dat[0] = sH[0].getData();
+                            int tmpDLen = sH[0].getDLen();
+                            bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
+                            dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                            sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
+                            offset[0] = offset[1]; // добавленого в тест
                             changed[0] = false;
-                        }
-                        else if (result == 1){
-                            // вставить оставить файл в старом виде
+                            sH[0].setDLen(0);
+                        } else if (result == 1) {
+                            // оставить файл в старом виде
+                            dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
-                            setTable(table, scrollPane, offset[1], sH[0]);
                             changed[0] = false;
                         }
                     }
+
+                    // наследование поиска начало
+                    if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
+                        utilByte uB = new utilByte();
+                        int offt1 = offset[1] + rowLen * columnLen;
+                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
+
+                        int len = Integer.parseInt(byteSize[0]);
+
+                        int[] offts = {};
+
+                        RegExp rG = new RegExp();
+
+                        boolean isMask = rG.isMask(maskValue[0]);
+
+                        if (isMask) {
+                            offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                        } else {
+                            BigInteger val = new BigInteger(maskValue[0]);
+                            offts = bT.getByteOffsetsValue(data, len, val);
+                        }
+
+                        findedCells = sH[0].getTableCellCoords(offts);
+                        sH[0].setFCells(findedCells);
+                    }
+
+                    // наследование поиска конец
+                    sH[0].resetSheet(mh);
+                    setTable(table, scrollPane, offset[1], sH[0]);
                 }
             }
         });
