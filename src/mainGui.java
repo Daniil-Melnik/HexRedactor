@@ -813,7 +813,7 @@ public class mainGui extends JFrame {
         });
         forward.setBounds(710, 550, 300, 40);
         back.setBounds(400, 550, 300, 40);
-        info.setBounds(1020, 550, 80, 50);
+        info.setBounds(1020, 550, 80, 40);
 
         widthField.setBounds(400, 350, 350, 20);
         heightField.setBounds(500, 350, 350, 20);
