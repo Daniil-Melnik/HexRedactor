@@ -1,5 +1,7 @@
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
-        JButton forward, back;
+        JButton forward, back, info;
         JTextField widthField, heightField, lenField, dataField;
         HandlerQueue hQ = new  HandlerQueue();
         ByteTransform bT = new ByteTransform();
@@ -768,8 +770,50 @@ public class mainGui extends JFrame {
                 }
             }
         });
-        forward.setBounds(755, 550, 345, 40);
-        back.setBounds(400, 550, 345, 40);
+
+        info = new JButton("инфо");
+        info.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Путь к вашему текстовому файлу
+                String filePath = "src/text/instruction.txt";
+                StringBuilder content = new StringBuilder();
+
+                try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        content.append(line).append("\n");
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                // Разбиваем текст на абзацы
+                String[] paragraphs = content.toString().split("\n\n");
+
+                // Создаем новое окно для отображения текста
+                JFrame textFrame = new JFrame("Text Content");
+                textFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                textFrame.setSize(400, 300);
+
+                JTextArea textArea = new JTextArea();
+                textArea.setEditable(false);
+                textArea.setLineWrap(true);
+                textArea.setWrapStyleWord(true);
+
+                for (String paragraph : paragraphs) {
+                    textArea.append(paragraph + "\n\n");
+                }
+
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                textFrame.getContentPane().add(scrollPane);
+
+                textFrame.setVisible(true);
+            }
+        });
+        forward.setBounds(710, 550, 300, 40);
+        back.setBounds(400, 550, 300, 40);
+        info.setBounds(1020, 550, 80, 50);
 
         widthField.setBounds(400, 350, 350, 20);
         heightField.setBounds(500, 350, 350, 20);
@@ -779,6 +823,7 @@ public class mainGui extends JFrame {
         frame.getContentPane().add(scrollPane);
         frame.add(forward);
         frame.add(back);
+        frame.add(info);
 
         frame.setSize(1150, 620);
         frame.setLayout(null);
