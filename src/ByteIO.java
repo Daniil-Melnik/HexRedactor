@@ -50,18 +50,14 @@ public class ByteIO {
     /////////////////////////////////////////////////////////////////
     //////////////// Получить длину файла в байтах //////////////////
     /////////////////////////////////////////////////////////////////
-    public long getFileLength(){
+    public long getFileLength(String fName){
         long res = 0;
-        try (RandomAccessFile file = new RandomAccessFile(this.fName, "r")) {
+        try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
             res = file.length();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return res;
-    }
-
-    public long getFLen(){
-        return getFileLength();
     }
 
     /////////////////////////////////////////////////////////////////
@@ -136,7 +132,7 @@ public class ByteIO {
             index += data.length + dLen; // добавлен допю сдвиг 21.01.2024
             System.out.println(index + " - вписали дату");
 
-            long pInd = (getFileLength() - index) / 8;
+            long pInd = (getFileLength(this.fName) - index) / 8;
 
             for (int k = 0; k < pInd; k++){
                 fullPackDataStr = getHexBytesOfft(index, 8);
@@ -145,15 +141,16 @@ public class ByteIO {
                 index += 8;
                 System.out.println(index + " - полная после даты");
             }
-            System.out.println(index + " - перед огузком, остаток " + (getFileLength() - index));
-
-            int nPreEmptyBytes = toIntExact((getFileLength() - index) % 8);
-            preEmptyDataStr = getHexBytesOfft(index,  nPreEmptyBytes);
-            preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
-            randomAccessFile.write(preEmptyDataByte);
-            index += nPreEmptyBytes;
+            System.out.println(index + " - перед огузком, остаток " + (getFileLength(this.fName) - index));
+            if (index < getFileLength(this.fName)){
+                int nPreEmptyBytes = toIntExact((getFileLength(this.fName) - index) % 8);
+                preEmptyDataStr = getHexBytesOfft(index,  nPreEmptyBytes);
+                preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
+                randomAccessFile.write(preEmptyDataByte);
+                index += nPreEmptyBytes;
+            }
             System.out.println(index + " - конец");
-            System.out.println("== " + getFileLength());
+            System.out.println("== " + getFileLength(this.fName));
 
             randomAccessFile.close();
             FileManager fM = new FileManager();

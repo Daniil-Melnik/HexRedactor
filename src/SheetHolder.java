@@ -104,6 +104,10 @@ public class SheetHolder {
         this.erCells = new int[0][0];
     }
 
+    public  String getfName(){
+        return  this.fName;
+    }
+
     ///////////////////////////////////////////////////////////////
     ////////////////// Получение координат ячеек //////////////////
     ///////////////////////////////////////////////////////////////
@@ -179,14 +183,14 @@ public class SheetHolder {
                 this.clearStarsOnSheet();
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
-                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen; // ОШИБКА. COLUMNLEN меняется из-за звёзд!!!
-                //int newOfft = this.offt + len;
-                String [] leftData = uB.removeFromArr(this.data, len, currOfft);
-                String [] rightData = bIO.getHexBytesOfft(newOfft, len);
-                this.data = uB.concatArrs(leftData, rightData);
-                this.dLen += len;
-                this.fillInStarsOnSheet();
-                
+                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen;
+                if (newOfft < bIO.getFileLength(this.fName)){
+                    String [] leftData = uB.removeFromArr(this.data, len, currOfft);
+                    String [] rightData = bIO.getHexBytesOfft(newOfft, len);
+                    this.data = uB.concatArrs(leftData, rightData);
+                    this.dLen += len;
+                    this.fillInStarsOnSheet();
+                }
                 break;
             
             case 3:

@@ -609,10 +609,10 @@ public class mainGui extends JFrame {
         forward.setIcon(new ImageIcon("src/icons/forward.png"));
         forward.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                long fileLen = bIO[0].getFileLength();
+                long fileLen = bIO[0].getFileLength(sH[0].getfName());
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
-                if ((offset[0] + (long) rowLen * columnLen) <= fileLen) {
+                if ((offset[0] + (long) rowLen * columnLen) < fileLen) {
                     sH[0].setHCells(new int[0][0]);
 
                     int[][] findedCells = new int[0][0];
@@ -693,7 +693,7 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                long fileLen = bIO[0].getFileLength();
+                long fileLen = bIO[0].getFileLength(sH[0].getfName());
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
                 if ((offset[0] - (long) rowLen * columnLen) >= 0) {
