@@ -144,11 +144,27 @@ public class ByteTransform {
         return mask.length() == cnt;
     }
 
+    public String updMask (String oldMask, int currLen){
+        String res = oldMask;
+        int oldLen = oldMask.length();
+        if (oldLen < currLen){
+            int disLen = currLen - oldLen;
+            for (int i = 0; i < disLen; i++){
+                res += "*";
+            }
+        }
+        else if (oldLen > currLen){
+            res = oldMask.substring(0, currLen);
+        }
+        return  res;
+    }
+
     public int [] getBytesOffsetMask(String [] data, int len, String mask){
         int numEl = 0;
+        String newMask = updMask(mask, len * 8);
         for (int i = 0; i < data.length - 7; i++){
             String tmpStr = getBinaryStr(data, i, len);
-            if (isValidForMask(tmpStr, mask)) numEl++;
+            if (isValidForMask(tmpStr, newMask)) numEl++;
         }
 
         int [] res = new int [numEl];
@@ -156,7 +172,7 @@ public class ByteTransform {
 
         for (int i = 0; i < data.length - 7; i++){
             String tmpStr = getBinaryStr(data, i, len);
-            if (isValidForMask(tmpStr, mask)) {
+            if (isValidForMask(tmpStr, newMask)) {
                 res[k] = i;
                 k++;
             }

@@ -29,7 +29,7 @@ public class SearchPanel extends JPanel {
         add(mainLabel);
         
         // Создание выпадающего меню для выбора количества байтов
-        String[] byteOptions = {"1", "2", "4", "8"};
+        String[] byteOptions = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
         byteSizeComboBox = new JComboBox<>(byteOptions);
         byteSizeComboBox.setBounds(110, 40, 60, 20);
 
