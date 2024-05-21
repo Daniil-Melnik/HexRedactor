@@ -811,6 +811,38 @@ public class mainGui extends JFrame {
                 textFrame.setVisible(true);
             }
         });
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (!changed[0]){
+                    int result = JOptionPane.showConfirmDialog(frame,
+                            "Вы уверены, что хотите закрыть приложение?",
+                            "Подтверждение закрытия",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (result == JOptionPane.YES_OPTION) {
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    }
+                }
+                if (changed[0]){
+                    int result = hc.getOpPane("Несохранённые данные", "Есть несохранённые данные, при закрытии они будут утеряны. Сохранить?");
+                    if (result == JOptionPane.YES_OPTION) {
+                        int rowLen = sH[0].getRowLen();
+                        int columnLen = sH[0].getColumnLen();
+                        int cellOfft = offset[1] + rowLen * columnLen;
+                        dat[0] = sH[0].getData();
+                        int tmpDLen = sH[0].getDLen();
+                        bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
+                    }
+                    if (result == JOptionPane.YES_OPTION || result == JOptionPane.NO_OPTION){
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    }
+                }
+            }
+        });
         forward.setBounds(710, 550, 300, 40);
         back.setBounds(400, 550, 300, 40);
         info.setBounds(1020, 550, 80, 40);
