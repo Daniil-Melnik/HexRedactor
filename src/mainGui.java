@@ -73,7 +73,7 @@ public class mainGui extends JFrame {
         /////////////// Перехват кнопки поиска по байтам ///////////////
         ////////////////////////////////////////////////////////////////
         searchPanel.addSearchButtonListener(new ActionListener() {
-            @Override 
+            @Override  
             public void actionPerformed(ActionEvent e) {
                 
                 String inputText = searchPanel.inputField.getText();
