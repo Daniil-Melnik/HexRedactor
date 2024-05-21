@@ -3,8 +3,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-// fNameNew -> 1.txt
-// fNameOld -> example.txt
+/*
+* Класс с утилитами
+* Назначение: работа с файлами
+* */
 
 public class FileManager {
     ///////////////////////////////////////////////////////////////

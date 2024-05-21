@@ -1,8 +1,17 @@
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+/*
+* Класс для описания действий
+* кнопок-операций
+* на главной панели
+* */
+
 public class EditBtnActions {
 
+    ///////////////////////////////////////////////////////////////
+    //////////////////////// Вставка нулей ////////////////////////
+    ///////////////////////////////////////////////////////////////
     public void btnFillInZero(SheetHolder sH, JTextField lenField, int [][] highlightCells){
 
         int [] startCoord = highlightCells[0];
@@ -15,6 +24,9 @@ public class EditBtnActions {
 
     }
 
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// Удаление с обнулением ////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnRemoveZero(SheetHolder sH, int [] offset, int[][] highlightCells) {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
@@ -25,6 +37,9 @@ public class EditBtnActions {
         sH.makeHandle(cHZero);
     }
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Удаление со сдигом //////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnRemoveShift(SheetHolder sH, int [] offset, int [][] highlightCells){
 
         int [] startCoord = highlightCells[0];
@@ -37,6 +52,9 @@ public class EditBtnActions {
         sH.makeHandle(cHShift);
     }
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Вставка со сдвигом //////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnPasteShift(SheetHolder sH, String [] currData, int [][] highlightCells){
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
@@ -47,6 +65,9 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// Вставка с замещением /////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnPasteSubst(SheetHolder sH, String [] currData, int [][] highlightCells){
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
@@ -58,6 +79,9 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Вырезка со сдвигом //////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnCutShift(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells) {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
@@ -73,6 +97,9 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// Вырезка с обнулением /////////////////////
+    ////////////////////////////////////////////////////////////////
     public void btnCutZero(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells){
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();

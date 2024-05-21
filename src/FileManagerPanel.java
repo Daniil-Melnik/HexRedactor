@@ -4,6 +4,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+* Класс-панель
+* Назначение: интерфейс открытия-сохранения файлов
+* */
+
 public class FileManagerPanel extends JPanel {
     private JLabel currentFileLabel, mainLabel;
     JButton openFileButton;
@@ -58,6 +63,9 @@ public class FileManagerPanel extends JPanel {
         return saveAsButton;
     }
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Заготовки под main //////////////////////
+    ////////////////////////////////////////////////////////////////
     public void addOpenFileButtonListener(ActionListener listener) {
         openFileButton.addActionListener(listener);
     }
@@ -66,40 +74,4 @@ public class FileManagerPanel extends JPanel {
         saveAsButton.addActionListener(listener);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Пример панели файла");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 150);
-
-        // Создаем панель с начальными значениями
-        FileManagerPanel filePanel = new FileManagerPanel("example.txt");
-
-        // Добавляем обработчики для кнопок
-        filePanel.getOpenFileButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Открыть файл");
-            }
-        });
-
-        filePanel.getSaveAsButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Сохранить как");
-            }
-        });
-
-        frame.add(filePanel);
-        frame.setVisible(true);
-
-        // Пример изменения названия файла
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                filePanel.setCurrentFile("new_example.txt");
-            }
-        });
-        timer.setRepeats(false); // Однократное выполнение таймера
-        timer.start();
-    }
 }

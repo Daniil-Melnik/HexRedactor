@@ -4,6 +4,11 @@ import java.math.BigInteger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/*
+* Описание встраиваемой панели
+* Назначение: Панель Значения по блокам
+* */
+
 public class BlockSizePanel extends JPanel {
     private JLabel [][] j = new JLabel[5][5];
     private JLabel mainLabel;

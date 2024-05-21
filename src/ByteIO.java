@@ -6,6 +6,13 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import static java.lang.Math.toIntExact;
 
+/*
+* Класс с утилитами
+* Назначение:
+* 1) ввод-вывод байт
+* 2) преобразования над байтами в А16 и назад
+* */
+
 public class ByteIO {
     private final String fName;
 

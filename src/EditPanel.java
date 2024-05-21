@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+* Класс-панель
+* Назначение: редактирование данных в таблице
+* */
+
 public class EditPanel extends JPanel {
     JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
@@ -70,6 +75,9 @@ public class EditPanel extends JPanel {
         return shiftPasteRadio.isSelected();
     }
 
+    ////////////////////////////////////////////////////////////////
+    /////////////////////////// Динамика ///////////////////////////
+    ////////////////////////////////////////////////////////////////
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
 
@@ -140,6 +148,9 @@ public class EditPanel extends JPanel {
         dynamicContent.repaint();
     }
 
+    ////////////////////////////////////////////////////////////////
+    /////////////////////// Изменение опции ////////////////////////
+    ////////////////////////////////////////////////////////////////
     private class ComboBoxVBListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -154,6 +165,9 @@ public class EditPanel extends JPanel {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    ////////////////////// Заготовки под main //////////////////////
+    ////////////////////////////////////////////////////////////////
     private class ComboBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -161,26 +175,8 @@ public class EditPanel extends JPanel {
         }
     }
 
-    // private class ExecuteButtonListener implements ActionListener {
-    //     @Override
-    //     public void actionPerformed(ActionEvent e) {
-    //         JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
-    //     }
-    // }
 
-        // Метод для добавления слушателя для кнопки "Найти"
     public void addEditButtonListener(ActionListener listener) {
         executeButton.addActionListener(listener);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Тестовое окно");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        EditPanel customPanel = new EditPanel();
-        frame.add(customPanel);
-
-        frame.setVisible(true);
     }
 }

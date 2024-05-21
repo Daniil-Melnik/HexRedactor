@@ -53,7 +53,6 @@ public class mainGui extends JFrame {
 
         final String[][] buffer = {{}};
 
-        // Создаем экземпляр класса Renderer, передавая массив координат
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
 
@@ -70,6 +69,9 @@ public class mainGui extends JFrame {
         searchPanel.setBounds(400, 200, 400, 150);
         frame.add(searchPanel);
 
+        ////////////////////////////////////////////////////////////////
+        /////////////// Перехват кнопки поиска по байтам ///////////////
+        ////////////////////////////////////////////////////////////////
         searchPanel.addSearchButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -300,21 +302,22 @@ public class mainGui extends JFrame {
             }
         });
 
-        
 
         FileManagerPanel fileManagerPanel = new FileManagerPanel("null");
         fileManagerPanel.setBounds(820, 200, 280, 150);
         frame.add(fileManagerPanel);
+
+        ////////////////////////////////////////////////////////////////
+        ////////////////// Кнопка отрытия новго файла //////////////////
+        ////////////////////////////////////////////////////////////////
         fileManagerPanel.addOpenFileButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Открываем диалоговое окно для выбора файла
                 int result = fileChooser.showOpenDialog(frame);
 
-                // Если пользователь выбрал файл, получаем путь к нему
                 if (result == JFileChooser.APPROVE_OPTION) {
                     fName[0] = fileChooser.getSelectedFile().getAbsolutePath();
                     bIO[0] = new ByteIO(fName[0]);
@@ -329,34 +332,32 @@ public class mainGui extends JFrame {
                     setTable(table, scrollPane, offset[1], sH[0]);
                     String [] smallFName = fName[0].split("\\\\");
                     fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
-                    //System.out.println("Selected file: " + fName[0]);
                 } else {
                     System.out.println("File selection cancelled.");
                 }
             }
         });
-        
+
+
+        ////////////////////////////////////////////////////////////////
+        ///////////////////// Кнопка сохранить как /////////////////////
+        ////////////////////////////////////////////////////////////////
         fileManagerPanel.addSaveAsButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Создаем JFileChooser для сохранения файла
                 JFileChooser fileChooser = new JFileChooser();
-                    
-                // Настраиваем диалог на режим сохранения
+
                 fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    
-                // Предлагаем имя по умолчанию (можно изменить по желанию)
+
                 fileChooser.setSelectedFile(new File("default_filename.txt"));
-    
-                // Открываем диалоговое окно "Сохранить как"
+
                 int result = fileChooser.showSaveDialog(frame);
     
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     String filePath = selectedFile.getAbsolutePath();
-    
-                    // Убеждаемся, что файл имеет нужное расширение, например, ".txt"
+
                     if (!filePath.toLowerCase().endsWith(".txt")) {
                         filePath += ".txt";
                     }
@@ -770,7 +771,9 @@ public class mainGui extends JFrame {
                 }
             }
         });
-
+        ////////////////////////////////////////////////////////////////
+        //////////////////// Информационная кнопка /////////////////////
+        ////////////////////////////////////////////////////////////////
         info = new JButton("инфо");
         info.addActionListener(new ActionListener() {
             @Override
@@ -812,6 +815,9 @@ public class mainGui extends JFrame {
             }
         });
 
+        ////////////////////////////////////////////////////////////////
+        //////////////////// Перехват закрытия окна ////////////////////
+        ////////////////////////////////////////////////////////////////
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         frame.addWindowListener(new WindowAdapter() {
@@ -861,6 +867,10 @@ public class mainGui extends JFrame {
         frame.setLayout(null);
         frame.setVisible(true);
     }
+
+    ////////////////////////////////////////////////////////////////
+    /////////////////// Функция загрузки таблицы ///////////////////
+    ////////////////////////////////////////////////////////////////
 
     public static void setTable(JTable table, JScrollPane scrollPane, int offt, SheetHolder sH){
         String [] data = null;

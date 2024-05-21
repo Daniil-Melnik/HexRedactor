@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+* Класс-панель
+* Назначение: описиние панели Фокус-выделение
+* */
+
 public class TableInfoPanel extends JPanel {
     private JLabel sizeLabel, lenLabel;
     private JLabel focusLabel;

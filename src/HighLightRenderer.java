@@ -3,6 +3,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.Arrays;
 
+/*
+* Класс-рендерер таблицы
+* Назначение: подсветка ячеек таблицы при
+* 1) Выделении
+* 2) Поиске
+* 3) Ошибочных значениях
+* */
+
 public class HighLightRenderer extends DefaultTableCellRenderer {
     private final int[][] highlightCells;
     private final int[][] errorCells;

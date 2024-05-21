@@ -1,6 +1,11 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/*
+* Класс с диалоговыми окнами
+* Назначение: формирование на основе JOptionPane окон с нужным текстом
+* */
+
 public class HandChng {
     private JFrame frame;
 
