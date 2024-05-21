@@ -213,6 +213,18 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (changed[0]){
+                        int result = hc.getOpPane("Несохранённые данные", "Есть несохранённые данные. Сохранить?");
+                        if (result == JOptionPane.YES_OPTION) {
+                            int rowLen = sH[0].getRowLen();
+                            int columnLen = sH[0].getColumnLen();
+                            int cellOfft = offset[1] + rowLen * columnLen;
+                            dat[0] = sH[0].getData();
+                            int tmpDLen = sH[0].getDLen();
+                            bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
+                        }
+                        changed[0] = false;
+                    }
                     ChangeSizeDialog changeSizeDialog = new ChangeSizeDialog();
 
                     int result = JOptionPane.showConfirmDialog(
@@ -246,7 +258,7 @@ public class mainGui extends JFrame {
                                 sH[0].setAllData(data);
                             } else {
                                 int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                                if (resultChng == 0) {
+                                if (resultChng == JOptionPane.YES_OPTION) {
                                     sH[0].setHCells(new int[0][0]);
 
                                     dat[0] = sH[0].getData();
@@ -274,7 +286,7 @@ public class mainGui extends JFrame {
 
                                     changed[0] = false;
                                     sH[0].setDLen(0);
-                                } else if (resultChng == 1) {
+                                } else if (resultChng == JOptionPane.NO_OPTION) {
                                     // вставить оставить файл в старом виде
                                     sH[0].setHCells(new int[0][0]);
                                     rowLen = Integer.parseInt(height);
@@ -636,7 +648,7 @@ public class mainGui extends JFrame {
                         sH[0].setDLen(0);
                     } else {
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                        if (result == 0) {
+                        if (result == JOptionPane.YES_OPTION) {
                             // вставить запись в файл изменений
                             int cellOfft = offset[1] - rowLen * columnLen;
                             dat[0] = sH[0].getData();
@@ -647,7 +659,7 @@ public class mainGui extends JFrame {
                             offset[0] = offset[1]; // добавленого в тест
                             changed[0] = false;
                             sH[0].setDLen(0);
-                        } else if (result == 1) {
+                        } else if (result == JOptionPane.NO_OPTION) {
                             // оставить файл в старом виде
                             dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
@@ -720,7 +732,7 @@ public class mainGui extends JFrame {
                         sH[0].setDLen(0);
                     } else {
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                        if (result == 0) {
+                        if (result == JOptionPane.YES_OPTION) {
                             // вставить запись в файл изменений
                             int cellOfft = offset[1] + rowLen * columnLen;
                             dat[0] = sH[0].getData();
@@ -731,7 +743,7 @@ public class mainGui extends JFrame {
                             offset[0] = offset[1]; // добавленого в тест
                             changed[0] = false;
                             sH[0].setDLen(0);
-                        } else if (result == 1) {
+                        } else if (result == JOptionPane.NO_OPTION) {
                             // оставить файл в старом виде
                             dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
