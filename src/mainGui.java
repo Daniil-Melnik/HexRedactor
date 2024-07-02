@@ -44,7 +44,7 @@ public class mainGui extends JFrame {
 
         HandChng hc = new HandChng(frame);
 
-        Object[][] data = {};
+        // Object[][] data = {};
 
         JTable table = new JTable();
 
@@ -698,7 +698,7 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                long fileLen = bIO[0].getFileLength(sH[0].getfName());
+                // long fileLen = bIO[0].getFileLength(sH[0].getfName());
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
                 if ((offset[0] - (long) rowLen * columnLen) >= 0) {
