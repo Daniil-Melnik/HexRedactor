@@ -192,7 +192,7 @@ public class mainGui extends JFrame {
                     else if(optText.equals("Копировать")){
                         eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
                     }
-                    sH[0].resetSheet(mh);
+                    sH[0].resetSheet(mh); 
                     setTable(table, scrollPane, offset[1], sH[0]);
                     changed[0] = true;
                     System.out.println(optText);
