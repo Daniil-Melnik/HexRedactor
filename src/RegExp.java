@@ -1,3 +1,8 @@
+/*
+* Класс-утилита
+* Назначение: работа по валидации на регулярных выражениях
+* */
+
 import java.util.ArrayList;
 
 public class RegExp {

@@ -1,5 +1,12 @@
 import java.math.BigInteger;
 
+/*
+* Класс с утилитами
+* Назначение:
+* 1) Преобразование байт или блоков байт в А2
+* 2) Выполнение операций поиска
+* */
+
 public class ByteTransform {
     
     /////////////////////////////////////////////////////////////// offt - сдвиг в таблице
@@ -103,6 +110,9 @@ public class ByteTransform {
         return res;
     }
 
+    ////////////////////////////////////////////////////////////////
+    //////////////////// Поиск блоков по целому ////////////////////
+    ////////////////////////////////////////////////////////////////
     public int [] getByteOffsetsValue(String [] data, int len, BigInteger  num){
         int cnt = 0;
         String cntStr = "";
@@ -119,7 +129,6 @@ public class ByteTransform {
         }
 
         int [] res = new int[cnt];
-        // int [] res = {5, 5, 5};
         int tCnt = 0;
         for (int j = 0; j < data.length - 7; j++){
             cntStr = getBinaryStr(data, j, len);
@@ -132,18 +141,23 @@ public class ByteTransform {
         return res;
     }
 
+    ////////////////////////////////////////////////////////////////
+    /////////// Проверка валидности байта в А2 маске ///////////////
+    ////////////////////////////////////////////////////////////////
     public boolean isValidForMask(String dataEl, String mask){
         int cnt = 0;
 
         for (int i = 0; i < mask.length(); i++){
             if ((dataEl.charAt(cnt) == mask.charAt(cnt)) || (mask.charAt(cnt) == '*')){
                 cnt++;
-                // System.out.println(dataEl);
             }
         }
         return mask.length() == cnt;
     }
 
+    ////////////////////////////////////////////////////////////////
+    /////////////// Подгонка маски под размер блока ////////////////
+    ////////////////////////////////////////////////////////////////
     public String updMask (String oldMask, int currLen){
         String res = oldMask;
         int oldLen = oldMask.length();
@@ -159,6 +173,9 @@ public class ByteTransform {
         return  res;
     }
 
+    ////////////////////////////////////////////////////////////////
+    //////////// Получить набор сдвигов валидных блоков ////////////
+    ////////////////////////////////////////////////////////////////
     public int [] getBytesOffsetMask(String [] data, int len, String mask){
         int numEl = 0;
         String newMask = updMask(mask, len * 8);

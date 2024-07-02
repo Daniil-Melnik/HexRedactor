@@ -1,3 +1,8 @@
+/*
+* Класс-храниетель
+* Назначение: хранит информацию об открытой странице данных
+* */
+
 public class SheetHolder {
     private String [] data;
     private String [] reserveData;

@@ -4,6 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+* Встраиваемая панель
+* Назначение: панель поиска
+* */
+
 public class SearchPanel extends JPanel {
     // Компоненты панели
     JComboBox<String> byteSizeComboBox;

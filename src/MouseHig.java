@@ -1,3 +1,8 @@
+/*
+* Класс-утилита
+* Назначение: автомат выделения ячеек в таблице
+* */
+
 public class MouseHig {
     private byte cond;
     private int [][] coord;

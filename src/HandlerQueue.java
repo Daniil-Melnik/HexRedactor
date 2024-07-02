@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+/*Заготовка под очередь изменений, не используется*/
+
 public class HandlerQueue {
     private ArrayList<ChangeHandler> queue;
 

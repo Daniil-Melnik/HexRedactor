@@ -1,6 +1,11 @@
 import javax.swing.border.Border;
 import java.awt.*;
 
+/*
+* Класс-переопределение
+* Назначение: создание закруглённых углов у панелей
+* */
+
 public class RoundedBorder implements Border {
     private int radius;
 

@@ -1,3 +1,6 @@
+/*
+* Класс для описания операции над данными
+* */
 public class ChangeHandler {
     private int type;
     /*
@@ -6,8 +9,7 @@ public class ChangeHandler {
      * 2 - удаление со сдвигом
      * 3 - вставка с заменой
      * 4 - вставка со сдвигом
-     * 5 - вырезка с обнулением
-     * 6 - вырезка со сдвигом
+     * 7 - вставка нулей
      */
     private String [] changedCells;
     private int offt;

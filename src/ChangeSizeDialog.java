@@ -2,6 +2,12 @@
 import javax.swing.*;
 import java.awt.*;
 
+/*
+* Класс-панель
+* Служит для описания диалогового окна
+* при изменении размеров таблицы
+* */
+
 public class ChangeSizeDialog extends JPanel {
     private JTextField textField1;
     private JTextField textField2;

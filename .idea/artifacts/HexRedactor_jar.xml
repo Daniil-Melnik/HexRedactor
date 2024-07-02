@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="HexRedactor:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/HexRedactor_jar</output-path>
+    <root id="archive" name="HexRedactor.jar">
+      <element id="module-output" name="HexRedactor" />
+    </root>
+  </artifact>
+</component>
