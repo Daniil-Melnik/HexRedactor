@@ -41,7 +41,7 @@ public class EditBtnActions {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
-        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1;
+        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // 02.07.2024 сдвиг на 1 по ячейкам
         int len = currData.length;
         ChangeHandler chH = new ChangeHandler(4, currOfft, len, currData);
         sH.makeHandle(chH);
@@ -51,7 +51,7 @@ public class EditBtnActions {
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
-        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1; // сдвиг в таблице по координате
+        int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // сдвиг в таблице по координате // 02.07.2024 сдвиг ещё на 1
 
         int len = currData.length;
         ChangeHandler chH = new ChangeHandler(3, currOfft, len, currData);
