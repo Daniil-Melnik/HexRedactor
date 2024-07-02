@@ -30,7 +30,7 @@ public class EditPanel extends JPanel {
         add(opLabel);
 
         // Создаем выпадающее меню
-        comboBox = new JComboBox<>(new String[]{"Удалить", "Вырезать", "Вставить", "Вставить нули"});
+        comboBox = new JComboBox<>(new String[]{"Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули"});
         comboBox.addActionListener(new ComboBoxListener());
         comboBox.setBounds(90, 50, 300, 25);
         comboBox.setFont(font15);

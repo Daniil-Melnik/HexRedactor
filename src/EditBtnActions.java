@@ -73,6 +73,16 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
+    public void btnCopy(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells) {
+        utilByte uB = new utilByte();
+        String [] strArr = uB.getValuesOfHighlt(table, highlightCells);
+        buffer[0] = strArr;
+        System.out.println("Теперь в буфере: "); // отладка копирование 02.07.2024
+        for (String s : buffer[0]){
+            System.out.print(s + " ");
+        }
+    }
+
     public void btnCutZero(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells){
         int [] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
