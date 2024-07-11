@@ -106,7 +106,4 @@ public class BlockSizePanel extends JPanel {
 
         return this;
     }
-
-    public static void main(String[] args) {
-    }
 }
