@@ -18,7 +18,6 @@ public class BlockSizePanel extends JPanel {
     private int[] columnWidth = { 80, 80, 100, 150, 220 };
 
     public BlockSizePanel() {
-
         Font font20 = new Font("Arial", Font.PLAIN, 20);
         Font font15p = new Font("Arial", Font.PLAIN, 15);
         Font font15b = new Font("Arial", Font.BOLD, 15);
@@ -99,10 +98,10 @@ public class BlockSizePanel extends JPanel {
         int index;
         for (int i = 1; i < 5; i++) {
             index = i - 1;
-            this.j[1][i].setText("" + intArr[index]);
-            this.j[2][i].setText("" + longArr[index]);
-            this.j[3][i].setText(i != 4 ? "" + floatArr[index] : "*");
-            this.j[4][i].setText("" + doubleArr[index]);
+            j[1][i].setText("" + intArr[index]);
+            j[2][i].setText("" + longArr[index]);
+            j[3][i].setText(i != 4 ? "" + floatArr[index] : "*");
+            j[4][i].setText("" + doubleArr[index]);
         }
 
         return this;

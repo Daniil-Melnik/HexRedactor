@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditPanel extends JPanel {
-    private JComboBox<String> comboBox, valueBuffer;
+    public JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
     private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
-    private JTextField valueField, zeroField;
+    public JTextField valueField, zeroField;
     private JRadioButton shiftRadio, zeroRadio;
     private JRadioButton replaceRadio, shiftPasteRadio;
 

@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 
 public class SearchPanel extends JPanel {
     // Компоненты панели
-    private JComboBox<String> byteSizeComboBox;
+    public JComboBox<String> byteSizeComboBox;
     private JRadioButton searchByMaskRadioButton;
     private JRadioButton searchByValueRadioButton;
-    private JTextField inputField;
+    public JTextField inputField;
     private JButton findButton;
     private JLabel inputLabel, sizeLabel, methodLabel, mainLabel; // Надпись для поля ввода
 

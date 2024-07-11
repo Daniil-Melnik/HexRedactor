@@ -13,28 +13,27 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-
 public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {
 
         JButton forward, back, info;
         JTextField widthField, heightField, lenField, dataField;
-        HandlerQueue hQ = new  HandlerQueue();
+        HandlerQueue hQ = new HandlerQueue();
         ByteTransform bT = new ByteTransform();
-        int[] offset = {0, 0};
+        int[] offset = { 0, 0 };
 
         EditBtnActions eBA = new EditBtnActions();
 
-        boolean[] changed = {false};
-        final String[][] dat = {null, null};
+        boolean[] changed = { false };
+        final String[][] dat = { null, null };
 
-        String [] maskValue = {""};
-        final String [] fName = {""};
-        final String[] byteSize = {""};
+        String[] maskValue = { "" };
+        final String[] fName = { "" };
+        final String[] byteSize = { "" };
 
-        final SheetHolder [] sH = {null};
-        final ByteIO [] bIO = {null};
+        final SheetHolder[] sH = { null };
+        final ByteIO[] bIO = { null };
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
@@ -51,16 +50,17 @@ public class mainGui extends JFrame {
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        final String[][] buffer = {{}};
+        final String[][] buffer = { {} };
 
         // Создаем экземпляр класса Renderer, передавая массив координат
-        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
 
-        int [][] highlightCells = new int[0][0];
-        int [][] findedCells = new int[0][0];
-        int [][] errorCells = new int [0][0];
-        table.setDefaultRenderer(JLabel.class,  new Renderer(highlightCells, errorCells, findedCells));
+        int[][] highlightCells = new int[0][0];
+        int[][] findedCells = new int[0][0];
+        int[][] errorCells = new int[0][0];
+        table.setDefaultRenderer(JLabel.class, new Renderer(highlightCells, errorCells, findedCells));
 
         BlockSizePanel bSP = new BlockSizePanel();
         bSP.setBounds(400, 10, 700, 175);
@@ -73,9 +73,9 @@ public class mainGui extends JFrame {
         searchPanel.addSearchButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 String inputText = searchPanel.inputField.getText();
-                
+
                 byteSize[0] = (String) searchPanel.byteSizeComboBox.getSelectedItem();
 
                 utilByte uB = new utilByte();
@@ -84,32 +84,30 @@ public class mainGui extends JFrame {
                 int columnLen = sH[0].getColumnLen();
 
                 int offt1 = offset[1] + rowLen * columnLen;
-                String [] rightData = bIO[0].getHexBytesOfft(offt1, 7);
-                String [] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
+                String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                 maskValue[0] = inputText;
                 int len = Integer.parseInt(byteSize[0]);
 
-                int [] offts = {};
+                int[] offts = {};
                 RegExp rG = new RegExp();
                 if (searchPanel.isSearchByMaskSelected()) {
-                    if (rG.isMask(maskValue[0])){
+                    if (rG.isMask(maskValue[0])) {
                         offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
-                    }
-                    else {
+                    } else {
                         hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
                     }
                 } else if (searchPanel.isSearchByValueSelected()) {
-                    if (rG.isValue(maskValue[0])){
+                    if (rG.isValue(maskValue[0])) {
                         BigInteger val = new BigInteger(maskValue[0]);
                         offts = bT.getByteOffsetsValue(data, len, val);
-                    }
-                    else {
+                    } else {
                         hc.showOk("Ошибка", "Значение - целое беззнаковое число");
                     }
                 }
 
-                int [][] findedCells = sH[0].getTableCellCoords(offts);
+                int[][] findedCells = sH[0].getTableCellCoords(offts);
                 sH[0].setFCells(findedCells);
                 setTable(table, scrollPane, offset[1], sH[0]);
 
@@ -125,26 +123,26 @@ public class mainGui extends JFrame {
         editPanel.addEditButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 String optText = (String) editPanel.comboBox.getSelectedItem();
-                int [][] highlightCells = sH[0].getHCells();
+                int[][] highlightCells = sH[0].getHCells();
                 try {
-                    if (optText.equals("Вставить нули")){
+                    if (optText.equals("Вставить нули")) {
 
                         JTextField lenField = editPanel.zeroField;
                         eBA.btnFillInZero(sH[0], lenField, highlightCells);
                     }
 
-                    else if (optText.equals("Удалить")){
-                        if (editPanel.isZeroSelected()){
+                    else if (optText.equals("Удалить")) {
+                        if (editPanel.isZeroSelected()) {
                             eBA.btnRemoveZero(sH[0], offset, highlightCells);
                         }
-                        if (editPanel.isShiftSelected()){
+                        if (editPanel.isShiftSelected()) {
                             eBA.btnRemoveShift(sH[0], offset, highlightCells);
                         }
                     }
 
-                    else if (optText.equals("Вставить")){
+                    else if (optText.equals("Вставить")) {
                         boolean shiftCond = editPanel.isShiftPasteSelected();
                         boolean replaceCond = editPanel.isReplaceSelected();
 
@@ -152,47 +150,43 @@ public class mainGui extends JFrame {
 
                         String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
 
-                        if (bufferValue.equals("задать")){
+                        if (bufferValue.equals("задать")) {
                             String adStr = editPanel.valueField.getText();
-                            String [] currData = bIO[0].splitHexBytes(adStr);
+                            String[] currData = bIO[0].splitHexBytes(adStr);
                             if (rE.isValidArrBool(currData)) {
                                 if (shiftCond) {
-                                    if (sH[0].isEmptyVolume(currData.length)){
+                                    if (sH[0].isEmptyVolume(currData.length)) {
                                         eBA.btnPasteShift(sH[0], currData, highlightCells);
-                                    }
-                                    else hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                                    } else
+                                        hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
                                 } else if (replaceCond) {
                                     eBA.btnPasteSubst(sH[0], currData, highlightCells);
                                 }
-                            }
-                            else{
+                            } else {
                                 hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
                             }
                         }
-                        if ((bufferValue.equals("из буфера"))){
-                            if (shiftCond){
+                        if ((bufferValue.equals("из буфера"))) {
+                            if (shiftCond) {
                                 if (sH[0].isEmptyVolume(buffer[0].length)) {
                                     eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
-                                }
-                                else hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
-                            }
-                            else if (replaceCond){
+                                } else
+                                    hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                            } else if (replaceCond) {
                                 eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
                             }
                         }
-                    }
-                    else if(optText.equals("Вырезать")){
-                        if (editPanel.isShiftSelected()){
+                    } else if (optText.equals("Вырезать")) {
+                        if (editPanel.isShiftSelected()) {
                             eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
                         }
-                        if (editPanel.isZeroSelected()){
+                        if (editPanel.isZeroSelected()) {
                             eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
                         }
-                    }
-                    else if(optText.equals("Копировать")){
+                    } else if (optText.equals("Копировать")) {
                         eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
                     }
-                    sH[0].resetSheet(mh); 
+                    sH[0].resetSheet(mh);
                     setTable(table, scrollPane, offset[1], sH[0]);
                     changed[0] = true;
                     System.out.println(optText);
@@ -220,8 +214,7 @@ public class mainGui extends JFrame {
                             frame,
                             changeSizeDialog,
                             "Введите значения",
-                            JOptionPane.OK_CANCEL_OPTION
-                    );
+                            JOptionPane.OK_CANCEL_OPTION);
 
                     if (result == JOptionPane.OK_OPTION) {
                         String height = changeSizeDialog.getHeightValue();
@@ -257,7 +250,8 @@ public class mainGui extends JFrame {
 
                                     int cellOfft = offset[1] - rowLen * columnLen;
                                     int tmpDLen = sH[0].getDLen();
-                                    bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл изменённого фрагмента
+                                    bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл
+                                                                                           // изменённого фрагмента
 
                                     rowLen = Integer.parseInt(height);
                                     columnLen = Integer.parseInt(width);
@@ -290,20 +284,16 @@ public class mainGui extends JFrame {
                             hc.showOk("Ошибка", "Размер страницы не более 1МБ");
                         }
 
-
                     } else {
                         System.out.println("Отмена или закрытие");
                     }
 
                     setTable(table, scrollPane, offset[1], sH[0]);
+                } catch (NumberFormatException ex) {
+                    hc.showOk("Ошибка", "Размерности - целое число ячеек");
                 }
-            catch (NumberFormatException ex) {
-                hc.showOk("Ошибка", "Размерности - целое число ячеек");
-            }
             }
         });
-
-        
 
         FileManagerPanel fileManagerPanel = new FileManagerPanel("null");
         fileManagerPanel.setBounds(820, 200, 280, 150);
@@ -327,38 +317,38 @@ public class mainGui extends JFrame {
                     sH[0].setColumnLen(4); // что-то не то, где то задана константа
                     sH[0].setRowLen(4);
                     sH[0].setDLen(0);
-                    dat[0] = bIO[0].getHexBytesOfft(offset[0], 4*4);
+                    dat[0] = bIO[0].getHexBytesOfft(offset[0], 4 * 4);
                     sH[0].setAllData(dat[0]);
                     setTable(table, scrollPane, offset[1], sH[0]);
-                    String [] smallFName = fName[0].split("\\\\");
+                    String[] smallFName = fName[0].split("\\\\");
                     fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
-                    //System.out.println("Selected file: " + fName[0]);
+                    // System.out.println("Selected file: " + fName[0]);
                 } else {
                     System.out.println("File selection cancelled.");
                 }
             }
         });
-        
+
         fileManagerPanel.addSaveAsButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Создаем JFileChooser для сохранения файла
                 JFileChooser fileChooser = new JFileChooser();
-                    
+
                 // Настраиваем диалог на режим сохранения
                 fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    
+
                 // Предлагаем имя по умолчанию (можно изменить по желанию)
                 fileChooser.setSelectedFile(new File("default_filename.txt"));
-    
+
                 // Открываем диалоговое окно "Сохранить как"
                 int result = fileChooser.showSaveDialog(frame);
-    
+
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     String filePath = selectedFile.getAbsolutePath();
-    
+
                     // Убеждаемся, что файл имеет нужное расширение, например, ".txt"
                     if (!filePath.toLowerCase().endsWith(".txt")) {
                         filePath += ".txt";
@@ -374,11 +364,11 @@ public class mainGui extends JFrame {
                     System.out.println("Save operation cancelled.");
                 }
             }
-            
+
         });
 
-        final int [] prevCol = {0};
-        final int [] prevRow = {1};
+        final int[] prevCol = { 0 };
+        final int[] prevRow = { 1 };
 
         /////////////////////////////////////////////////////////////////
         ////////////// Перехват изменения строки фокуса /////////////////
@@ -389,16 +379,17 @@ public class mainGui extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                     sH[0].setCurrentRow(table.getSelectedRow());
                     sH[0].setCurrentColumn(table.getSelectedColumn());
-                    int currentRow = sH[0].getCurrentRow(); 
+                    int currentRow = sH[0].getCurrentRow();
                     int currentCol = sH[0].getCurrentColumn();
                     utilByte uB = new utilByte();
-                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1)) && (currentCol != (-1)) ) {
+                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1))
+                            && (currentCol != (-1))) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        long [] intArr = new long [4];
-                        BigInteger [] longArr = new BigInteger[4];
-                        float [] floatArr = new float[4];
-                        double [] doubleArr  = new double[4];
+                        long[] intArr = new long[4];
+                        BigInteger[] longArr = new BigInteger[4];
+                        float[] floatArr = new float[4];
+                        double[] doubleArr = new double[4];
 
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
@@ -407,16 +398,15 @@ public class mainGui extends JFrame {
                         int columnLen = sH[0].getColumnLen();
 
                         int offt1 = offset[1] + rowLen * columnLen;
-                        String [] rightData = bIO[0].getHexBytesOfft(offt1, 7);
-                        String [] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
+                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
                         // for (String str : data) System.out.print(str + " ");
-                                
 
                         int offt2 = row * rowLen + col - 1;
 
                         System.out.println(offt2);
 
-                        for (int i = 0; i < 4; i++){
+                        for (int i = 0; i < 4; i++) {
                             intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
                             longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
                             floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
@@ -426,12 +416,12 @@ public class mainGui extends JFrame {
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("1 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
-                    int [][] highlightCells = sH[0].getHCells();
+                    int[][] highlightCells = sH[0].getHCells();
                     tableInfoPanel.updTableInfo(sH[0], highlightCells, offset);
                 }
             }
         });
-        
+
         ////////////////////////////////////////////////////////////////
         ///////////// Перехват изменения столбца фокуса ////////////////
         ////////////////////////////////////////////////////////////////
@@ -442,17 +432,18 @@ public class mainGui extends JFrame {
 
                     sH[0].setCurrentRow(table.getSelectedRow());
                     sH[0].setCurrentColumn(table.getSelectedColumn());
-                    int currentRow = sH[0].getCurrentRow(); 
+                    int currentRow = sH[0].getCurrentRow();
                     int currentCol = sH[0].getCurrentColumn();
 
                     utilByte uB = new utilByte();
-                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1) && (currentCol != -1)) {
+                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)
+                            && (currentCol != -1)) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        long [] intArr = new long [4];
-                        BigInteger [] longArr = new BigInteger[4];
-                        float [] floatArr = new float[4];
-                        double [] doubleArr  = new double[4];
+                        long[] intArr = new long[4];
+                        BigInteger[] longArr = new BigInteger[4];
+                        float[] floatArr = new float[4];
+                        double[] doubleArr = new double[4];
 
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
@@ -461,16 +452,15 @@ public class mainGui extends JFrame {
                         int columnLen = sH[0].getColumnLen();
 
                         int offt1 = offset[1] + rowLen * columnLen;
-                        String [] rightData = bIO[0].getHexBytesOfft(offt1, 7);
-                        String [] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
+                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
                         // for (String str : data) System.out.print(str + " ");
-                                
 
                         int offt2 = row * rowLen + col - 1;
 
                         System.out.println(offt2);
 
-                        for (int i = 0; i < 4; i++){
+                        for (int i = 0; i < 4; i++) {
                             intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
                             longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
                             floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
@@ -480,12 +470,11 @@ public class mainGui extends JFrame {
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
                         System.out.println("2 Фокус установлен на ячейке: строка " + row + ", колонка " + col);
                     }
-                    int [][] highlightCells = sH[0].getHCells();
+                    int[][] highlightCells = sH[0].getHCells();
                     tableInfoPanel.updTableInfo(sH[0], highlightCells, offset);
                 }
             }
         });
-
 
         //////////////////////////////////////////////////////////////////
         //////////////////// Перехват правых кликаний ////////////////////
@@ -497,20 +486,19 @@ public class mainGui extends JFrame {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     int row = table.rowAtPoint(e.getPoint());
                     int column = table.columnAtPoint(e.getPoint());
-                    int [] coord = new int [2];
+                    int[] coord = new int[2];
                     coord[0] = row;
                     coord[1] = column;
-                    if (!((String) table.getValueAt(row, column)).equals("**")){
+                    if (!((String) table.getValueAt(row, column)).equals("**")) {
                         mh.addCoord(coord);
 
                         int rowLen = sH[0].getRowLen();
 
-                        if (mh.getCond() == 2){
-                            int [][] highlightCells = mh.getFullCoords(rowLen);
+                        if (mh.getCond() == 2) {
+                            int[][] highlightCells = mh.getFullCoords(rowLen);
                             sH[0].setHCells(highlightCells);
                             setTable(table, scrollPane, offset[1], sH[0]);
-                        }
-                        else{
+                        } else {
                             sH[0].setHCells(new int[0][0]);
                             setTable(table, scrollPane, offset[1], sH[0]);
                         }
@@ -519,27 +507,24 @@ public class mainGui extends JFrame {
             }
         });
 
-
         table.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode()==KeyEvent.VK_D )
-                {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
                     int row = table.getSelectionModel().getLeadSelectionIndex();
                     int column = table.getColumnModel().getSelectionModel().getLeadSelectionIndex();
-                    int [] coord = new int [2];
+                    int[] coord = new int[2];
                     coord[0] = row;
                     coord[1] = column;
 
                     int rowLen = sH[0].getRowLen();
 
                     mh.addCoord(coord);
-                    if (mh.getCond() == 2){
-                        int [][] highlightCells = mh.getFullCoords(rowLen);
+                    if (mh.getCond() == 2) {
+                        int[][] highlightCells = mh.getFullCoords(rowLen);
                         sH[0].setHCells(highlightCells);
                         setTable(table, scrollPane, offset[1], sH[0]);
-                    }
-                    else{
+                    } else {
                         sH[0].setHCells(new int[0][0]);
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
@@ -559,7 +544,7 @@ public class mainGui extends JFrame {
                 int column = e.getColumn();
                 if (row != TableModelEvent.HEADER_ROW && column != TableModelEvent.ALL_COLUMNS) {
                     Object value = table.getValueAt(row, column);
-                    String [] strData = {String.valueOf(value)};
+                    String[] strData = { String.valueOf(value) };
 
                     int rowLen = sH[0].getRowLen();
 
@@ -569,21 +554,20 @@ public class mainGui extends JFrame {
                     System.out.println("Данные: " + chH.getData()[0]);
                     sH[0].makeHandle(chH); // добавть изменения в SheetHolder
                     ArrayList<Integer> aL = rE.isValidArr(sH[0].getData(), offset[0]);
-                    int [][] errorCells = rE.getErrorCells(rowLen, offset[0], aL);
+                    int[][] errorCells = rE.getErrorCells(rowLen, offset[0], aL);
                     sH[0].setErCells(errorCells);
-                    for (int i = 0; i < errorCells.length; i++){
+                    for (int i = 0; i < errorCells.length; i++) {
                         System.out.println(errorCells[i][0] + " " + errorCells[i][1]);
                     }
-                    if (aL.isEmpty()){
-                        hQ.addChange(chH, row * rowLen + column - 1); 
-                    }
-                    else{
+                    if (aL.isEmpty()) {
+                        hQ.addChange(chH, row * rowLen + column - 1);
+                    } else {
                         String msgErrCells = "Значения в ячейках по сдвигу: ";
-                         for (Integer integer : aL) {
-                             msgErrCells += integer + " ";
-                             //System.out.println(integer);
-                         }
-                         msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
+                        for (Integer integer : aL) {
+                            msgErrCells += integer + " ";
+                            // System.out.println(integer);
+                        }
+                        msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
                         hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
                     }
                     // ??
@@ -622,7 +606,6 @@ public class mainGui extends JFrame {
 
                     int[][] findedCells = new int[0][0];
                     sH[0].setFCells(findedCells);
-
 
                     offset[0] = offset[0] + rowLen * columnLen;
                     offset[1] = offset[1] + rowLen * columnLen;
@@ -706,7 +689,6 @@ public class mainGui extends JFrame {
 
                     int[][] findedCells = new int[0][0];
                     sH[0].setFCells(findedCells);
-
 
                     offset[0] = offset[0] - rowLen * columnLen;
                     offset[1] = offset[1] - rowLen * columnLen;
@@ -833,25 +815,26 @@ public class mainGui extends JFrame {
         frame.setVisible(true);
     }
 
-    public static void setTable(JTable table, JScrollPane scrollPane, int offt, SheetHolder sH){
-        String [] data = null;
+    public static void setTable(JTable table, JScrollPane scrollPane, int offt, SheetHolder sH) {
+        String[] data = null;
         data = sH.getData();
         utilByte ub = new utilByte();
         int rowLen = sH.getRowLen();
         int columnLen = sH.getColumnLen();
 
-        int [][] highlightCells = sH.getHCells();
-        int [][] findedCells = sH.getFCells();
-        int [][] errorCells = sH.getErCells();
+        int[][] highlightCells = sH.getHCells();
+        int[][] findedCells = sH.getFCells();
+        int[][] errorCells = sH.getErCells();
 
         System.out.println("Количество строк = " + columnLen);
-        int tmpColumnLen = (sH.getData().length % sH.getRowLen() == 0) ? sH.getData().length / sH.getRowLen() : sH.getData().length / sH.getRowLen() + 1;
-        Object [][] tableData = ub.toLabeledArr(rowLen, tmpColumnLen, data, offt); // 16.05.2024
+        int tmpColumnLen = (sH.getData().length % sH.getRowLen() == 0) ? sH.getData().length / sH.getRowLen()
+                : sH.getData().length / sH.getRowLen() + 1;
+        Object[][] tableData = ub.toLabeledArr(rowLen, tmpColumnLen, data, offt); // 16.05.2024
 
         String[] newColumnNames = new String[rowLen + 1];
 
         newColumnNames[0] = "off";
-        for (int m = 1; m < rowLen + 1; m++){
+        for (int m = 1; m < rowLen + 1; m++) {
             newColumnNames[m] = "" + (m - 1);
         }
 
@@ -865,7 +848,8 @@ public class mainGui extends JFrame {
         int leftColumnWidth = 40;
         int columnCount = rowLen + 1; // количество столбцов, а не строк
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.getColumnModel().getColumn(0).setPreferredWidth(leftColumnWidth);;
+        table.getColumnModel().getColumn(0).setPreferredWidth(leftColumnWidth);
+        ;
 
         // Устанавливаем ширину остальных столбцов
         int otherColumnWidth = 80;
@@ -877,7 +861,7 @@ public class mainGui extends JFrame {
 
         // Создаем экземпляр класса Renderer, передавая массив координат
         Renderer renderer = new Renderer(highlightCells, errorCells, findedCells);
-        table.requestFocus(); 
+        table.requestFocus();
         table.changeSelection(0, 1, false, false);
         // Устанавливаем рендерер для всех столбцов
         for (int i = 0; i < table.getColumnCount(); i++) {
