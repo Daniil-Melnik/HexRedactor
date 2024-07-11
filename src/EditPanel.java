@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditPanel extends JPanel {
-    JComboBox<String> comboBox, valueBuffer;
+    private JComboBox<String> comboBox, valueBuffer;
     private JPanel dynamicContent;
     private JLabel mainLabel, opLabel, zeroLabel;
     private JButton executeButton;
-    JTextField valueField, zeroField;
+    private JTextField valueField, zeroField;
     private JRadioButton shiftRadio, zeroRadio;
     private JRadioButton replaceRadio, shiftPasteRadio;
 
@@ -30,7 +30,7 @@ public class EditPanel extends JPanel {
         add(opLabel);
 
         // Создаем выпадающее меню
-        comboBox = new JComboBox<>(new String[]{"Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули"});
+        comboBox = new JComboBox<>(new String[] { "Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули" });
         comboBox.addActionListener(new ComboBoxListener());
         comboBox.setBounds(90, 50, 300, 25);
         comboBox.setFont(font15);
@@ -44,7 +44,7 @@ public class EditPanel extends JPanel {
 
         // Создаем кнопку "Выполнить"
         executeButton = new JButton("Выполнить");
-        executeButton.setBounds(1, 149, 398,30);
+        executeButton.setBounds(1, 149, 398, 30);
         add(executeButton);
 
         // Создаем поле для ввода заранее
@@ -54,26 +54,26 @@ public class EditPanel extends JPanel {
         updateDynamicPanel();
     }
 
-    public boolean isShiftSelected(){
+    public boolean isShiftSelected() {
         return shiftRadio.isSelected();
     }
 
-    public boolean isZeroSelected(){
+    public boolean isZeroSelected() {
         return zeroRadio.isSelected();
     }
 
-    public boolean isReplaceSelected(){
+    public boolean isReplaceSelected() {
         return replaceRadio.isSelected();
     }
 
-    public boolean isShiftPasteSelected(){
+    public boolean isShiftPasteSelected() {
         return shiftPasteRadio.isSelected();
     }
 
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
 
-        Font font15 = new Font("Arial", Font.PLAIN, 15);        
+        Font font15 = new Font("Arial", Font.PLAIN, 15);
 
         String selectedItem = (String) comboBox.getSelectedItem();
 
@@ -110,7 +110,7 @@ public class EditPanel extends JPanel {
             dynamicContent.add(replaceRadio);
             dynamicContent.add(shiftPasteRadio);
 
-            valueBuffer = new JComboBox<String>(new String []{"из буфера", "задать"});
+            valueBuffer = new JComboBox<String>(new String[] { "из буфера", "задать" });
             valueBuffer.setBounds(10, 49, 120, 25);
             valueBuffer.setFont(font15);
             dynamicContent.add(valueBuffer);
@@ -162,13 +162,13 @@ public class EditPanel extends JPanel {
     }
 
     // private class ExecuteButtonListener implements ActionListener {
-    //     @Override
-    //     public void actionPerformed(ActionEvent e) {
-    //         JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
-    //     }
+    // @Override
+    // public void actionPerformed(ActionEvent e) {
+    // JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
+    // }
     // }
 
-        // Метод для добавления слушателя для кнопки "Найти"
+    // Метод для добавления слушателя для кнопки "Найти"
     public void addEditButtonListener(ActionListener listener) {
         executeButton.addActionListener(listener);
     }

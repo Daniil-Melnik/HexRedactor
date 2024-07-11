@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class FileManagerPanel extends JPanel {
     private JLabel currentFileLabel, mainLabel;
-    JButton openFileButton;
+    private JButton openFileButton;
     private JButton saveAsButton;
 
     public FileManagerPanel(String initialFileName) {
@@ -54,12 +54,14 @@ public class FileManagerPanel extends JPanel {
     }
 
     public JButton getOpenFileButton() {
-        // Возвращает кнопку "Открыть файл" для установки обработчика в главном приложении
+        // Возвращает кнопку "Открыть файл" для установки обработчика в главном
+        // приложении
         return openFileButton;
     }
 
     public JButton getSaveAsButton() {
-        // Возвращает кнопку "Сохранить как" для установки обработчика в главном приложении
+        // Возвращает кнопку "Сохранить как" для установки обработчика в главном
+        // приложении
         return saveAsButton;
     }
 
