@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 * */
 
 public class FileManagerPanel extends JPanel {
-    private JLabel currentFileLabel, mainLabel;
+    private JLabel currentFileLabel;
+    private JLabel mainLabel;
     private JButton openFileButton;
     private JButton saveAsButton;
 

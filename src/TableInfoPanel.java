@@ -9,9 +9,11 @@ import java.awt.event.ActionListener;
 * */
 
 public class TableInfoPanel extends JPanel {
-    private JLabel sizeLabel, lenLabel;
+    private JLabel sizeLabel;
+    private JLabel lenLabel;
     private JLabel focusLabel;
-    private JLabel selectionStartLabel, mainLabel;
+    private JLabel selectionStartLabel;
+    private JLabel mainLabel;
     private JButton changeButton;
 
     public TableInfoPanel(int sizeX, int sizeY, int focus, int selectionStart) {

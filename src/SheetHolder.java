@@ -9,7 +9,8 @@ public class SheetHolder {
     private String fName;
     private int rowLen;
     private int columnLen;
-    private int currentRow, currentColumn;
+    private int currentRow;
+    private int currentColumn;
     private int dLen;
     private int offt;
     private int [][] hCells;

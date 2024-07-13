@@ -4,13 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditPanel extends JPanel {
-    public JComboBox<String> comboBox, valueBuffer;
+    public JComboBox<String> comboBox; 
+    public JComboBox<String> valueBuffer;
     private JPanel dynamicContent;
-    private JLabel mainLabel, opLabel, zeroLabel;
+    private JLabel zeroLabel;
+    private JLabel opLabel;
+    private JLabel mainLabel;
     private JButton executeButton;
-    public JTextField valueField, zeroField;
-    private JRadioButton shiftRadio, zeroRadio;
-    private JRadioButton replaceRadio, shiftPasteRadio;
+    public JTextField valueField;
+    public JTextField zeroField;
+    private JRadioButton zeroRadio;
+    private JRadioButton shiftRadio;
+    private JRadioButton shiftPasteRadio;
+    private JRadioButton replaceRadio;
 
     public EditPanel() {
         setLayout(null);

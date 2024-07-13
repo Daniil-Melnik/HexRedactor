@@ -18,7 +18,10 @@ public class mainGui extends JFrame {
     public static void createGUI() throws IOException {
 
         JButton forward, back, info;
-        JTextField widthField, heightField, lenField, dataField;
+        JTextField dataField;
+        JTextField heightField;
+        JTextField lenField;
+        JTextField widthField;
         HandlerQueue hQ = new HandlerQueue();
         ByteTransform bT = new ByteTransform();
         int[] offset = { 0, 0 };
