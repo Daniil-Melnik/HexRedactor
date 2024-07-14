@@ -172,10 +172,8 @@ public class SheetHolder {
         int currOfft = 0;
         utilByte uB = new utilByte();
         ByteIO bIO = new ByteIO(this.fName);
-        System.out.println("cN = " + this.columnLen + "\n rN = " + this.rowLen);
         switch (chH.getType()) {
             case 0:
-                // System.out.println("GET HANDLE ZERO");
                 this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
                 break;
             

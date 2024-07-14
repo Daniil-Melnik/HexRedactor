@@ -34,7 +34,6 @@ public class MouseHig {
                 break;
         
             default:
-            System.out.println("TEST");
                 break;
         }
     }
@@ -44,8 +43,6 @@ public class MouseHig {
     }
 
     public int [][] getCoord(){
-        //System.out.println(this.coord[0][0] + " " + this.coord[0][1]);
-        //System.out.println(this.coord[1][0] + " " + this.coord[1][1]);
         return this.coord;
     }
 
@@ -54,9 +51,7 @@ public class MouseHig {
             int [] dCoord = this.coord[0];
             this.coord[0] = this.coord[1];
             this.coord[1] = dCoord; 
-            System.out.println("control");
         }
-        System.out.println("bad");
     }
 
     public int [][] getFullCoords(int len){
@@ -75,17 +70,6 @@ public class MouseHig {
 
         int nAllCells = nFullRows * len + nExtraCells;
 
-        System.out.println("coord0 = " + this.coord[0][0] + " " + this.coord[0][1]);
-        System.out.println("coord1 = " + this.coord[1][0] + " " + this.coord[1][1]);
-        System.out.println("nFullRows = " + nFullRows);
-
-        System.out.println("nFullRows = " + nFullRows);
-        System.out.println("nExtraCells = " + nExtraCells);
-        System.out.println("nAllCells = " + nAllCells);
-
-        System.out.println("nExtraCellsUp = " + (len - this.coord[0][1] + 1));
-        System.out.println("nExtraCellsBottom = " + (this.coord[1][1]));
-
         int [][] res = new int [nAllCells][2];
 
         int nRes = 0;
@@ -97,12 +81,8 @@ public class MouseHig {
                 qT[1] = i % (len + 1);
                 res[nRes] = qT;
                 nRes += 1;
-                // System.out.println(qT[0] + "x" + qT[1]);  // for control of selection 
             }
         }
-        // for (int i = 0; i < res.length; i++){
-        //     System.out.println(res[i][0] + " " + res[i][1]);
-        // }
         return res;
     }
 }

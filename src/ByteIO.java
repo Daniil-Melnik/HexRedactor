@@ -96,18 +96,14 @@ public class ByteIO {
             RandomAccessFile randomAccessFile = new RandomAccessFile(tmpFile, "rw");
 
             int nFullPacks = offt / 8;
-            System.out.println("Сдвиг = " + offt);
-            System.out.println(index + " - начало");
 
             for (int i = 0; i < nFullPacks; i++) {
                 fullPackDataStr = getHexBytesOfft(index, 8);
 
                 fullPackDataByte = transformToBytesArr(fullPackDataStr);
                 randomAccessFile.write(fullPackDataByte);
-                System.out.println("File has been written successfully");
 
                 index += 8;
-                System.out.println(index + " - полная до даты");
             }
 
             preEmptyDataStr = getHexBytesOfft(index, offt % 8);
@@ -115,12 +111,10 @@ public class ByteIO {
             randomAccessFile.write(preEmptyDataByte);
 
             index = offt;
-            System.out.println(index + " - перед датой");
 
             randomAccessFile.write(transformToBytesArr(data));
 
             index += data.length + dLen; // добавлен допю сдвиг 21.01.2024
-            System.out.println(index + " - вписали дату");
 
             long pInd = (getFileLength(this.fName) - index) / 8;
 
@@ -129,9 +123,7 @@ public class ByteIO {
                 fullPackDataByte = transformToBytesArr(fullPackDataStr);
                 randomAccessFile.write(fullPackDataByte);
                 index += 8;
-                System.out.println(index + " - полная после даты");
             }
-            System.out.println(index + " - перед огузком, остаток " + (getFileLength(this.fName) - index));
             if (index < getFileLength(this.fName)) {
                 int nPreEmptyBytes = toIntExact((getFileLength(this.fName) - index) % 8);
                 preEmptyDataStr = getHexBytesOfft(index, nPreEmptyBytes);
@@ -139,8 +131,6 @@ public class ByteIO {
                 randomAccessFile.write(preEmptyDataByte);
                 index += nPreEmptyBytes;
             }
-            System.out.println(index + " - конец");
-            System.out.println("== " + getFileLength(this.fName));
 
             randomAccessFile.close();
             FileManager fM = new FileManager();

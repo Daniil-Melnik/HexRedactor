@@ -77,7 +77,6 @@ public class EditBtnActions {
         utilByte uB = new utilByte();
         String [] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
-        System.out.println("Теперь в буфере: "); // отладка копирование 02.07.2024
         for (String s : buffer[0]){
             System.out.print(s + " ");
         }
