@@ -84,7 +84,8 @@ public class ByteIO {
     ////////// Разбить входную строку вставки на массив ////////////
     ////////////////////////////////////////////////////////////////
     public void printData(int offt, String[] data, int dLen, String newName) {
-        File file = new File("example.txt");
+        String tmpFileName = "tmpFile.txt";
+        File tmpFile = new File(tmpFileName);
         int index = 0;
 
         byte[] fullPackDataByte = new byte[8];
@@ -92,7 +93,7 @@ public class ByteIO {
         String[] fullPackDataStr = new String[8];
         String[] preEmptyDataStr = null;
         try {
-            RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+            RandomAccessFile randomAccessFile = new RandomAccessFile(tmpFile, "rw");
 
             int nFullPacks = offt / 8;
             System.out.println("Сдвиг = " + offt);
@@ -145,19 +146,10 @@ public class ByteIO {
             FileManager fM = new FileManager();
             boolean isCopy = newName.equals(this.fName) ? false : true;
 
-            fM.setFile("example.txt", newName, isCopy);
+            fM.setFile(tmpFileName, newName, isCopy);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        ByteIO bIO = new ByteIO("src/1.txt");
-        // String [] hexBytes = bIO.getHexBytesOfft(0, 40);
-        String in = "36;A8;2C;56;47;B8;36";
-        String[] data = bIO.splitHexBytes(in);
-        for (String str : data)
-            System.out.print(str + " ");
     }
 }
