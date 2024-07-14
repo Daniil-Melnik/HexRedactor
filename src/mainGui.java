@@ -302,10 +302,8 @@ public class mainGui extends JFrame {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Открываем диалоговое окно для выбора файла
                 int result = fileChooser.showOpenDialog(frame);
 
-                // Если пользователь выбрал файл, получаем путь к нему
                 if (result == JFileChooser.APPROVE_OPTION) {
                     fName[0] = fileChooser.getSelectedFile().getAbsolutePath();
                     bIO[0] = new ByteIO(fName[0]);
@@ -327,24 +325,19 @@ public class mainGui extends JFrame {
         fileManagerPanel.addSaveAsButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Создаем JFileChooser для сохранения файла
                 JFileChooser fileChooser = new JFileChooser();
 
-                // Настраиваем диалог на режим сохранения
                 fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-                // Предлагаем имя по умолчанию (можно изменить по желанию)
                 fileChooser.setSelectedFile(new File("default_filename.txt"));
 
-                // Открываем диалоговое окно "Сохранить как"
                 int result = fileChooser.showSaveDialog(frame);
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     String filePath = selectedFile.getAbsolutePath();
 
-                    // Убеждаемся, что файл имеет нужное расширение, например, ".txt"
                     if (!filePath.toLowerCase().endsWith(".txt")) {
                         filePath += ".txt";
                     }
@@ -393,7 +386,6 @@ public class mainGui extends JFrame {
                         int offt1 = offset[1] + rowLen * columnLen;
                         String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
-                        // for (String str : data) System.out.print(str + " ");
 
                         int offt2 = row * rowLen + col - 1;
 
@@ -444,7 +436,6 @@ public class mainGui extends JFrame {
                         int offt1 = offset[1] + rowLen * columnLen;
                         String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
-                        // for (String str : data) System.out.print(str + " ");
 
                         int offt2 = row * rowLen + col - 1;
 
@@ -604,8 +595,8 @@ public class mainGui extends JFrame {
                             int tmpDLen = sH[0].getDLen();
                             bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
                             dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
-                            sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
-                            offset[0] = offset[1]; // добавленого в тест
+                            sH[0].setAllData(dat[0]);
+                            offset[0] = offset[1];
                             changed[0] = false;
                             sH[0].setDLen(0);
                         } else if (result == 1) {
@@ -657,7 +648,6 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // long fileLen = bIO[0].getFileLength(sH[0].getfName());
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
                 if ((offset[0] - (long) rowLen * columnLen) >= 0) {
@@ -679,25 +669,22 @@ public class mainGui extends JFrame {
                     } else {
                         int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                         if (result == 0) {
-                            // вставить запись в файл изменений
                             int cellOfft = offset[1] + rowLen * columnLen;
                             dat[0] = sH[0].getData();
                             int tmpDLen = sH[0].getDLen();
                             bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
                             dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
-                            sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
-                            offset[0] = offset[1]; // добавленого в тест
+                            sH[0].setAllData(dat[0]);
+                            offset[0] = offset[1];
                             changed[0] = false;
                             sH[0].setDLen(0);
                         } else if (result == 1) {
-                            // оставить файл в старом виде
                             dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
                             changed[0] = false;
                         }
                     }
 
-                    // наследование поиска начало
                     if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
                         utilByte uB = new utilByte();
                         int offt1 = offset[1] + rowLen * columnLen;
@@ -723,7 +710,6 @@ public class mainGui extends JFrame {
                         sH[0].setFCells(findedCells);
                     }
 
-                    // наследование поиска конец
                     sH[0].resetSheet(mh);
                     setTable(table, scrollPane, offset[1], sH[0]);
                 }
@@ -734,7 +720,6 @@ public class mainGui extends JFrame {
         info.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Путь к вашему текстовому файлу
                 String filePath = "src/text/instruction.txt";
                 StringBuilder content = new StringBuilder();
 
@@ -747,10 +732,8 @@ public class mainGui extends JFrame {
                     ex.printStackTrace();
                 }
 
-                // Разбиваем текст на абзацы
                 String[] paragraphs = content.toString().split("\n\n");
 
-                // Создаем новое окно для отображения текста
                 JFrame textFrame = new JFrame("Text Content");
                 textFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 textFrame.setSize(400, 300);

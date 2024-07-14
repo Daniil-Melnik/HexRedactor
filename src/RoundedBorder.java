@@ -25,7 +25,6 @@ public class RoundedBorder implements Border {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        // Нарисуйте границу с круглыми углами
         g.setColor(c.getForeground());
         g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
     }

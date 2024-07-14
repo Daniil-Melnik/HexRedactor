@@ -45,7 +45,6 @@ public class TableInfoPanel extends JPanel {
         focusLabel.setBounds(11, 80, 200, 20);
         add(focusLabel);
 
-        // Начало выделения
         selectionStartLabel = new JLabel("Начало выделения: " + selectionStart);
         selectionStartLabel.setFont(font15);
         selectionStartLabel.setBounds(10, 110, 200, 20);
@@ -62,13 +61,11 @@ public class TableInfoPanel extends JPanel {
     }
 
     public void updateInfo(int sizeX, int sizeY, int focus, int selectionStart, int selectionLen) {
-        // Обновление значений в JLabel
         sizeLabel.setText("Размер: " + sizeX + " x " + sizeY + " ячеек");
         focusLabel.setText("Текущий фокус: " + focus);
         selectionStartLabel.setText("Начало выделения: " + selectionStart);
         lenLabel.setText("Длина выделения:   " + selectionLen);
 
-        // Обязательно обновить панель, чтобы изменения были видны
         revalidate();
         repaint();
     }

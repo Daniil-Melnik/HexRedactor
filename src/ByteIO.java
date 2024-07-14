@@ -114,7 +114,7 @@ public class ByteIO {
 
             randomAccessFile.write(transformToBytesArr(data));
 
-            index += data.length + dLen; // добавлен допю сдвиг 21.01.2024
+            index += data.length + dLen;
 
             long pInd = (getFileLength(this.fName) - index) / 8;
 

@@ -174,7 +174,7 @@ public class SheetHolder {
         ByteIO bIO = new ByteIO(this.fName);
         switch (chH.getType()) {
             case 0:
-                this.data[index] = chH.getData()[0]; // дописать про изменение одного байта в массиве
+                this.data[index] = chH.getData()[0];
                 break;
             
             case 1:
@@ -210,18 +210,15 @@ public class SheetHolder {
                 len = chH.getLen();
                 offt = chH.getOfft();
                 String [] newDataShift = chH.getData();
-                // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
                 String [] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
                 this.data = tempDataShift;
                 this.fillInStarsOnSheet();
-                // this.columnLen = this.data.length / this.rowLen; // Возможно ошибка здесь 16.05.2024
                 break;
 
             case 7:
                 this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
-                // следующей строкой д. б. дозабивка, а не присвоение 22.04.2024
                 this.data = uB.fillInZeros(this.data, offt, len);
                 this.fillInStarsOnSheet();
             default:
