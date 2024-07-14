@@ -3,6 +3,8 @@
 * Назначение: хранит информацию об открытой странице данных
 * */
 
+import java.io.IOException;
+
 public class SheetHolder {
     private String [] data;
     private String [] reserveData;
@@ -184,17 +186,24 @@ public class SheetHolder {
                 break;
 
             case 2:
-                this.clearStarsOnSheet();
-                len = chH.getLen();
-                currOfft = chH.getOfft() - this.offt;
-                int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen;
-                if (newOfft < bIO.getFileLength(this.fName)){
-                    String [] leftData = uB.removeFromArr(this.data, len, currOfft);
-                    String [] rightData = bIO.getHexBytesOfft(newOfft, len);
-                    this.data = uB.concatArrs(leftData, rightData);
-                    this.dLen += len;
-                    this.fillInStarsOnSheet();
+
+                try {
+                    this.clearStarsOnSheet();
+                    len = chH.getLen();
+                    currOfft = chH.getOfft() - this.offt;
+                    int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen;
+                    
+                    if (newOfft < bIO.getFileLength(this.fName)){
+                        String [] leftData = uB.removeFromArr(this.data, len, currOfft);
+                        String [] rightData = bIO.getHexBytesOfft(newOfft, len);
+                        this.data = uB.concatArrs(leftData, rightData);
+                        this.dLen += len;
+                        this.fillInStarsOnSheet();
+                    }
+                } catch (IOException e) {
+                    System.err.println("An error occurred while trying to get the file length: " + e.getMessage());
                 }
+                
                 break;
             
             case 3:

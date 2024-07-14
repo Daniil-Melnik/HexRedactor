@@ -40,14 +40,10 @@ public class ByteIO {
     /////////////////////////////////////////////////////////////////
     //////////////// Получить длину файла в байтах //////////////////
     /////////////////////////////////////////////////////////////////
-    public long getFileLength(String fName) {
-        long res = 0;
+    public long getFileLength(String fName) throws IOException {
         try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
-            res = file.length();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return res;
+            return file.length();
+        } 
     }
 
     /////////////////////////////////////////////////////////////////
