@@ -12,14 +12,19 @@ public class ChangeSizeDialog extends JPanel {
     private JTextField textField1;
     private JTextField textField2;
 
-    public ChangeSizeDialog() {
-        setLayout(new GridLayout(2, 2));
+    public ChangeSizeDialog() {  
+        int rows = 2;
+        int cols = 2;
+
+        int textFieldLen = 10;
+
+        setLayout(new GridLayout(rows, cols));
 
         JLabel label1 = new JLabel("Высота :");
-        textField1 = new JTextField(10);
+        textField1 = new JTextField(textFieldLen);
 
         JLabel label2 = new JLabel("Ширина :");
-        textField2 = new JTextField(10);
+        textField2 = new JTextField(textFieldLen);
 
         add(label1);
         add(textField1);

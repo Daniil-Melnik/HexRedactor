@@ -32,7 +32,8 @@ public class FileManager {
         try {
             is = new FileInputStream(source);
             os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
+            int copyBufLen = 1024;
+            byte[] buffer = new byte[copyBufLen];
             int length;
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);

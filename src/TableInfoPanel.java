@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /*
@@ -88,26 +87,4 @@ public class TableInfoPanel extends JPanel {
         this.updateInfo(sH.getRowLen() , sH.getColumnLen(), currOfft, highOfft, highLen);
     }
 
-    public static void main(String[] args) {
-        // Пример использования CustomInfoPanel
-        JFrame frame = new JFrame("Пример панели информации");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 150);
-
-        // Создаем панель с начальными значениями
-        TableInfoPanel infoPanel = new TableInfoPanel(10, 10, 5, 3);
-
-        frame.add(infoPanel);
-        frame.setVisible(true);
-
-        // Обновление значений в панели после задержки
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                infoPanel.updateInfo(15, 20, 7, 1, 1); // Новые значения
-            }
-        });
-        timer.setRepeats(false); // Однократное выполнение таймера
-        timer.start();
-    }
 }

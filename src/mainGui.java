@@ -362,6 +362,7 @@ public class mainGui extends JFrame {
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                int rowColLen = 4;
                 if (!e.getValueIsAdjusting()) {
                     sH[0].setCurrentRow(table.getSelectedRow());
                     sH[0].setCurrentColumn(table.getSelectedColumn());
@@ -372,10 +373,10 @@ public class mainGui extends JFrame {
                             && (currentCol != (-1))) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        long[] intArr = new long[4];
-                        BigInteger[] longArr = new BigInteger[4];
-                        float[] floatArr = new float[4];
-                        double[] doubleArr = new double[4];
+                        long[] intArr = new long[rowColLen];
+                        BigInteger[] longArr = new BigInteger[rowColLen];
+                        float[] floatArr = new float[rowColLen];
+                        double[] doubleArr = new double[rowColLen];
 
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
@@ -410,6 +411,7 @@ public class mainGui extends JFrame {
         table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                int rowColLen = 4;
                 if (!e.getValueIsAdjusting()) {
 
                     sH[0].setCurrentRow(table.getSelectedRow());
@@ -422,10 +424,10 @@ public class mainGui extends JFrame {
                             && (currentCol != -1)) {
                         prevRow[0] = currentRow;
                         prevCol[0] = currentCol;
-                        long[] intArr = new long[4];
-                        BigInteger[] longArr = new BigInteger[4];
-                        float[] floatArr = new float[4];
-                        double[] doubleArr = new double[4];
+                        long[] intArr = new long[rowColLen];
+                        BigInteger[] longArr = new BigInteger[rowColLen];
+                        float[] floatArr = new float[rowColLen];
+                        double[] doubleArr = new double[rowColLen];
 
                         int row = table.getSelectedRow();
                         int col = table.getSelectedColumn();
