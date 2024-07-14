@@ -77,8 +77,7 @@ public class ByteIO {
     ////////// Разбить входную строку вставки на массив ////////////
     ////////////////////////////////////////////////////////////////
     public String[] splitHexBytes(String inHexStr) {
-        String[] res = inHexStr.split(";");
-        return res;
+        return inHexStr.split(";");
     }
 
     ////////////////////////////////////////////////////////////////
