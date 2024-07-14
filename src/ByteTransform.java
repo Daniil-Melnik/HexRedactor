@@ -22,32 +22,14 @@ public class ByteTransform {
         for (int j = 0; j < len; j++){
             binaryArr[j] = Integer.toBinaryString(inIntArr[j]);
             int p = binaryArr[j].length();
-            switch (p){
-                case 0:
-                break;
-                case 1:
-                    binaryArr[j] = "0000000" + binaryArr[j];
-                    break;
-                case 2:
-                    binaryArr[j] = "000000" + binaryArr[j];
-                    break;
-                case 3:
-                    binaryArr[j] = "00000" + binaryArr[j];
-                    break;
-                case 4:
-                    binaryArr[j] = "0000" + binaryArr[j];
-                    break;
-                case 5:
-                    binaryArr[j] = "000" + binaryArr[j];
-                    break;
-                case 6:
-                    binaryArr[j] = "00" + binaryArr[j];
-                    break;
-                case 7:
-                    binaryArr[j] = "0" + binaryArr[j];
-                    break;
-                case 8:
-                    break;
+            int numberOfZeros = 8 - p;
+            if (numberOfZeros > 0) {
+                StringBuilder zerosBuilder = new StringBuilder();
+                for (int i = 0; i < numberOfZeros; i++) {
+                    zerosBuilder.append('0');
+                }
+                String zeros = zerosBuilder.toString();
+                binaryArr[j] = zeros + binaryArr[j];
             }
         }
         

@@ -80,6 +80,7 @@ public class ByteIO {
     ////////// Разбить входную строку вставки на массив ////////////
     ////////////////////////////////////////////////////////////////
     public void printData(int offt, String[] data, int dLen, String newName) {
+        RandomAccessFile randomAccessFile = null;
         try {
             String tmpFileName = "tmpFile.txt";
             File tmpFile = new File(tmpFileName);
@@ -91,7 +92,7 @@ public class ByteIO {
             String[] fullPackDataStr = new String[buf];
             String[] preEmptyDataStr = null;
 
-            RandomAccessFile randomAccessFile = new RandomAccessFile(tmpFile, "rw");
+            randomAccessFile = new RandomAccessFile(tmpFile, "rw");
 
             int nFullPacks = offt / buf;
 
@@ -138,6 +139,14 @@ public class ByteIO {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (randomAccessFile != null) {
+                try {
+                    randomAccessFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
