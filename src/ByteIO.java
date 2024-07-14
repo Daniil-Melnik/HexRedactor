@@ -80,16 +80,17 @@ public class ByteIO {
     ////////// Разбить входную строку вставки на массив ////////////
     ////////////////////////////////////////////////////////////////
     public void printData(int offt, String[] data, int dLen, String newName) {
-        String tmpFileName = "tmpFile.txt";
-        File tmpFile = new File(tmpFileName);
-        int index = 0;
-
-        int buf = 8;
-        byte[] fullPackDataByte = new byte[buf];
-        byte[] preEmptyDataByte = new byte[offt % buf];
-        String[] fullPackDataStr = new String[buf];
-        String[] preEmptyDataStr = null;
         try {
+            String tmpFileName = "tmpFile.txt";
+            File tmpFile = new File(tmpFileName);
+            int index = 0;
+
+            int buf = 8;
+            byte[] fullPackDataByte = new byte[buf];
+            byte[] preEmptyDataByte = new byte[offt % buf];
+            String[] fullPackDataStr = new String[buf];
+            String[] preEmptyDataStr = null;
+
             RandomAccessFile randomAccessFile = new RandomAccessFile(tmpFile, "rw");
 
             int nFullPacks = offt / buf;
