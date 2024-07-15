@@ -4,21 +4,31 @@ import java.io.RandomAccessFile;
 import static java.lang.Math.toIntExact;
 
 /**
- * Класс продукции со свойствами <b>maker</b> и <b>price</b>.
+ * Class for working with file byte data.
  * 
- * @autor Киса Воробьянинов
+ * @autor DMelnik
  * @version 2.1
  */
 public class ByteIO {
     private final String fName;
 
+    /**
+     * Constructor - creates a new object with a specified file name.
+     * 
+     * @param fName the name of the file the object will work with
+     */
+
     public ByteIO(String fName) {
         this.fName = fName;
     }
 
-    ////////////////////////////////////////////////////////////////
-    ///////////////// Получить байты по смещению ///////////////////
-    ////////////////////////////////////////////////////////////////
+    /**
+     * Gets an array of hexadecimal strings by offset and length.
+     * 
+     * @param offt the offset in bytes
+     * @param len  the length in bytes
+     * @return an array of strings in hexadecimal format
+     */
 
     public String[] getHexBytesOfft(int offt, int len) {
         String[] hexBytesOfft = null;
@@ -36,9 +46,6 @@ public class ByteIO {
         return hexBytesOfft;
     }
 
-    /////////////////////////////////////////////////////////////////
-    //////////////// Получить длину файла в байтах //////////////////
-    /////////////////////////////////////////////////////////////////
     public long getFileLength(String fName) throws IOException {
         try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
             return file.length();
