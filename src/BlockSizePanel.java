@@ -4,11 +4,16 @@ import java.math.BigInteger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/*
-* Описание встраиваемой панели
-* Назначение: Панель Значения по блокам
-* */
-
+/**
+ * A panel that displays a table of block sizes for different data types.
+ * It consists of a 5x5 grid of labels with predefined positions and sizes.
+ *
+ * @since 1.0
+ * @version 1.0
+ * @see javax.swing.JPanel
+ * @see java.awt.Font
+ * @see java.math.BigInteger
+ */
 public class BlockSizePanel extends JPanel {
     private static final int ROWS = 5;
     private static final int COLUMNS = 5;
@@ -20,6 +25,13 @@ public class BlockSizePanel extends JPanel {
     private int[] rowY = { 40, 75, 100, 125, 150 };
     private int[] columnWidth = { 80, 80, 100, 150, 220 };
 
+    /**
+     * Constructs a new BlockSizePanel with predefined layout and label settings.
+     *
+     * @since 1.0
+     * @version 1.0
+     * @author Ваше Имя
+     */
     public BlockSizePanel() {
         Font font20 = new Font("Arial", Font.PLAIN, 20);
         Font font15p = new Font("Arial", Font.PLAIN, 15);
@@ -97,7 +109,24 @@ public class BlockSizePanel extends JPanel {
         }
     }
 
+    /**
+     * Updates the panel with new data.
+     *
+     * @param intArr   an array of long integers to display in the first row
+     * @param longArr  an array of BigIntegers to display in the second row
+     * @param floatArr an array of floats to display in the third row
+     * @param doubleArr an array of doubles to display in the fourth row
+     * @return the updated JPanel
+     * @throws NullPointerException if any of the input arrays are null
+     * @since 1.0
+     * @version 1.0
+     * @see java.math.BigInteger
+     */
     public JPanel setPanel(long[] intArr, BigInteger[] longArr, float[] floatArr, double[] doubleArr) {
+        if (intArr == null || longArr == null || floatArr == null || doubleArr == null) {
+            throw new NullPointerException("Input arrays must not be null");
+        }
+
         int index;
         for (int i = 1; i < 5; i++) {
             index = i - 1;

@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import static java.lang.Math.toIntExact;
 
-/*
-* Класс с утилитами
-* Назначение:
-* 1) ввод-вывод байт
-* 2) преобразования над байтами в А16 и назад
-* */
-
+/** 
+ * Класс продукции со свойствами <b>maker</b> и <b>price</b>.
+ * @autor Киса Воробьянинов
+ * @version 2.1
+*/
 public class ByteIO {
     private final String fName;
 
