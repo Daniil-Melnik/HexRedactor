@@ -31,7 +31,7 @@ public class BlockSizePanel extends JPanel {
      *
      * @since 1.0
      * @version 1.0
-     * @author Ваше Имя
+     * @author DMelnik
      */
     public BlockSizePanel() {
         Font font20 = new Font("Arial", Font.PLAIN, 20);
