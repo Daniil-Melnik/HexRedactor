@@ -3,11 +3,12 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import static java.lang.Math.toIntExact;
 
-/** 
+/**
  * Класс продукции со свойствами <b>maker</b> и <b>price</b>.
+ * 
  * @autor Киса Воробьянинов
  * @version 2.1
-*/
+ */
 public class ByteIO {
     private final String fName;
 
@@ -41,7 +42,7 @@ public class ByteIO {
     public long getFileLength(String fName) throws IOException {
         try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
             return file.length();
-        } 
+        }
     }
 
     /////////////////////////////////////////////////////////////////
