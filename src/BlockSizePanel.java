@@ -5,7 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * A panel that displays a table of block sizes for different data types.
+ * Panel displaying byte values ​​by blocks in integer (signed, unsigned),
+ * floating precision (float, double).
  * It consists of a 5x5 grid of labels with predefined positions and sizes.
  *
  * @since 1.0
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
 public class BlockSizePanel extends JPanel {
     private static final int ROWS = 5;
     private static final int COLUMNS = 5;
-    
+
     private JLabel[][] tablePanel = new JLabel[ROWS][COLUMNS];
     private JLabel mainLabel;
 
@@ -30,7 +31,7 @@ public class BlockSizePanel extends JPanel {
      *
      * @since 1.0
      * @version 1.0
-     * @author Ваше Имя
+     * @author DMelnik
      */
     public BlockSizePanel() {
         Font font20 = new Font("Arial", Font.PLAIN, 20);
@@ -112,9 +113,9 @@ public class BlockSizePanel extends JPanel {
     /**
      * Updates the panel with new data.
      *
-     * @param intArr   an array of long integers to display in the first row
-     * @param longArr  an array of BigIntegers to display in the second row
-     * @param floatArr an array of floats to display in the third row
+     * @param intArr    an array of long integers to display in the first row
+     * @param longArr   an array of BigIntegers to display in the second row
+     * @param floatArr  an array of floats to display in the third row
      * @param doubleArr an array of doubles to display in the fourth row
      * @return the updated JPanel
      * @throws NullPointerException if any of the input arrays are null

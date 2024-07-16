@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import static java.lang.Math.toIntExact;
 
+<<<<<<< HEAD
 /** 
  * Class for working with file byte data.
  *  
@@ -14,6 +15,18 @@ public class ByteIO {
 
 
     /** 
+=======
+/**
+ * Class for working with file byte data.
+ * 
+ * @autor DMelnik
+ * @version 2.1
+ */
+public class ByteIO {
+    private final String fName;
+
+    /**
+>>>>>>> 6e5d30da045d75c229737ad2be2628380ba95a0f
      * Constructor - creates a new object with a specified file name.
      * 
      * @param fName the name of the file the object will work with
@@ -23,11 +36,19 @@ public class ByteIO {
         this.fName = fName;
     }
 
+<<<<<<< HEAD
     /** 
      * Gets an array of hexadecimal strings by offset and length.
      * 
      * @param offt the offset in bytes
      * @param len the length in bytes
+=======
+    /**
+     * Gets an array of hexadecimal strings by offset and length.
+     * 
+     * @param offt the offset in bytes
+     * @param len  the length in bytes
+>>>>>>> 6e5d30da045d75c229737ad2be2628380ba95a0f
      * @return an array of strings in hexadecimal format
      */
 
@@ -47,6 +68,7 @@ public class ByteIO {
         return hexBytesOfft;
     }
 
+<<<<<<< HEAD
     /** 
      * Gets the length of the file in bytes.
      * 
@@ -55,10 +77,12 @@ public class ByteIO {
      * @throws IOException if the file cannot be opened
      */
 
+=======
+>>>>>>> 6e5d30da045d75c229737ad2be2628380ba95a0f
     public long getFileLength(String fName) throws IOException {
         try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
             return file.length();
-        } 
+        }
     }
 
     /** 
