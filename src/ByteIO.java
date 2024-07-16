@@ -4,20 +4,32 @@ import java.io.RandomAccessFile;
 import static java.lang.Math.toIntExact;
 
 /** 
- * Класс продукции со свойствами <b>maker</b> и <b>price</b>.
- * @autor Киса Воробьянинов
- * @version 2.1
-*/
+ * Class for working with file byte data.
+ *  
+ * @autor DMelnik 
+ * @version 1.0
+ */ 
 public class ByteIO {
     private final String fName;
+
+
+    /** 
+     * Constructor - creates a new object with a specified file name.
+     * 
+     * @param fName the name of the file the object will work with
+     */
 
     public ByteIO(String fName) {
         this.fName = fName;
     }
 
-    ////////////////////////////////////////////////////////////////
-    ///////////////// Получить байты по смещению ///////////////////
-    ////////////////////////////////////////////////////////////////
+    /** 
+     * Gets an array of hexadecimal strings by offset and length.
+     * 
+     * @param offt the offset in bytes
+     * @param len the length in bytes
+     * @return an array of strings in hexadecimal format
+     */
 
     public String[] getHexBytesOfft(int offt, int len) {
         String[] hexBytesOfft = null;
@@ -35,18 +47,26 @@ public class ByteIO {
         return hexBytesOfft;
     }
 
-    /////////////////////////////////////////////////////////////////
-    //////////////// Получить длину файла в байтах //////////////////
-    /////////////////////////////////////////////////////////////////
+    /** 
+     * Gets the length of the file in bytes.
+     * 
+     * @param fName the name of the file
+     * @return the length of the file in bytes
+     * @throws IOException if the file cannot be opened
+     */
+
     public long getFileLength(String fName) throws IOException {
         try (RandomAccessFile file = new RandomAccessFile(fName, "r")) {
             return file.length();
         } 
     }
 
-    /////////////////////////////////////////////////////////////////
-    ////////////// Перевести массив 16-строк в байты ////////////////
-    /////////////////////////////////////////////////////////////////
+    /** 
+     * Converts an array of hexadecimal format strings to a byte array.
+     * 
+     * @param data an array of strings in hexadecimal format
+     * @return a byte array
+     */
     public byte[] transformToBytesArr(String[] data) {
         int endIndex = data.length - 1;
         int nStars = 0;
@@ -67,16 +87,24 @@ public class ByteIO {
         return res;
     }
 
-    ////////////////////////////////////////////////////////////////
-    ////////// Разбить входную строку вставки на массив ////////////
-    ////////////////////////////////////////////////////////////////
+    /** 
+     * Splits the input hexadecimal format string into an array of strings.
+     * 
+     * @param inHexStr a string in hexadecimal format separated by semicolons
+     * @return an array of strings
+     */
     public String[] splitHexBytes(String inHexStr) {
         return inHexStr.split(";");
     }
 
-    ////////////////////////////////////////////////////////////////
-    ////////// Разбить входную строку вставки на массив ////////////
-    ////////////////////////////////////////////////////////////////
+    /** 
+     * Writes data to a file at a given offset and length.
+     * 
+     * @param offt the offset in bytes
+     * @param data an array of strings in hexadecimal format
+     * @param dLen the length of the data
+     * @param newName the new file name
+     */
     public void printData(int offt, String[] data, int dLen, String newName) {
         RandomAccessFile randomAccessFile = null;
         try {
