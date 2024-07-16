@@ -1,19 +1,27 @@
 import javax.swing.*;
 
 import java.awt.Font;
-// import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/*
-* Класс-панель
-* Назначение: интерфейс открытия-сохранения файлов
-* */
+/**
+ * FileManagerPanel class
+ * Purpose: Interface for opening and saving files
+ * 
+ * @see RoundedBorder
+ * @author DMelnik
+ */
 
 public class FileManagerPanel extends JPanel {
     private JLabel currentFileLabel;
     private JLabel mainLabel;
     private JButton openFileButton;
     private JButton saveAsButton;
+
+    /**
+     * Constructor to create a file manager panel
+     * 
+     * @param initialFileName the name of the initial file
+     */
 
     public FileManagerPanel(String initialFileName) {
         setLayout(null); // Вертикальная компоновка
@@ -44,26 +52,52 @@ public class FileManagerPanel extends JPanel {
         add(saveAsButton);
     }
 
+    /**
+     * Sets the current file name
+     * 
+     * @param newFileName the new file name to display
+     */
+
     public void setCurrentFile(String newFileName) {
         currentFileLabel.setText("Текущий файл: " + newFileName);
         revalidate();
         repaint();
     }
 
+    /**
+     * Returns the open file button
+     * 
+     * @return the open file button
+     */
+
     public JButton getOpenFileButton() {
         return openFileButton;
     }
+
+    /**
+     * Returns the save as button
+     * 
+     * @return the save as button
+     */
 
     public JButton getSaveAsButton() {
         return saveAsButton;
     }
 
-    ////////////////////////////////////////////////////////////////
-    ////////////////////// Заготовки под main //////////////////////
-    ////////////////////////////////////////////////////////////////
+    /**
+     * Adds an ActionListener to the open file button
+     * 
+     * @param listener the ActionListener to be added
+     */
     public void addOpenFileButtonListener(ActionListener listener) {
         openFileButton.addActionListener(listener);
     }
+
+    /**
+     * Adds an ActionListener to the save as button
+     * 
+     * @param listener the ActionListener to be added
+     */
 
     public void addSaveAsButtonListener(ActionListener listener) {
         saveAsButton.addActionListener(listener);

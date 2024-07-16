@@ -1,20 +1,38 @@
-/*
-* Класс-утилита
-* Назначение: автомат выделения ячеек в таблице
-* */
-
+/**
+* Utility class for mouse operations
+* Purpose: Automatically selects cells in a table based on mouse interactions
+*
+* @see MouseHig
+* @author OpenAI
+*/
 public class MouseHig {
     private byte cond;
     private int [][] coord;
+
+    /**
+     * Constructor for MouseHig class
+     */
 
     public MouseHig(){
         coord = new int [2][2];
         cond = 0;
     }
 
+    /**
+     * Sets the condition for selecting coordinates
+     * 
+     * @param newCond the new condition byte value
+     */
+
     public void setCond(byte newCond){
         this.cond = newCond;
     }
+
+    /**
+     * Adds coordinates to the selection based on the current condition
+     * 
+     * @param coord the coordinates to add
+     */
 
     public void addCoord(int [] coord){
         switch (this.cond) {
@@ -38,13 +56,29 @@ public class MouseHig {
         }
     }
 
+    /**
+     * Retrieves the current condition
+     * 
+     * @return the current condition byte value
+     */
+
     public byte getCond(){
         return this.cond;
     }
 
+    /**
+     * Retrieves the selected coordinates
+     * 
+     * @return the selected coordinates as a 2D array
+     */
+
     public int [][] getCoord(){
         return this.coord;
     }
+
+    /**
+     * Ensures the coordinates are valid by swapping if necessary
+     */
 
     private void validCoord(){
         if ((this.coord[0][0] > this.coord[1][0]) || (this.coord[0][0] == this.coord[1][0] && this.coord[0][1] > this.coord[1][1])){
@@ -54,16 +88,22 @@ public class MouseHig {
         }
     }
 
+    /**
+     * Retrieves all selected coordinates considering row lengths
+     * 
+     * @param len the length of each row
+     * @return an array of all selected coordinates
+     */
+
     public int [][] getFullCoords(int len){
 
         validCoord();
 
         /*
-         * Верхнюю и нижнюю строку учитываем по отдельности
-         * Остальные принимаем за целые
+         * Consider the top and bottom rows separately
+         * Treat the rest as complete cells
          */
         int nFullRows = this.coord[1][0] - this.coord[0][0] - 1;
-        // int nFullRows = Math.abs(this.coord[1][0] - this.coord[0][0] - 1);
         int nExtraUp = len - this.coord[0][1] + 1;
         int nExtraBottom = this.coord[1][1];
         int nExtraCells = nExtraUp + nExtraBottom;
