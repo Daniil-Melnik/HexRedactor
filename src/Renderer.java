@@ -12,7 +12,7 @@ import java.awt.*;
  * @see DefaultTableCellRenderer
  * @see JTable
  * @see JLabel
- * @author [Your Name]
+ * @author DMelnik
  * @version 1.0
  */
 
