@@ -16,36 +16,47 @@ import java.util.ArrayList;
 
 public class RegExp {
 
-    ////////////////////////////////////////////////////////
-    //////////////// Валидация одного байта ////////////////
-    ////////////////////////////////////////////////////////
     /**
      * Сhecking the validity of one byte
      * 
      * @param str byte value in string interpretation to be checked
+     * @return boolean value of value correctness
      */
 
     public boolean isValid(String str) {
         return (str.matches("^[0-9A-Fa-f]{2}$"));
     }
 
-    ///////////////////////////////////////////////////////
-    ////////////////// Проверка на маску //////////////////
-    ///////////////////////////////////////////////////////
+    /**
+     * Сhecking the mask from input field (SearchPanel.java)
+     * A mask is considered to be a string consisting of characters 1, 0, * with a
+     * length of at least 1 and no more than 64
+     * 
+     * @param str string value from mask's input field, to be checked
+     * @return boolean value of value correctness
+     */
     public boolean isMask(String str) {
         return (str.matches("^[10*]{1,64}$"));
     }
 
-    ///////////////////////////////////////////////////////
-    /////// Проверка на беззнаковое целое значение ////////
-    ///////////////////////////////////////////////////////
+    /**
+     * Сhecking input value of unsigned int
+     * 
+     * @param str string interpretation of value to be checked
+     * @return boolean value of value correctness
+     */
     public boolean isValue(String str) {
         return (str.matches("^[0-9]{1,10}$"));
     }
 
-    ////////////////////////////////////////////////////////
-    /////////////// Валидация массива байтов ///////////////
-    ////////////////////////////////////////////////////////
+    /**
+     * Byte array validation for get positions of invalid bytes
+     * 
+     * @param arr  array of string interpretations of byte values
+     * @param offt start offset of array in all data
+     * 
+     * @return array of invalid byte's offsets
+     */
     public ArrayList<Integer> isValidArr(String[] arr, int offt) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (int i = 0; i < arr.length; i++) {
@@ -56,9 +67,13 @@ public class RegExp {
         return res;
     }
 
-    /////////////////////////////////////////////////////////
-    /////////// Условная валидация массива байтов ///////////
-    /////////////////////////////////////////////////////////
+    /**
+     * Byte array validation to get validity of the array as a whole
+     * 
+     * @param arr array of string interpretations of byte values
+     * 
+     * @return boolean value of array validity
+     */
     public boolean isValidArrBool(String[] arr) {
         boolean res = true;
         int i = 0;
@@ -69,9 +84,15 @@ public class RegExp {
         return res;
     }
 
-    ////////////////////////////////////////////////////////
-    ////////////// Получение координат ошибок //////////////
-    ////////////////////////////////////////////////////////
+    /**
+     * Gives the coordinates of table cells that have errors
+     * 
+     * @param rowLen    length of table row
+     * @param offt      offset in whole data
+     * @param errorOfft list of error bytes offsets
+     * 
+     * @return array of cell coordinates in row-column format
+     */
     public int[][] getErrorCells(int rowLen, int offt, ArrayList<Integer> errorOfft) {
         int[][] res = new int[errorOfft.size()][2];
         int k;
