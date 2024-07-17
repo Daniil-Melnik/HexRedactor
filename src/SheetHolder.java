@@ -1,13 +1,17 @@
-/*
-* Класс-храниетель
-* Назначение: хранит информацию об открытой странице данных
-* */
-
 import java.io.IOException;
 
+/**
+ * Stores information about the current page and is responsible for the initial
+ * change of page data.
+ *
+ * @see java.io.IOException
+ * @author DMelnik
+ * @version 1.0
+ */
+
 public class SheetHolder {
-    private String [] data;
-    private String [] reserveData;
+    private String[] data;
+    private String[] reserveData;
     private String fName;
     private int rowLen;
     private int columnLen;
@@ -15,115 +19,245 @@ public class SheetHolder {
     private int currentColumn;
     private int dLen;
     private int offt;
-    private int [][] hCells;
-    private int [][] fCells;
-    private int [][] erCells;
+    private int[][] hCells;
+    private int[][] fCells;
+    private int[][] erCells;
 
-    public void setRowLen(int width){
+    /**
+     * Setter for rowLen attribute
+     *
+     * @param width new number of cells per row
+     */
+
+    public void setRowLen(int width) {
         this.rowLen = width;
     }
 
-    public void setOfft(int offt){
+    /**
+     * Setter for offt attribute
+     *
+     * @param offt new offset for page in whole data
+     */
+
+    public void setOfft(int offt) {
         this.offt = offt;
     }
 
-    public void setColumnLen(int height){
+    /**
+     * Setter for columnLen attribute
+     *
+     * @param height new number of cells per column
+     */
+
+    public void setColumnLen(int height) {
         this.columnLen = height;
     }
 
-    public void setData(String [] data){
+    /**
+     * Setter for data attribute
+     *
+     * @param data array of string interpretations of bytes
+     */
+
+    public void setData(String[] data) {
         this.data = data;
     }
 
-    public void setReserveData(String [] data){
+    /**
+     * Setter for reserveData attribute
+     *
+     * @param data array of string interpretations of bytes
+     */
+
+    public void setReserveData(String[] data) {
         this.reserveData = data;
     }
 
-    public void setfName(String fName){
+    /**
+     * Setter for fName attribute
+     *
+     * @param fName new name of file with data (work file)
+     */
+
+    public void setfName(String fName) {
         this.fName = fName;
     }
 
-    public void setHCells(int [][] hCells){
+    /**
+     * Setter for hCells attribute
+     *
+     * @param hCells array of highlited cells coordinates
+     */
+
+    public void setHCells(int[][] hCells) {
         this.hCells = hCells;
     }
 
-    public int [][] getHCells(){
+    /**
+     * Getter for hCells attribute
+     *
+     * @return array of highlited cells coordinates
+     */
+
+    public int[][] getHCells() {
         return this.hCells;
     }
 
-    public void setAllData(String [] data){
+    /**
+     * Setter for data and reserveData attributes
+     *
+     * @param data array of string interpretation of bytes
+     */
+
+    public void setAllData(String[] data) {
         this.reserveData = data;
         this.data = data;
     }
 
-    public void setCurrentRow(int currentRow){
+    /**
+     * Setter for currentRow attribute
+     *
+     * @param currentRow number of row containing the cell with current focus
+     */
+
+    public void setCurrentRow(int currentRow) {
         this.currentRow = currentRow;
     }
 
-    public void setCurrentColumn(int currentColumn){
+    /**
+     * Setter for currentColumn attribute
+     *
+     * @param currentColumn number of column containing the cell with current focus
+     */
+
+    public void setCurrentColumn(int currentColumn) {
         this.currentColumn = currentColumn;
     }
 
-    public int getCurrentRow(){
+    /**
+     * Getter for currentRow attribute
+     *
+     * @return number of row containing the cell with current focus
+     */
+
+    public int getCurrentRow() {
         return this.currentRow;
     }
 
-    public int getCurrentColumn(){
+    /**
+     * Getter for currentColumn attribute
+     *
+     * @return number of column containing the cell with current focus
+     */
+
+    public int getCurrentColumn() {
         return this.currentColumn;
     }
 
-    public String [] getData (){
+    /**
+     * Getter for data attribute
+     *
+     * @return string interpritation of data from current page
+     */
+
+    public String[] getData() {
         return this.data;
     }
 
-    public String [] getReserveData (){
+    /**
+     * Getter for reserveData attribute
+     *
+     * @return string interpritation of cashed data from current page
+     */
+
+    public String[] getReserveData() {
         return this.reserveData;
     }
 
-    public int getRowLen(){
+    /**
+     * Getter for rowLen attribute
+     *
+     * @return number of cells in table row
+     */
+
+    public int getRowLen() {
         return this.rowLen;
     }
 
-    public int getColumnLen(){
+    /**
+     * Getter for columnLen attribute
+     *
+     * @return number of cells in table column
+     */
+
+    public int getColumnLen() {
         return this.columnLen;
     }
 
-    public int getDLen(){
+    /**
+     * Getter for columnLen attribute
+     *
+     * @return number of cells in table column
+     */
+
+    public int getDLen() {
         return this.dLen;
     }
 
-    public int [][] getFCells(){ return this.fCells; }
+    /**
+     * Getter fCells attribute
+     *
+     * @return array of coordinates of finded cells on page
+     */
 
-    public void setFCells(int [][] fCells) {
+    public int[][] getFCells() {
+        return this.fCells;
+    }
+
+    /**
+     * Getter fCells attribute
+     *
+     * @return array of coordinates of finded cells on page
+     */
+
+    public void setFCells(int[][] fCells) {
         this.fCells = fCells;
     }
 
-    public int [][] getErCells(){ return this.erCells; }
+    /**
+     * Getter erCells attribute
+     *
+     * @return array of coordinates of error cells on page
+     */
 
-    public void setErCells(int [][] erCells){
+    public int[][] getErCells() {
+        return this.erCells;
+    }
+
+    public void setErCells(int[][] erCells) {
         this.erCells = erCells;
     }
 
-    public SheetHolder(String fName){
+    public SheetHolder(String fName) {
         this.offt = 0;
         this.fName = fName;
-        this.hCells = new int [0][0];
+        this.hCells = new int[0][0];
         this.fCells = new int[0][0];
         this.erCells = new int[0][0];
     }
 
-    public  String getfName(){
-        return  this.fName;
+    public String getfName() {
+        return this.fName;
     }
 
     ///////////////////////////////////////////////////////////////
     ////////////////// Получение координат ячеек //////////////////
     ///////////////////////////////////////////////////////////////
 
-    public int [][] getTableCellCoords(int [] offts){
+    public int[][] getTableCellCoords(int[] offts) {
         int offtLen = offts.length;
-        int [][] res = new int [offtLen][2];
-        for (int i = 0; i < offtLen; i++){
+        int[][] res = new int[offtLen][2];
+        for (int i = 0; i < offtLen; i++) {
             int singleOfft = offts[i];
             res[i][0] = singleOfft / this.rowLen;
             res[i][1] = singleOfft % this.rowLen + 1;
@@ -131,36 +265,36 @@ public class SheetHolder {
         return res;
     }
 
-    public void setDLen(int dLen){
+    public void setDLen(int dLen) {
         this.dLen = dLen;
     }
 
-    public void resetSheet(MouseHig mH){
-        this.setErCells(new int [0][0]);
-        this.setHCells(new int [0][0]);
+    public void resetSheet(MouseHig mH) {
+        this.setErCells(new int[0][0]);
+        this.setHCells(new int[0][0]);
 
         mH.setCond((byte) 0);
     }
 
-    public void clearStarsOnSheet(){
+    public void clearStarsOnSheet() {
         utilByte uB = new utilByte();
-        String [] newData =  uB.clearStars(this.data);
+        String[] newData = uB.clearStars(this.data);
         this.data = newData;
     }
 
-    public void fillInStarsOnSheet(){
+    public void fillInStarsOnSheet() {
         utilByte uB = new utilByte();
 
         int emptyCellDataShift;
-        if (this.data.length % this.rowLen != 0){
+        if (this.data.length % this.rowLen != 0) {
             emptyCellDataShift = this.rowLen - this.data.length % this.rowLen;
-        }
-        else emptyCellDataShift = 0;
+        } else
+            emptyCellDataShift = 0;
 
         this.data = uB.fillInStars(this.data, emptyCellDataShift);
     }
 
-    public boolean isEmptyVolume(int addLen){
+    public boolean isEmptyVolume(int addLen) {
         boolean res = true;
         int currLen = this.data.length;
 
@@ -168,7 +302,7 @@ public class SheetHolder {
         return res;
     }
 
-    public void makeHandle(ChangeHandler chH){
+    public void makeHandle(ChangeHandler chH) {
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
         int len = 0;
         int currOfft = 0;
@@ -178,7 +312,7 @@ public class SheetHolder {
             case 0:
                 this.data[index] = chH.getData()[0];
                 break;
-            
+
             case 1:
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
@@ -192,10 +326,10 @@ public class SheetHolder {
                     len = chH.getLen();
                     currOfft = chH.getOfft() - this.offt;
                     int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen;
-                    
-                    if (newOfft < bIO.getFileLength(this.fName)){
-                        String [] leftData = uB.removeFromArr(this.data, len, currOfft);
-                        String [] rightData = bIO.getHexBytesOfft(newOfft, len);
+
+                    if (newOfft < bIO.getFileLength(this.fName)) {
+                        String[] leftData = uB.removeFromArr(this.data, len, currOfft);
+                        String[] rightData = bIO.getHexBytesOfft(newOfft, len);
                         this.data = uB.concatArrs(leftData, rightData);
                         this.dLen += len;
                         this.fillInStarsOnSheet();
@@ -203,13 +337,13 @@ public class SheetHolder {
                 } catch (IOException e) {
                     System.err.println("An error occurred while trying to get the file length: " + e.getMessage());
                 }
-                
+
                 break;
-            
+
             case 3:
                 this.clearStarsOnSheet();
                 int offt = chH.getOfft();
-                String [] newData = chH.getData();
+                String[] newData = chH.getData();
                 this.data = uB.addDataSubst(this.data, newData, offt);
                 this.fillInStarsOnSheet();
                 break;
@@ -218,8 +352,8 @@ public class SheetHolder {
                 this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
-                String [] newDataShift = chH.getData();
-                String [] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
+                String[] newDataShift = chH.getData();
+                String[] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
                 this.data = tempDataShift;
                 this.fillInStarsOnSheet();
                 break;
@@ -232,6 +366,6 @@ public class SheetHolder {
                 this.fillInStarsOnSheet();
             default:
                 break;
-        } 
+        }
     }
 }

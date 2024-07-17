@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
  * @see Component
  * @see Graphics
  * @see Insets
- * @author [Your Name]
+ * @author DMelnik
  * @version 1.0
  */
 
