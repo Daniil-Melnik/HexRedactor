@@ -4,13 +4,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/*
-* Встраиваемая панель
-* Назначение: панель поиска
-* */
+/**
+ * An embedded panel for search functionality.
+ * This panel allows searching by mask or by value with various UI components.
+ *
+ * @see JPanel
+ * @see JComboBox
+ * @see JRadioButton
+ * @see JTextField
+ * @see JButton
+ * @see JLabel
+ * @see RoundedBorder
+ * @see ActionListener
+ * @see ActionEvent
+ * @see ButtonGroup
+ * @see Font
+ * @see Component
+ * @see Graphics
+ * @see Insets
+ * @author [Your Name]
+ * @version 1.0
+ */
 
 public class SearchPanel extends JPanel {
-    // Компоненты панели
     public JComboBox<String> byteSizeComboBox;
     private JRadioButton searchByMaskRadioButton;
     private JRadioButton searchByValueRadioButton;
@@ -21,13 +37,15 @@ public class SearchPanel extends JPanel {
     private JLabel methodLabel;
     private JLabel mainLabel;
 
-    // Конструктор панели
+    /**
+     * Constructor for the SearchPanel.
+     * Initializes the panel components and layout.
+     */
     public SearchPanel() {
 
         Font font20 = new Font("Arial", Font.PLAIN, 20);
         Font font15 = new Font("Arial", Font.PLAIN, 15);
 
-        // Установить компоновщик панели в null
         setLayout(null);
         setBorder(new RoundedBorder(10));
 
@@ -36,7 +54,6 @@ public class SearchPanel extends JPanel {
         mainLabel.setFont(font20);
         add(mainLabel);
 
-        // Создание выпадающего меню для выбора количества байтов
         String[] byteOptions = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
                 "16" };
         byteSizeComboBox = new JComboBox<>(byteOptions);
@@ -48,7 +65,6 @@ public class SearchPanel extends JPanel {
         add(sizeLabel);
         add(byteSizeComboBox);
 
-        // Создание радио-кнопок для выбора между поиском по маске или по значению
         searchByMaskRadioButton = new JRadioButton("По маске");
         searchByValueRadioButton = new JRadioButton("По значению");
 
@@ -58,12 +74,10 @@ public class SearchPanel extends JPanel {
         searchByMaskRadioButton.setBounds(110, 70, 120, 20);
         searchByValueRadioButton.setBounds(230, 70, 120, 20);
 
-        // Группировка радио-кнопок
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(searchByMaskRadioButton);
         buttonGroup.add(searchByValueRadioButton);
 
-        // Добавление радио-кнопок на панель
         methodLabel = new JLabel("Метод:");
         methodLabel.setBounds(48, 68, 50, 20);
         methodLabel.setFont(font15);
@@ -72,7 +86,6 @@ public class SearchPanel extends JPanel {
         add(searchByMaskRadioButton);
         add(searchByValueRadioButton);
 
-        // Создание поля для ввода и надписи
         inputLabel = new JLabel("Значение:");
         inputLabel.setFont(font15);
         inputLabel.setBounds(26, 95, 70, 20);
@@ -83,17 +96,14 @@ public class SearchPanel extends JPanel {
         add(inputLabel);
         add(inputField);
 
-        // Создание кнопки "Найти"
         findButton = new JButton("Найти");
         findButton.setFont(font15);
         findButton.setBounds(1, 125, 398, 24);
         add(findButton);
 
-        // Добавление обработчиков событий
         searchByMaskRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Установить надпись для маски
                 inputLabel.setText("Маска:");
                 inputLabel.setBounds(48, 95, 70, 20);
 
@@ -103,28 +113,38 @@ public class SearchPanel extends JPanel {
         searchByValueRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Установить надпись для значения
                 inputLabel.setText("Значение:");
                 inputLabel.setBounds(26, 95, 70, 20);
             }
         });
 
-        // Установите радио-кнопку по значению по умолчанию и обновите надпись
         searchByValueRadioButton.setSelected(true);
         inputLabel.setText("Значение:");
     }
 
-    // Метод для проверки, выбрана ли радио-кнопка "По маске"
+    /**
+     * Checks if the "Search by Mask" radio button is selected.
+     *
+     * @return true if "Search by Mask" is selected, false otherwise
+     */
     public boolean isSearchByMaskSelected() {
         return searchByMaskRadioButton.isSelected();
     }
 
-    // Метод для проверки, выбрана ли радио-кнопка "По значению"
+    /**
+     * Checks if the "Search by Value" radio button is selected.
+     *
+     * @return true if "Search by Value" is selected, false otherwise
+     */
     public boolean isSearchByValueSelected() {
         return searchByValueRadioButton.isSelected();
     }
 
-    // Метод для добавления слушателя для кнопки "Найти"
+    /**
+     * Adds an ActionListener to the "Find" button.
+     *
+     * @param listener the ActionListener to be added
+     */
     public void addSearchButtonListener(ActionListener listener) {
         findButton.addActionListener(listener);
     }
