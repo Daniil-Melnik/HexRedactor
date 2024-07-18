@@ -234,9 +234,21 @@ public class SheetHolder {
         return this.erCells;
     }
 
+    /**
+     * Setter for erCells attribute
+     *
+     * @param erCells array of coordinates table cells with errors
+     */
+
     public void setErCells(int[][] erCells) {
         this.erCells = erCells;
     }
+
+    /**
+     * Constructs SheetHolder object for current Hex Editor session
+     *
+     * @param fName file name for file used
+     */
 
     public SheetHolder(String fName) {
         this.offt = 0;
@@ -246,28 +258,49 @@ public class SheetHolder {
         this.erCells = new int[0][0];
     }
 
+    /**
+     * Getter for fName attribute
+     * 
+     * @return string, name of file used
+     */
+
     public String getfName() {
         return this.fName;
     }
 
-    ///////////////////////////////////////////////////////////////
-    ////////////////// Получение координат ячеек //////////////////
-    ///////////////////////////////////////////////////////////////
+    /**
+     * Gives cell coordinates in table by offsets in file
+     * 
+     * @param offts array of offsets in file
+     * @return array of coordinates in table
+     */
 
     public int[][] getTableCellCoords(int[] offts) {
         int offtLen = offts.length;
         int[][] res = new int[offtLen][2];
         for (int i = 0; i < offtLen; i++) {
             int singleOfft = offts[i];
-            res[i][0] = singleOfft / this.rowLen;
-            res[i][1] = singleOfft % this.rowLen + 1;
+            res[i][0] = singleOfft / rowLen;
+            res[i][1] = singleOfft % rowLen + 1;
         }
         return res;
     }
 
+    /**
+     * Setter for dLen attribute
+     * 
+     * @param dLen new delta length
+     */
+
     public void setDLen(int dLen) {
         this.dLen = dLen;
     }
+
+    /**
+     * resets table sheet
+     * 
+     * @param mH mouse event object
+     */
 
     public void resetSheet(MouseHig mH) {
         this.setErCells(new int[0][0]);
@@ -276,11 +309,19 @@ public class SheetHolder {
         mH.setCond((byte) 0);
     }
 
+    /**
+     * Remiove stars "*" frome the table sheet
+     */
+
     public void clearStarsOnSheet() {
         utilByte uB = new utilByte();
         String[] newData = uB.clearStars(this.data);
         this.data = newData;
     }
+
+    /**
+     * Adds stars "*" to emty cells on the table sheet
+     */
 
     public void fillInStarsOnSheet() {
         utilByte uB = new utilByte();
@@ -294,13 +335,27 @@ public class SheetHolder {
         this.data = uB.fillInStars(this.data, emptyCellDataShift);
     }
 
+    /**
+     * Сhecks for data buffer overflow
+     * 
+     * @param addLen number of bytes to be added to the current table sheet
+     * 
+     * @return boolean value indicating a buffer overflow
+     */
+
     public boolean isEmptyVolume(int addLen) {
         boolean res = true;
         int currLen = this.data.length;
-
-        res = currLen + addLen < 1048577;
+        int MAX_VOLUME = 1048577;
+        res = currLen + addLen < MAX_VOLUME;
         return res;
     }
+
+    /**
+     * Makes a change to the current table page according to the type of change
+     * 
+     * @param chH change object
+     */
 
     public void makeHandle(ChangeHandler chH) {
         int index = chH.getOfft() % (this.rowLen * this.columnLen);
