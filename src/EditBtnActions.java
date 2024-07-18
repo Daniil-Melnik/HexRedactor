@@ -1,11 +1,32 @@
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+/**
+ * Class containing actions for editing cells in a table.
+ * <p>
+ * This class provides methods to perform various operations such as filling
+ * with zeros,
+ * removing with zeroing or shifting, pasting with replacement or shifting, and
+ * cutting or copying.
+ * </p>
+ * 
+ * @autor DMelnik
+ * @version 1.0
+ */
+
 public class EditBtnActions {
 
-    public void btnFillInZero(SheetHolder sH, JTextField lenField, int [][] highlightCells){
+    /**
+     * Fills the selected cells with zeros.
+     *
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param lenField       the JTextField containing the length of the fill
+     * @param highlightCells the coordinates of the highlighted cells
+     */
 
-        int [] startCoord = highlightCells[0];
+    public void btnFillInZero(SheetHolder sH, JTextField lenField, int[][] highlightCells) {
+
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int len = Integer.parseInt(lenField.getText());
@@ -15,8 +36,16 @@ public class EditBtnActions {
 
     }
 
-    public void btnRemoveZero(SheetHolder sH, int [] offset, int[][] highlightCells) {
-        int [] startCoord = highlightCells[0];
+    /**
+     * Removes the selected cells and fills with zeros.
+     *
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param offset         the offset for the operation
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnRemoveZero(SheetHolder sH, int[] offset, int[][] highlightCells) {
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
@@ -25,9 +54,17 @@ public class EditBtnActions {
         sH.makeHandle(cHZero);
     }
 
-    public void btnRemoveShift(SheetHolder sH, int [] offset, int [][] highlightCells){
+    /**
+     * Removes the selected cells with shifting.
+     *
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param offset         the offset for the operation
+     * @param highlightCells the coordinates of the highlighted cells
+     */
 
-        int [] startCoord = highlightCells[0];
+    public void btnRemoveShift(SheetHolder sH, int[] offset, int[][] highlightCells) {
+
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
@@ -37,8 +74,16 @@ public class EditBtnActions {
         sH.makeHandle(cHShift);
     }
 
-    public void btnPasteShift(SheetHolder sH, String [] currData, int [][] highlightCells){
-        int [] startCoord = highlightCells[0];
+    /**
+     * Pastes data into the selected cells with shifting.
+     *
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param currData       the data to be pasted
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnPasteShift(SheetHolder sH, String[] currData, int[][] highlightCells) {
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // 02.07.2024 сдвиг на 1 по ячейкам
@@ -47,8 +92,16 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
-    public void btnPasteSubst(SheetHolder sH, String [] currData, int [][] highlightCells){
-        int [] startCoord = highlightCells[0];
+    /**
+     * Pastes data into the selected cells with replacement.
+     *
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param currData       the data to be pasted
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnPasteSubst(SheetHolder sH, String[] currData, int[][] highlightCells) {
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // сдвиг в таблице по координате
@@ -58,39 +111,69 @@ public class EditBtnActions {
         sH.makeHandle(chH);
     }
 
-    public void btnCutShift(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells) {
-        int [] startCoord = highlightCells[0];
+    /**
+     * Cuts the selected cells with shifting.
+     *
+     * @param table          the JTable object to perform the operation on
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param offset         the offset for the operation
+     * @param buffer         the buffer to store the cut data
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnCutShift(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
-        
+
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1;
         int highlightLen = highlightCells[0].length;
 
         utilByte uB = new utilByte();
-        String [] strArr = uB.getValuesOfHighlt(table, highlightCells);
+        String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
         ChangeHandler chH = new ChangeHandler(2, offt, highlightLen, null);
         sH.makeHandle(chH);
     }
 
-    public void btnCopy(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells) {
+    /**
+     * Copies the selected cells.
+     *
+     * @param table          the JTable object to perform the operation on
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param offset         the offset for the operation
+     * @param buffer         the buffer to store the copied data
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnCopy(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
         utilByte uB = new utilByte();
-        String [] strArr = uB.getValuesOfHighlt(table, highlightCells);
+        String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
-        for (String s : buffer[0]){
+        for (String s : buffer[0]) {
             System.out.print(s + " ");
         }
     }
 
-    public void btnCutZero(JTable table, SheetHolder sH, int [] offset, String [][] buffer, int [][] highlightCells){
-        int [] startCoord = highlightCells[0];
+    /**
+     * Cuts the selected cells and fills with zeros.
+     *
+     * @param table          the JTable object to perform the operation on
+     * @param sH             the SheetHolder object to perform the operation on
+     * @param offset         the offset for the operation
+     * @param buffer         the buffer to store the cut data
+     * @param highlightCells the coordinates of the highlighted cells
+     */
+
+    public void btnCutZero(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
+        int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
 
         utilByte uB = new utilByte();
-        String [] strArr = uB.getValuesOfHighlt(table, highlightCells);
+        String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
         ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
