@@ -3,8 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A custom JPanel for handling various editing operations on a table.
+ * Provides options for deleting, cutting, copying, pasting, and inserting
+ * zeros.
+ * 
+ * @autor DMelnik
+ * @version 1.0
+ */
+
 public class EditPanel extends JPanel {
-    public JComboBox<String> comboBox; 
+    public JComboBox<String> comboBox;
     public JComboBox<String> valueBuffer;
     private JPanel dynamicContent;
     private JLabel zeroLabel;
@@ -17,6 +26,10 @@ public class EditPanel extends JPanel {
     private JRadioButton shiftRadio;
     private JRadioButton shiftPasteRadio;
     private JRadioButton replaceRadio;
+
+    /**
+     * Constructs an EditPanel with various editing options.
+     */
 
     public EditPanel() {
         setLayout(null);
@@ -35,28 +48,23 @@ public class EditPanel extends JPanel {
         opLabel.setBounds(10, 52, 80, 20);
         add(opLabel);
 
-        // Создаем выпадающее меню
         comboBox = new JComboBox<>(new String[] { "Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули" });
         comboBox.addActionListener(new ComboBoxListener());
         comboBox.setBounds(90, 50, 300, 25);
         comboBox.setFont(font15);
         add(comboBox);
 
-        // Создаем динамическую панель для переключаемых элементов
         dynamicContent = new JPanel();
         dynamicContent.setLayout(null);
         dynamicContent.setBounds(1, 65, 398, 80);
         add(dynamicContent);
 
-        // Создаем кнопку "Выполнить"
         executeButton = new JButton("Выполнить");
         executeButton.setBounds(1, 149, 398, 30);
         add(executeButton);
 
-        // Создаем поле для ввода заранее
         valueField = new JTextField(10);
 
-        // Инициализируем динамическую панель
         updateDynamicPanel();
     }
 
@@ -75,6 +83,10 @@ public class EditPanel extends JPanel {
     public boolean isShiftPasteSelected() {
         return shiftPasteRadio.isSelected();
     }
+
+    /**
+     * Updates the dynamic content panel based on the selected operation.
+     */
 
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
@@ -146,6 +158,10 @@ public class EditPanel extends JPanel {
         dynamicContent.repaint();
     }
 
+    /**
+     * Listener for value buffer combo box.
+     */
+
     private class ComboBoxVBListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -160,6 +176,10 @@ public class EditPanel extends JPanel {
         }
     }
 
+    /**
+     * Listener for operation combo box.
+     */
+
     private class ComboBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -167,26 +187,13 @@ public class EditPanel extends JPanel {
         }
     }
 
-    // private class ExecuteButtonListener implements ActionListener {
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    // JOptionPane.showMessageDialog(EditPanel.this, "Действие выполнено!");
-    // }
-    // }
+    /**
+     * Adds an ActionListener to the execute button.
+     *
+     * @param listener the ActionListener to be added
+     */
 
-    // Метод для добавления слушателя для кнопки "Найти"
     public void addEditButtonListener(ActionListener listener) {
         executeButton.addActionListener(listener);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Тестовое окно");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-
-        EditPanel customPanel = new EditPanel();
-        frame.add(customPanel);
-
-        frame.setVisible(true);
     }
 }
