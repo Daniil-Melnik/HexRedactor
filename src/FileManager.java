@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -71,7 +72,12 @@ public class FileManager {
     }
 
     public static void main(String[] args) throws IOException {
-        FileManager fM = new FileManager();
-        fM.clearFile("example.txt");
+        try {
+            FileManager fM = new FileManager();
+            fM.clearFile("example.txt");
+        } catch (NoSuchFileException e) {
+            System.out.println("Нет такого файла");
+        }
+
     }
 }
