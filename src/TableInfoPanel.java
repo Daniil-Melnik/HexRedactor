@@ -2,10 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-/*
-* Класс-панель
-* Назначение: описиние панели Фокус-выделение
-* */
+/**
+ * A panel class for displaying and updating focus and selection information.
+ *
+ * @see JPanel
+ * @see JLabel
+ * @see JButton
+ * @see RoundedBorder
+ * @see ActionListener
+ * @see Font
+ * @see Component
+ * @see Graphics
+ * @see Insets
+ * @author DMelnik
+ * @version 1.0
+ */
 
 public class TableInfoPanel extends JPanel {
     private JLabel sizeLabel;
@@ -14,6 +25,15 @@ public class TableInfoPanel extends JPanel {
     private JLabel selectionStartLabel;
     private JLabel mainLabel;
     private JButton changeButton;
+
+    /**
+     * Constructs a TableInfoPanel with the specified initial values.
+     *
+     * @param sizeX          the width of the table
+     * @param sizeY          the height of the table
+     * @param focus          the current focus position
+     * @param selectionStart the start position of the selection
+     */
 
     public TableInfoPanel(int sizeX, int sizeY, int focus, int selectionStart) {
         setLayout(null);
@@ -55,9 +75,25 @@ public class TableInfoPanel extends JPanel {
         add(lenLabel);
     }
 
+    /**
+     * Adds an ActionListener to the "Change" button.
+     *
+     * @param listener the ActionListener to be added
+     */
+
     public void addChangeSizeButtonListener(ActionListener listener) {
         changeButton.addActionListener(listener);
     }
+
+    /**
+     * Updates the displayed information on the panel.
+     *
+     * @param sizeX          the width of the table
+     * @param sizeY          the height of the table
+     * @param focus          the current focus position
+     * @param selectionStart the start position of the selection
+     * @param selectionLen   the length of the selection
+     */
 
     public void updateInfo(int sizeX, int sizeY, int focus, int selectionStart, int selectionLen) {
         sizeLabel.setText("Размер: " + sizeX + " x " + sizeY + " ячеек");
@@ -69,22 +105,31 @@ public class TableInfoPanel extends JPanel {
         repaint();
     }
 
-    public void updTableInfo(SheetHolder sH, int [][] highlightCells, int [] offset){
+    /**
+     * Updates the table information using the provided SheetHolder and highlighted
+     * cells.
+     *
+     * @param sH             the SheetHolder containing table data
+     * @param highlightCells the highlighted cells
+     * @param offset         the offset array
+     */
+
+    public void updTableInfo(SheetHolder sH, int[][] highlightCells, int[] offset) {
         int currentCol = sH.getCurrentColumn();
         int currentRow = sH.getCurrentRow();
 
         int currOfft = offset[1] + currentRow * sH.getRowLen() + currentCol - 1;
         int highOfft, highLen;
-        if (highlightCells.length != 0){
-            int [] startCoord = highlightCells[0];
+        if (highlightCells.length != 0) {
+            int[] startCoord = highlightCells[0];
             highOfft = startCoord[0] * sH.getRowLen() + startCoord[1] + offset[1] - 1;
             highLen = highlightCells[0].length;
         } else {
             highOfft = -0;
             highLen = -0;
         }
-                    
-        this.updateInfo(sH.getRowLen() , sH.getColumnLen(), currOfft, highOfft, highLen);
+
+        this.updateInfo(sH.getRowLen(), sH.getColumnLen(), currOfft, highOfft, highLen);
     }
 
 }
