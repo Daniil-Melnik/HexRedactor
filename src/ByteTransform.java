@@ -45,11 +45,12 @@ public class ByteTransform {
             }
         }
 
-        String concBinStr = "";
-        for (String str : binaryArr)
-            concBinStr += str;
+        StringBuilder concBinStrBuilder = new StringBuilder();
+        for (String str : binaryArr) {
+            concBinStrBuilder.append(str);
+        }  
 
-        return concBinStr;
+        return concBinStrBuilder.toString();
     }
 
     /**
