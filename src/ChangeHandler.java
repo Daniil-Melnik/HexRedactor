@@ -20,7 +20,7 @@
  * @version 1.0
  */
 public class ChangeHandler {
-    private int type;
+    private String type;
     private String[] changedCells;
     private int offt;
     private int len;
@@ -34,7 +34,7 @@ public class ChangeHandler {
      * @param data the data involved in the operation
      */
 
-    public ChangeHandler(int type, int offt, int len, String[] data) {
+    public ChangeHandler(String type, int offt, int len, String[] data) {
         this.type = type;
         this.offt = offt;
         this.len = len;
@@ -67,7 +67,7 @@ public class ChangeHandler {
      * @return the type of operation
      */
 
-    public int getType() {
+    public String getType() {
         return this.type;
     }
 

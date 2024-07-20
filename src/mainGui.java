@@ -527,7 +527,9 @@ public class mainGui extends JFrame {
 
                     int rowLen = sH[0].getRowLen();
 
-                    ChangeHandler chH = new ChangeHandler(0, offset[0] + (rowLen * row) + column - 1, 1, strData);
+                    String operationType = ChangeTypes.MODIFI_CELL.getValue();
+
+                    ChangeHandler chH = new ChangeHandler(operationType, offset[0] + (rowLen * row) + column - 1, 1, strData);
                     sH[0].makeHandle(chH); // добавть изменения в SheetHolder
                     ArrayList<Integer> aL = rE.isValidArr(sH[0].getData(), offset[0]);
                     int[][] errorCells = rE.getErrorCells(rowLen, offset[0], aL);

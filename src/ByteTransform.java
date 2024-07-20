@@ -136,7 +136,7 @@ public class ByteTransform {
      */
     public int[] getByteOffsetsValue(String[] data, int len, BigInteger num) {
         int cnt = 0;
-        String cntStr = "";
+        String cntStr;
         String targetStr = num.toString(2);
         int tmp = len * 8 - targetStr.length();
         for (int i = 0; i < tmp; i++) {

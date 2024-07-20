@@ -28,10 +28,11 @@ public class EditBtnActions {
 
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.INSERT_ZEROS.getValue();
 
         int len = Integer.parseInt(lenField.getText());
         int currOfft = startCoord[0] * rowLen + startCoord[1] - 1; // сдвиг в таблице по координате
-        ChangeHandler chH = new ChangeHandler(7, currOfft, len, null);
+        ChangeHandler chH = new ChangeHandler(operationType, currOfft, len, null);
         sH.makeHandle(chH);
 
     }
@@ -47,10 +48,11 @@ public class EditBtnActions {
     public void btnRemoveZero(SheetHolder sH, int[] offset, int[][] highlightCells) {
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.DELETE_WITH_ZEROING.getValue();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
-        ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
+        ChangeHandler cHZero = new ChangeHandler(operationType, offt, highlightLen, null);
         sH.makeHandle(cHZero);
     }
 
@@ -66,11 +68,12 @@ public class EditBtnActions {
 
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.DELETE_WITH_SHIFT.getValue();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
         offset[0] = offset[0] + highlightLen;
-        ChangeHandler cHShift = new ChangeHandler(2, offt, highlightLen, null);
+        ChangeHandler cHShift = new ChangeHandler(operationType, offt, highlightLen, null);
         sH.makeHandle(cHShift);
     }
 
@@ -85,10 +88,11 @@ public class EditBtnActions {
     public void btnPasteShift(SheetHolder sH, String[] currData, int[][] highlightCells) {
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.INSERT_WITH_SHIFT.getValue();
 
         int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // 02.07.2024 сдвиг на 1 по ячейкам
         int len = currData.length;
-        ChangeHandler chH = new ChangeHandler(4, currOfft, len, currData);
+        ChangeHandler chH = new ChangeHandler(operationType, currOfft, len, currData);
         sH.makeHandle(chH);
     }
 
@@ -103,11 +107,12 @@ public class EditBtnActions {
     public void btnPasteSubst(SheetHolder sH, String[] currData, int[][] highlightCells) {
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.INSERT_WITH_REPLACE.getValue();
 
         int currOfft = startCoord[0] * rowLen + startCoord[1] - 1 - 1; // сдвиг в таблице по координате
 
         int len = currData.length;
-        ChangeHandler chH = new ChangeHandler(3, currOfft, len, currData);
+        ChangeHandler chH = new ChangeHandler(operationType, currOfft, len, currData);
         sH.makeHandle(chH);
     }
 
@@ -124,6 +129,7 @@ public class EditBtnActions {
     public void btnCutShift(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.DELETE_WITH_SHIFT.getValue();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1;
         int highlightLen = highlightCells[0].length;
@@ -132,7 +138,7 @@ public class EditBtnActions {
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
-        ChangeHandler chH = new ChangeHandler(2, offt, highlightLen, null);
+        ChangeHandler chH = new ChangeHandler(operationType, offt, highlightLen, null);
         sH.makeHandle(chH);
     }
 
@@ -168,6 +174,7 @@ public class EditBtnActions {
     public void btnCutZero(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
         int[] startCoord = highlightCells[0];
         int rowLen = sH.getRowLen();
+        String operationType = ChangeTypes.DELETE_WITH_ZEROING.getValue();
 
         int offt = offset[1] + startCoord[0] * rowLen + startCoord[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightLen = highlightCells.length;
@@ -176,7 +183,7 @@ public class EditBtnActions {
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
-        ChangeHandler cHZero = new ChangeHandler(1, offt, highlightLen, null);
+        ChangeHandler cHZero = new ChangeHandler(operationType, offt, highlightLen, null);
         sH.makeHandle(cHZero);
     }
 }

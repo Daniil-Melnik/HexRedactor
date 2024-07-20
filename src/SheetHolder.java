@@ -364,17 +364,17 @@ public class SheetHolder {
         utilByte uB = new utilByte();
         ByteIO bIO = new ByteIO(this.fName);
         switch (chH.getType()) {
-            case 0:
+            case "0":
                 this.data[index] = chH.getData()[0];
                 break;
 
-            case 1:
+            case "1":
                 len = chH.getLen();
                 currOfft = chH.getOfft() - this.offt;
                 uB.removeFromArrZero(this.data, len, currOfft);
                 break;
 
-            case 2:
+            case "2":
 
                 try {
                     this.clearStarsOnSheet();
@@ -395,7 +395,7 @@ public class SheetHolder {
 
                 break;
 
-            case 3:
+            case "3":
                 this.clearStarsOnSheet();
                 int offt = chH.getOfft();
                 String[] newData = chH.getData();
@@ -403,7 +403,7 @@ public class SheetHolder {
                 this.fillInStarsOnSheet();
                 break;
 
-            case 4:
+            case "4":
                 this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
@@ -413,7 +413,7 @@ public class SheetHolder {
                 this.fillInStarsOnSheet();
                 break;
 
-            case 7:
+            case "5":
                 this.clearStarsOnSheet();
                 len = chH.getLen();
                 offt = chH.getOfft();
