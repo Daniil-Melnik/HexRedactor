@@ -1,4 +1,5 @@
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 
 /**
  * Utility class for various byte array manipulations and conversions.

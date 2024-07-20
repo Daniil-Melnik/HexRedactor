@@ -1,5 +1,7 @@
 import javax.swing.border.Border;
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Insets;
+import java.awt.Graphics;
 
 /**
  * A class that implements the Border interface to create rounded corners for

@@ -1,6 +1,7 @@
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+import java.awt.Component;
 
 /**
  * Renderer class that extends DefaultTableCellRenderer to customize cell
