@@ -52,18 +52,22 @@ public class HighLightRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        if (Arrays.stream(errorCells).anyMatch(coord -> coord[0] == row && coord[1] == column)) {
+        if (checkCoordinate(errorCells, row, column)) {
             c.setBackground(Color.RED);
         }
-        else if (Arrays.stream(highlightCells).anyMatch(coord -> coord[0] == row && coord[1] == column)){
+        else if (checkCoordinate(highlightCells, row, column)){
             c.setBackground(Color.GREEN);
         }
-        else if (Arrays.stream(findedCells).anyMatch(coord -> coord[0] == row && coord[1] == column)){
+        else if (checkCoordinate(findedCells, row, column)){
             c.setBackground(Color.GRAY);
         }
         else{
             c.setBackground(Color.WHITE); // Сбрасываем фон обратно на белый, если ячейка не выделена
         }
         return c;
+    }
+
+    private boolean checkCoordinate(int [][] coordinateArray, int row, int column){
+        return (Arrays.stream(coordinateArray).anyMatch(coord -> coord[0] == row && coord[1] == column));
     }
 }

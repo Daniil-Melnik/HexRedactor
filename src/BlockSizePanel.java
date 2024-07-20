@@ -131,10 +131,10 @@ public class BlockSizePanel extends JPanel {
         int index;
         for (int i = 1; i < 5; i++) {
             index = i - 1;
-            tablePanel[1][i].setText("" + intArr[index]);
-            tablePanel[2][i].setText("" + longArr[index]);
-            tablePanel[3][i].setText(i != 4 ? "" + floatArr[index] : "*");
-            tablePanel[4][i].setText("" + doubleArr[index]);
+            tablePanel[1][i].setText(Long.toString(intArr[index]));
+            tablePanel[2][i].setText(longArr[index].toString());
+            tablePanel[3][i].setText(i != 4 ? Float.toString(floatArr[index]) : "*");
+            tablePanel[4][i].setText( Double.toString(doubleArr[index]));
         }
 
         return this;

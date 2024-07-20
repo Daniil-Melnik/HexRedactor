@@ -41,7 +41,7 @@ public class utilByte {
             resArr[i / rowLen][(i % rowLen) + 1] = data[i];
         }
         for (int i = 0; i < columnLen; i++) {
-            resArr[i][0] = new JLabel("" + (offt + (i * rowLen)));
+            resArr[i][0] = new JLabel(Integer.toString(offt + (i * rowLen)));
         }
         return resArr;
     }
@@ -277,7 +277,7 @@ public class utilByte {
         String[] res = new String[arrLen];
         for (int i = 0; i < arrLen; i++) {
             int[] cellArr = highlightCells[i];
-            res[i] = "" + table.getValueAt(cellArr[0], cellArr[1]);
+            res[i] = table.getValueAt(cellArr[0], cellArr[1]).toString();
         }
         return res;
     }

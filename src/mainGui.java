@@ -808,7 +808,7 @@ public class mainGui extends JFrame {
 
         newColumnNames[0] = "off";
         for (int m = 1; m < rowLen + 1; m++) {
-            newColumnNames[m] = "" + (m - 1);
+            newColumnNames[m] = Integer.toString(m - 1);
         }
 
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();

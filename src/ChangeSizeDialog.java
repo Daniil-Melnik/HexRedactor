@@ -18,8 +18,8 @@ import java.awt.GridLayout;
  */
 
 public class ChangeSizeDialog extends JPanel {
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField textFieldHeight;
+    private JTextField textFieldWidth;
 
     /**
      * Constructs a ChangeSizeDialog with input fields for height and width.
@@ -34,15 +34,15 @@ public class ChangeSizeDialog extends JPanel {
         setLayout(new GridLayout(rows, cols));
 
         JLabel label1 = new JLabel("Высота :");
-        textField1 = new JTextField(textFieldLen);
+        textFieldHeight = new JTextField(textFieldLen);
 
         JLabel label2 = new JLabel("Ширина :");
-        textField2 = new JTextField(textFieldLen);
+        textFieldWidth = new JTextField(textFieldLen);
 
         add(label1);
-        add(textField1);
+        add(textFieldHeight);
         add(label2);
-        add(textField2);
+        add(textFieldWidth);
     }
 
     /**
@@ -52,7 +52,7 @@ public class ChangeSizeDialog extends JPanel {
      */
 
     public String getHeightValue() {
-        return textField1.getText();
+        return textFieldHeight.getText();
     }
 
     /**
@@ -62,6 +62,6 @@ public class ChangeSizeDialog extends JPanel {
      */
 
     public String getWidthValue() {
-        return textField2.getText();
+        return textFieldWidth.getText();
     }
 }
