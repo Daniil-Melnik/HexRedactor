@@ -314,7 +314,7 @@ public class SheetHolder {
      */
 
     public void clearStarsOnSheet() {
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
         String[] newData = uB.clearStars(this.data);
         this.data = newData;
     }
@@ -324,7 +324,7 @@ public class SheetHolder {
      */
 
     public void fillInStarsOnSheet() {
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
 
         int emptyCellDataShift;
         if (this.data.length % this.rowLen != 0) {
@@ -361,7 +361,7 @@ public class SheetHolder {
         int index = chH.getOffset() % (this.rowLen * this.columnLen);
         int len = 0;
         int currOfft = 0;
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
         ByteFormatIO bIO = new ByteFormatIO(this.fName);
         switch (chH.getOperationType()) {
             case "0":

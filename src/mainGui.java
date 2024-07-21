@@ -89,7 +89,7 @@ public class mainGui extends JFrame {
 
                 byteSize[0] = (String) searchPanel.byteSizeComboBox.getSelectedItem();
 
-                utilByte uB = new utilByte();
+                UtilByte uB = new UtilByte();
 
                 int rowLen = sH[0].getRowLen();
                 int columnLen = sH[0].getColumnLen();
@@ -135,66 +135,130 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String optText = (String) editPanel.comboOperationType.getSelectedItem();
+                // String optText = (String) editPanel.comboOperationType.getSelectedItem();
+                EditTypes selectedAction = (EditTypes) editPanel.comboOperationType.getSelectedItem();
                 int[][] highlightCells = sH[0].getHCells();
                 try {
-                    if (optText.equals("Вставить нули")) {
+                    switch (selectedAction) {
+                        case DELETE:
+                            if (editPanel.isZeroSelected()) {
+                                eBA.btnRemoveZero(sH[0], offset, highlightCells);
+                            }
+                            if (editPanel.isShiftSelected()) {
+                                eBA.btnRemoveShift(sH[0], offset, highlightCells);
+                            }
+                            break;
+                        
+                        case INSERT:
+                            boolean shiftCond = editPanel.isShiftPasteSelected();
+                            boolean replaceCond = editPanel.isReplaceSelected();
 
-                        JTextField lenField = editPanel.zeroNumberField;
-                        eBA.btnFillInZero(sH[0], lenField, highlightCells);
-                    }
+                            String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
 
-                    else if (optText.equals("Удалить")) {
-                        if (editPanel.isZeroSelected()) {
-                            eBA.btnRemoveZero(sH[0], offset, highlightCells);
-                        }
-                        if (editPanel.isShiftSelected()) {
-                            eBA.btnRemoveShift(sH[0], offset, highlightCells);
-                        }
-                    }
-
-                    else if (optText.equals("Вставить")) {
-                        boolean shiftCond = editPanel.isShiftPasteSelected();
-                        boolean replaceCond = editPanel.isReplaceSelected();
-
-                        String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
-
-                        if (bufferValue.equals("задать")) {
-                            String adStr = editPanel.valueField.getText();
-                            String[] currData = bIO[0].splitHexBytes(adStr);
-                            if (rE.isValidArrBool(currData)) {
+                            if (bufferValue.equals("задать")) {
+                                String adStr = editPanel.valueField.getText();
+                                String[] currData = bIO[0].splitHexBytes(adStr);
+                                if (rE.isValidArrBool(currData)) {
+                                    if (shiftCond) {
+                                        if (sH[0].isEmptyVolume(currData.length)) {
+                                            eBA.btnPasteShift(sH[0], currData, highlightCells);
+                                        } else
+                                            hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                                    } else if (replaceCond) {
+                                        eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                                    }
+                                } else {
+                                    hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
+                                }
+                            }
+                            if ((bufferValue.equals("из буфера"))) {
                                 if (shiftCond) {
-                                    if (sH[0].isEmptyVolume(currData.length)) {
-                                        eBA.btnPasteShift(sH[0], currData, highlightCells);
+                                    if (sH[0].isEmptyVolume(buffer[0].length)) {
+                                        eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
                                     } else
                                         hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
                                 } else if (replaceCond) {
-                                    eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                                    eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
                                 }
-                            } else {
-                                hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
                             }
-                        }
-                        if ((bufferValue.equals("из буфера"))) {
-                            if (shiftCond) {
-                                if (sH[0].isEmptyVolume(buffer[0].length)) {
-                                    eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
-                                } else
-                                    hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
-                            } else if (replaceCond) {
-                                eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
+                            break;
+                        
+                        case INSERT_ZERO:
+                            JTextField lenField = editPanel.zeroNumberField;
+                            eBA.btnFillInZero(sH[0], lenField, highlightCells);
+                            break;
+                        
+                        case CUT:
+                            if (editPanel.isShiftSelected()) {
+                                eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
                             }
-                        }
-                    } else if (optText.equals("Вырезать")) {
-                        if (editPanel.isShiftSelected()) {
-                            eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
-                        }
-                        if (editPanel.isZeroSelected()) {
-                            eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
-                        }
-                    } else if (optText.equals("Копировать")) {
-                        eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
+                            if (editPanel.isZeroSelected()) {
+                                eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
+                            }
+                            break;
+                    
+                        default:
+                            break;
                     }
+                    // if (optText.equals("Вставить нули")) {
+
+                    //     JTextField lenField = editPanel.zeroNumberField;
+                    //     eBA.btnFillInZero(sH[0], lenField, highlightCells);
+                    // }
+
+                    // else if (optText.equals("Удалить")) {
+                    //     if (editPanel.isZeroSelected()) {
+                    //         eBA.btnRemoveZero(sH[0], offset, highlightCells);
+                    //     }
+                    //     if (editPanel.isShiftSelected()) {
+                    //         eBA.btnRemoveShift(sH[0], offset, highlightCells);
+                    //     }
+                    // }
+
+                    // else if (optText.equals("Вставить")) {
+                    //     boolean shiftCond = editPanel.isShiftPasteSelected();
+                    //     boolean replaceCond = editPanel.isReplaceSelected();
+
+                    //     String bufferValue = (String) editPanel.valueBuffer.getSelectedItem();
+
+                    //     if (bufferValue.equals("задать")) {
+                    //         String adStr = editPanel.valueField.getText();
+                    //         String[] currData = bIO[0].splitHexBytes(adStr);
+                    //         if (rE.isValidArrBool(currData)) {
+                    //             if (shiftCond) {
+                    //                 if (sH[0].isEmptyVolume(currData.length)) {
+                    //                     eBA.btnPasteShift(sH[0], currData, highlightCells);
+                    //                 } else
+                    //                     hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                    //             } else if (replaceCond) {
+                    //                 eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                    //             }
+                    //         } else {
+                    //             hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
+                    //         }
+                    //     }
+                    //     if ((bufferValue.equals("из буфера"))) {
+                    //         if (shiftCond) {
+                    //             if (sH[0].isEmptyVolume(buffer[0].length)) {
+                    //                 eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
+                    //             } else
+                    //                 hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                    //         } else if (replaceCond) {
+                    //             eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
+                    //         }
+                    //     }
+                    // } 
+                    // else if (optText.equals("Вырезать")) {
+                    //     if (editPanel.isShiftSelected()) {
+                    //         eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
+                    //     }
+                    //     if (editPanel.isZeroSelected()) {
+                    //         eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
+                    //     }
+                    // } 
+                    // else if (optText.equals("Копировать")) {
+                    //     eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
+                    // }
                     sH[0].resetSheet(mh);
                     setTable(table, scrollPane, offset[1], sH[0]);
                     changed[0] = true;
@@ -376,7 +440,7 @@ public class mainGui extends JFrame {
                     sH[0].setCurrentColumn(table.getSelectedColumn());
                     int currentRow = sH[0].getCurrentRow();
                     int currentCol = sH[0].getCurrentColumn();
-                    utilByte uB = new utilByte();
+                    UtilByte uB = new UtilByte();
                     if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1))
                             && (currentCol != (-1))) {
                         prevRow[0] = currentRow;
@@ -427,7 +491,7 @@ public class mainGui extends JFrame {
                     int currentRow = sH[0].getCurrentRow();
                     int currentCol = sH[0].getCurrentColumn();
 
-                    utilByte uB = new utilByte();
+                    UtilByte uB = new UtilByte();
                     if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)
                             && (currentCol != -1)) {
                         prevRow[0] = currentRow;
@@ -623,7 +687,7 @@ public class mainGui extends JFrame {
 
                         // наследование поиска начало
                         if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
-                            utilByte uB = new utilByte();
+                            UtilByte uB = new UtilByte();
                             int offt1 = offset[1] + rowLen * columnLen;
                             String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                             String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
@@ -703,7 +767,7 @@ public class mainGui extends JFrame {
                     }
 
                     if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
-                        utilByte uB = new utilByte();
+                        UtilByte uB = new UtilByte();
                         int offt1 = offset[1] + rowLen * columnLen;
                         String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
@@ -792,7 +856,7 @@ public class mainGui extends JFrame {
     public static void setTable(JTable table, JScrollPane scrollPane, int offt, SheetHolder sH) {
         String[] data = null;
         data = sH.getData();
-        utilByte ub = new utilByte();
+        UtilByte ub = new UtilByte();
         int rowLen = sH.getRowLen();
         // int columnLen = sH.getColumnLen();
 

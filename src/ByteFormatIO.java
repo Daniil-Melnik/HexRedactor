@@ -112,26 +112,26 @@ public class ByteFormatIO {
             File tmpFile = new File(tmpFileName);
             int index = 0;
 
-            int buf = 8;
-            byte[] fullPackDataByte = new byte[buf];
-            byte[] preEmptyDataByte = new byte[offset % buf];
-            String[] fullPackDataStr = new String[buf];
+            int buffer = 8;
+            byte[] fullPackDataByte = new byte[buffer];
+            byte[] preEmptyDataByte = new byte[offset % buffer];
+            String[] fullPackDataStr = new String[buffer];
             String[] preEmptyDataStr = null;
 
             randomAccessFile = new RandomAccessFile(tmpFile, "rw");
 
-            int nFullPacks = offset / buf;
+            int numberOfFullPacks = offset / buffer;
 
-            for (int i = 0; i < nFullPacks; i++) {
-                fullPackDataStr = getHexBytesByOffset(index, buf);
+            for (int i = 0; i < numberOfFullPacks; i++) {
+                fullPackDataStr = getHexBytesByOffset(index, buffer);
 
                 fullPackDataByte = transformToBytesArr(fullPackDataStr);
                 randomAccessFile.write(fullPackDataByte);
 
-                index += buf;
+                index += buffer;
             }
 
-            preEmptyDataStr = getHexBytesByOffset(index, offset % buf);
+            preEmptyDataStr = getHexBytesByOffset(index, offset % buffer);
             preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
             randomAccessFile.write(preEmptyDataByte);
 
@@ -141,16 +141,16 @@ public class ByteFormatIO {
 
             index += data.length + deltaLen;
 
-            long pInd = (getFileLength(this.fileName) - index) / buf;
+            long pInd = (getFileLength(this.fileName) - index) / buffer;
 
             for (int k = 0; k < pInd; k++) {
-                fullPackDataStr = getHexBytesByOffset(index, buf);
+                fullPackDataStr = getHexBytesByOffset(index, buffer);
                 fullPackDataByte = transformToBytesArr(fullPackDataStr);
                 randomAccessFile.write(fullPackDataByte);
-                index += buf;
+                index += buffer;
             }
             if (index < getFileLength(this.fileName)) {
-                int nPreEmptyBytes = toIntExact((getFileLength(this.fileName) - index) % buf);
+                int nPreEmptyBytes = toIntExact((getFileLength(this.fileName) - index) % buffer);
                 preEmptyDataStr = getHexBytesByOffset(index, nPreEmptyBytes);
                 preEmptyDataByte = transformToBytesArr(preEmptyDataStr);
                 randomAccessFile.write(preEmptyDataByte);

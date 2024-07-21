@@ -134,7 +134,7 @@ public class EditBtnActions {
         int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1;
         int highlightCellsLen = highlightCells[0].length;
 
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
@@ -153,7 +153,7 @@ public class EditBtnActions {
      */
 
     public void btnCopy(JTable table, SheetHolder sH, int[] offset, String[][] buffer, int[][] highlightCells) {
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
         for (String s : buffer[0]) {
@@ -179,7 +179,7 @@ public class EditBtnActions {
         int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
         int highlightCellsLen = highlightCells.length;
 
-        utilByte uB = new utilByte();
+        UtilByte uB = new UtilByte();
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
 
