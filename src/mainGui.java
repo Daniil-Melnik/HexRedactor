@@ -44,7 +44,7 @@ public class mainGui extends JFrame {
         final String[] byteSize = { "" };
 
         final SheetHolder[] sH = { null };
-        final ByteIO[] bIO = { null };
+        final ByteFormatIO[] bIO = { null };
 
         MouseHig mh = new MouseHig();
         RegExp rE = new RegExp();
@@ -95,7 +95,7 @@ public class mainGui extends JFrame {
                 int columnLen = sH[0].getColumnLen();
 
                 int offt1 = offset[1] + rowLen * columnLen;
-                String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                 String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                 maskValue[0] = inputText;
@@ -244,7 +244,7 @@ public class mainGui extends JFrame {
                                 columnLen = Integer.parseInt(height);
                                 sH[0].setColumnLen(columnLen);
 
-                                String[] data = bIO[0].getHexBytesOfft(offset[1], rowLen * columnLen);
+                                String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
                                 sH[0].setAllData(data);
                             } else {
                                 int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
@@ -267,12 +267,12 @@ public class mainGui extends JFrame {
                                     sH[0].setRowLen(rowLen);
                                     sH[0].setColumnLen(columnLen);
 
-                                    dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                                    dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                                     sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
 
                                     offset[0] = offset[1];
 
-                                    String[] data = bIO[0].getHexBytesOfft(offset[1], rowLen * columnLen);
+                                    String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
                                     sH[0].setAllData(data);
 
                                     changed[0] = false;
@@ -314,14 +314,14 @@ public class mainGui extends JFrame {
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                     fName[0] = fileChooser.getSelectedFile().getAbsolutePath();
-                    bIO[0] = new ByteIO(fName[0]);
+                    bIO[0] = new ByteFormatIO(fName[0]);
 
                     sH[0] = new SheetHolder(fName[0]);
 
                     sH[0].setColumnLen(4); // что-то не то, где то задана константа
                     sH[0].setRowLen(4);
                     sH[0].setDLen(0);
-                    dat[0] = bIO[0].getHexBytesOfft(offset[0], 4 * 4);
+                    dat[0] = bIO[0].getHexBytesByOffset(offset[0], 4 * 4);
                     sH[0].setAllData(dat[0]);
                     setTable(table, scrollPane, offset[1], sH[0]);
                     String[] smallFName = fName[0].split("\\\\");
@@ -393,7 +393,7 @@ public class mainGui extends JFrame {
                         int columnLen = sH[0].getColumnLen();
 
                         int offt1 = offset[1] + rowLen * columnLen;
-                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                         int offt2 = row * rowLen + col - 1;
@@ -444,7 +444,7 @@ public class mainGui extends JFrame {
                         int columnLen = sH[0].getColumnLen();
 
                         int offt1 = offset[1] + rowLen * columnLen;
-                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                         int offt2 = row * rowLen + col - 1;
@@ -597,7 +597,7 @@ public class mainGui extends JFrame {
                         sH[0].setColumnLen(columnLen);
 
                         if (!changed[0]) {
-                            dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                            dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
                             sH[0].setDLen(0);
                         } else {
@@ -608,14 +608,14 @@ public class mainGui extends JFrame {
                                 dat[0] = sH[0].getData();
                                 int tmpDLen = sH[0].getDLen();
                                 bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
-                                dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                                dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                                 sH[0].setAllData(dat[0]);
                                 offset[0] = offset[1];
                                 changed[0] = false;
                                 sH[0].setDLen(0);
                             } else if (result == 1) {
                                 // оставить файл в старом виде
-                                dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                                dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                                 sH[0].setAllData(dat[0]);
                                 changed[0] = false;
                             }
@@ -625,7 +625,7 @@ public class mainGui extends JFrame {
                         if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
                             utilByte uB = new utilByte();
                             int offt1 = offset[1] + rowLen * columnLen;
-                            String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                            String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                             String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                             int len = Integer.parseInt(byteSize[0]);
@@ -680,7 +680,7 @@ public class mainGui extends JFrame {
                     sH[0].setColumnLen(columnLen);
 
                     if (!changed[0]) {
-                        dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                        dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                         sH[0].setAllData(dat[0]);
                         sH[0].setDLen(0);
                     } else {
@@ -690,13 +690,13 @@ public class mainGui extends JFrame {
                             dat[0] = sH[0].getData();
                             int tmpDLen = sH[0].getDLen();
                             bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
-                            dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                            dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
                             offset[0] = offset[1];
                             changed[0] = false;
                             sH[0].setDLen(0);
                         } else if (result == 1) {
-                            dat[0] = bIO[0].getHexBytesOfft(offset[0], rowLen * columnLen);
+                            dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
                             changed[0] = false;
                         }
@@ -705,7 +705,7 @@ public class mainGui extends JFrame {
                     if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
                         utilByte uB = new utilByte();
                         int offt1 = offset[1] + rowLen * columnLen;
-                        String[] rightData = bIO[0].getHexBytesOfft(offt1, 7);
+                        String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
                         String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
 
                         int len = Integer.parseInt(byteSize[0]);

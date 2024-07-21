@@ -362,7 +362,7 @@ public class SheetHolder {
         int len = 0;
         int currOfft = 0;
         utilByte uB = new utilByte();
-        ByteIO bIO = new ByteIO(this.fName);
+        ByteFormatIO bIO = new ByteFormatIO(this.fName);
         switch (chH.getType()) {
             case "0":
                 this.data[index] = chH.getData()[0];
@@ -384,7 +384,7 @@ public class SheetHolder {
 
                     if (newOfft < bIO.getFileLength(this.fName)) {
                         String[] leftData = uB.removeFromArr(this.data, len, currOfft);
-                        String[] rightData = bIO.getHexBytesOfft(newOfft, len);
+                        String[] rightData = bIO.getHexBytesByOffset(newOfft, len);
                         this.data = uB.concatArrs(leftData, rightData);
                         this.dLen += len;
                         this.fillInStarsOnSheet();
