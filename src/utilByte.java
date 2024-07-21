@@ -8,7 +8,7 @@ import javax.swing.JTable;
  * @version 1.0
  */
 
-public class utilByte {
+public class UtilByte {
     /**
      * Converts a flat array of strings into a 2D array without labels.
      *

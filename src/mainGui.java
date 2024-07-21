@@ -40,7 +40,7 @@ public class mainGui extends JFrame {
         final String[][] dat = { null, null };
 
         String[] maskValue = { "" };
-        final String[] fName = { "" };
+        final String[] fileName = { "" };
         final String[] byteSize = { "" };
 
         final SheetHolder[] sH = { null };
@@ -101,24 +101,24 @@ public class mainGui extends JFrame {
                 maskValue[0] = inputText;
                 int len = Integer.parseInt(byteSize[0]);
 
-                int[] offts = {};
+                int[] offsets = {};
                 RegExp rG = new RegExp();
                 if (searchPanel.isSearchByMaskSelected()) {
                     if (rG.isMask(maskValue[0])) {
-                        offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
+                        offsets = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                     } else {
                         hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
                     }
                 } else if (searchPanel.isSearchByValueSelected()) {
                     if (rG.isValue(maskValue[0])) {
                         BigInteger val = new BigInteger(maskValue[0]);
-                        offts = bT.getByteValueByOffsets(data, len, val);
+                        offsets = bT.getByteValueByOffsets(data, len, val);
                     } else {
                         hc.showOk("Ошибка", "Значение - целое беззнаковое число");
                     }
                 }
 
-                int[][] findedCells = sH[0].getTableCellCoords(offts);
+                int[][] findedCells = sH[0].getTableCellCoords(offsets);
                 sH[0].setFCells(findedCells);
                 setTable(table, scrollPane, offset[1], sH[0]);
 
@@ -258,7 +258,7 @@ public class mainGui extends JFrame {
 
                                     int cellOfft = offset[1] - rowLen * columnLen;
                                     int tmpDLen = sH[0].getDLen();
-                                    bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]); // добавлена печать в файл
+                                    bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]); // добавлена печать в файл
                                                                                            // изменённого фрагмента
 
                                     rowLen = Integer.parseInt(height);
@@ -313,10 +313,10 @@ public class mainGui extends JFrame {
                 int result = fileChooser.showOpenDialog(frame);
 
                 if (result == JFileChooser.APPROVE_OPTION) {
-                    fName[0] = fileChooser.getSelectedFile().getAbsolutePath();
-                    bIO[0] = new ByteFormatIO(fName[0]);
+                    fileName[0] = fileChooser.getSelectedFile().getAbsolutePath();
+                    bIO[0] = new ByteFormatIO(fileName[0]);
 
-                    sH[0] = new SheetHolder(fName[0]);
+                    sH[0] = new SheetHolder(fileName[0]);
 
                     sH[0].setColumnLen(4); // что-то не то, где то задана константа
                     sH[0].setRowLen(4);
@@ -324,7 +324,7 @@ public class mainGui extends JFrame {
                     dat[0] = bIO[0].getHexBytesByOffset(offset[0], 4 * 4);
                     sH[0].setAllData(dat[0]);
                     setTable(table, scrollPane, offset[1], sH[0]);
-                    String[] smallFName = fName[0].split("\\\\");
+                    String[] smallFName = fileName[0].split("\\\\");
                     fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
                 }
             }
@@ -607,7 +607,7 @@ public class mainGui extends JFrame {
                                 int cellOfft = offset[1] - rowLen * columnLen;
                                 dat[0] = sH[0].getData();
                                 int tmpDLen = sH[0].getDLen();
-                                bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
+                                bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]);
                                 dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                                 sH[0].setAllData(dat[0]);
                                 offset[0] = offset[1];
@@ -630,20 +630,20 @@ public class mainGui extends JFrame {
 
                             int len = Integer.parseInt(byteSize[0]);
 
-                            int[] offts = {};
+                            int[] offsets = {};
 
                             RegExp rG = new RegExp();
 
                             boolean isMask = rG.isMask(maskValue[0]);
 
                             if (isMask) {
-                                offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
+                                offsets = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                             } else {
                                 BigInteger val = new BigInteger(maskValue[0]);
-                                offts = bT.getByteValueByOffsets(data, len, val);
+                                offsets = bT.getByteValueByOffsets(data, len, val);
                             }
 
-                            findedCells = sH[0].getTableCellCoords(offts);
+                            findedCells = sH[0].getTableCellCoords(offsets);
                             sH[0].setFCells(findedCells);
                         }
 
@@ -689,7 +689,7 @@ public class mainGui extends JFrame {
                             int cellOfft = offset[1] + rowLen * columnLen;
                             dat[0] = sH[0].getData();
                             int tmpDLen = sH[0].getDLen();
-                            bIO[0].printData(cellOfft, dat[0], tmpDLen, fName[0]);
+                            bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]);
                             dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                             sH[0].setAllData(dat[0]);
                             offset[0] = offset[1];
@@ -710,20 +710,20 @@ public class mainGui extends JFrame {
 
                         int len = Integer.parseInt(byteSize[0]);
 
-                        int[] offts = {};
+                        int[] offsets = {};
 
                         RegExp rG = new RegExp();
 
                         boolean isMask = rG.isMask(maskValue[0]);
 
                         if (isMask) {
-                            offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
+                            offsets = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                         } else {
                             BigInteger val = new BigInteger(maskValue[0]);
-                            offts = bT.getByteValueByOffsets(data, len, val);
+                            offsets = bT.getByteValueByOffsets(data, len, val);
                         }
 
-                        findedCells = sH[0].getTableCellCoords(offts);
+                        findedCells = sH[0].getTableCellCoords(offsets);
                         sH[0].setFCells(findedCells);
                     }
 
