@@ -135,12 +135,12 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String optText = (String) editPanel.comboBox.getSelectedItem();
+                String optText = (String) editPanel.comboOperationType.getSelectedItem();
                 int[][] highlightCells = sH[0].getHCells();
                 try {
                     if (optText.equals("Вставить нули")) {
 
-                        JTextField lenField = editPanel.zeroField;
+                        JTextField lenField = editPanel.zeroNumberField;
                         eBA.btnFillInZero(sH[0], lenField, highlightCells);
                     }
 

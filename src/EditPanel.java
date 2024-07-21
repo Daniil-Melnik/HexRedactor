@@ -20,19 +20,19 @@ import java.awt.event.ActionListener;
  */
 
 public class EditPanel extends JPanel {
-    public JComboBox<String> comboBox;
+    public JComboBox<String> comboOperationType;
     public JComboBox<String> valueBuffer;
     private JPanel dynamicContent;
     private JLabel zeroLabel;
-    private JLabel opLabel;
+    private JLabel operationLabel;
     private JLabel mainLabel;
     private JButton executeButton;
     public JTextField valueField;
-    public JTextField zeroField;
+    public JTextField zeroNumberField;
     private JRadioButton zeroRadio;
-    private JRadioButton shiftRadio;
-    private JRadioButton shiftPasteRadio;
-    private JRadioButton replaceRadio;
+    private JRadioButton shiftRadioButton;
+    private JRadioButton shiftPasteRadioButton;
+    private JRadioButton replaceRadioButton;
 
     /**
      * Constructs an EditPanel with various editing options.
@@ -50,16 +50,16 @@ public class EditPanel extends JPanel {
         mainLabel.setBounds(125, 10, 200, 30);
         add(mainLabel);
 
-        opLabel = new JLabel("Операция: ");
-        opLabel.setFont(font15);
-        opLabel.setBounds(10, 52, 80, 20);
-        add(opLabel);
+        operationLabel = new JLabel("Операция: ");
+        operationLabel.setFont(font15);
+        operationLabel.setBounds(10, 52, 80, 20);
+        add(operationLabel);
 
-        comboBox = new JComboBox<>(new String[] { "Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули" });
-        comboBox.addActionListener(new ComboBoxListener());
-        comboBox.setBounds(90, 50, 300, 25);
-        comboBox.setFont(font15);
-        add(comboBox);
+        comboOperationType = new JComboBox<>(new String[] { "Удалить", "Вырезать", "Копировать", "Вставить", "Вставить нули" });
+        comboOperationType.addActionListener(new ComboBoxListener());
+        comboOperationType.setBounds(90, 50, 300, 25);
+        comboOperationType.setFont(font15);
+        add(comboOperationType);
 
         dynamicContent = new JPanel();
         dynamicContent.setLayout(null);
@@ -76,7 +76,7 @@ public class EditPanel extends JPanel {
     }
 
     public boolean isShiftSelected() {
-        return shiftRadio.isSelected();
+        return shiftRadioButton.isSelected();
     }
 
     public boolean isZeroSelected() {
@@ -84,11 +84,11 @@ public class EditPanel extends JPanel {
     }
 
     public boolean isReplaceSelected() {
-        return replaceRadio.isSelected();
+        return replaceRadioButton.isSelected();
     }
 
     public boolean isShiftPasteSelected() {
-        return shiftPasteRadio.isSelected();
+        return shiftPasteRadioButton.isSelected();
     }
 
     /**
@@ -100,40 +100,40 @@ public class EditPanel extends JPanel {
 
         Font font15 = new Font("Arial", Font.PLAIN, 15);
 
-        String selectedItem = (String) comboBox.getSelectedItem();
+        String selectedItem = (String) comboOperationType.getSelectedItem();
 
         if ("Удалить".equals(selectedItem) || "Вырезать".equals(selectedItem)) {
-            shiftRadio = new JRadioButton("со сдвигом");
+            shiftRadioButton = new JRadioButton("со сдвигом");
             zeroRadio = new JRadioButton("с обнулением");
             ButtonGroup group = new ButtonGroup();
-            group.add(shiftRadio);
+            group.add(shiftRadioButton);
             group.add(zeroRadio);
 
-            shiftRadio.setBounds(55, 25, 150, 30);
+            shiftRadioButton.setBounds(55, 25, 150, 30);
             zeroRadio.setBounds(215, 25, 150, 30);
 
-            shiftRadio.setFont(font15);
+            shiftRadioButton.setFont(font15);
             zeroRadio.setFont(font15);
 
-            dynamicContent.add(shiftRadio);
+            dynamicContent.add(shiftRadioButton);
             dynamicContent.add(zeroRadio);
 
         } else if ("Вставить".equals(selectedItem)) {
-            replaceRadio = new JRadioButton("с замещением");
-            shiftPasteRadio = new JRadioButton("со сдвигом");
+            replaceRadioButton = new JRadioButton("с замещением");
+            shiftPasteRadioButton = new JRadioButton("со сдвигом");
             ButtonGroup actionGroup = new ButtonGroup();
 
-            actionGroup.add(replaceRadio);
-            actionGroup.add(shiftPasteRadio);
+            actionGroup.add(replaceRadioButton);
+            actionGroup.add(shiftPasteRadioButton);
 
-            replaceRadio.setBounds(55, 13, 150, 30);
-            shiftPasteRadio.setBounds(215, 13, 150, 30);
+            replaceRadioButton.setBounds(55, 13, 150, 30);
+            shiftPasteRadioButton.setBounds(215, 13, 150, 30);
 
-            replaceRadio.setFont(font15);
-            shiftPasteRadio.setFont(font15);
+            replaceRadioButton.setFont(font15);
+            shiftPasteRadioButton.setFont(font15);
 
-            dynamicContent.add(replaceRadio);
-            dynamicContent.add(shiftPasteRadio);
+            dynamicContent.add(replaceRadioButton);
+            dynamicContent.add(shiftPasteRadioButton);
 
             valueBuffer = new JComboBox<String>(new String[] { "из буфера", "задать" });
             valueBuffer.setBounds(10, 49, 120, 25);
@@ -149,15 +149,15 @@ public class EditPanel extends JPanel {
             dynamicContent.add(valueField);
 
         } else if ("Вставить нули".equals(selectedItem)) {
-            zeroField = new JTextField(10);
-            zeroField.setFont(font15);
-            zeroField.setBounds(120, 35, 150, 25);
+            zeroNumberField = new JTextField(10);
+            zeroNumberField.setFont(font15);
+            zeroNumberField.setBounds(120, 35, 150, 25);
 
             zeroLabel = new JLabel("Кол-во нулей:");
             zeroLabel.setFont(font15);
             zeroLabel.setBounds(10, 35, 150, 25);
 
-            dynamicContent.add(zeroField);
+            dynamicContent.add(zeroNumberField);
             dynamicContent.add(zeroLabel);
         }
 
