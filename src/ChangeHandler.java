@@ -22,21 +22,21 @@
 public class ChangeHandler {
     private String type;
     private String[] changedCells;
-    private int offt;
+    private int offset;
     private int len;
 
     /**
      * Constructs a ChangeHandler with specified type, offset, length, and data.
      * 
      * @param type the type of operation
-     * @param offt the offset for the operation
+     * @param offset the offset for the operation
      * @param len  the length affected by the operation
      * @param data the data involved in the operation
      */
 
-    public ChangeHandler(String type, int offt, int len, String[] data) {
+    public ChangeHandler(String type, int offset, int len, String[] data) {
         this.type = type;
-        this.offt = offt;
+        this.offset = offset;
         this.len = len;
         this.changedCells = data;
     }
@@ -47,8 +47,8 @@ public class ChangeHandler {
      * @return the offset
      */
 
-    public int getOfft() {
-        return this.offt;
+    public int getOffset() {
+        return this.offset;
     }
 
     /**
@@ -67,7 +67,7 @@ public class ChangeHandler {
      * @return the type of operation
      */
 
-    public String getType() {
+    public String getOperationType() {
         return this.type;
     }
 

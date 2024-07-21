@@ -37,7 +37,7 @@ public class HandlerQueue {
 
     public  void showQueue(){
         for (ChangeHandler c : this.queue) {
-            System.out.println("type = " + c.getType() + "\noffset = " + c.getOfft() + "\nlen = " + c.getLen());
+            System.out.println("type = " + c.getOperationType() + "\noffset = " + c.getOffset() + "\nlen = " + c.getLen());
         }
     }
 }

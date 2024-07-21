@@ -358,19 +358,19 @@ public class SheetHolder {
      */
 
     public void makeHandle(ChangeHandler chH) {
-        int index = chH.getOfft() % (this.rowLen * this.columnLen);
+        int index = chH.getOffset() % (this.rowLen * this.columnLen);
         int len = 0;
         int currOfft = 0;
         utilByte uB = new utilByte();
         ByteFormatIO bIO = new ByteFormatIO(this.fName);
-        switch (chH.getType()) {
+        switch (chH.getOperationType()) {
             case "0":
                 this.data[index] = chH.getData()[0];
                 break;
 
             case "1":
                 len = chH.getLen();
-                currOfft = chH.getOfft() - this.offt;
+                currOfft = chH.getOffset() - this.offt;
                 uB.removeFromArrZero(this.data, len, currOfft);
                 break;
 
@@ -379,7 +379,7 @@ public class SheetHolder {
                 try {
                     this.clearStarsOnSheet();
                     len = chH.getLen();
-                    currOfft = chH.getOfft() - this.offt;
+                    currOfft = chH.getOffset() - this.offt;
                     int newOfft = this.offt + this.rowLen * this.columnLen + this.dLen;
 
                     if (newOfft < bIO.getFileLength(this.fName)) {
@@ -397,7 +397,7 @@ public class SheetHolder {
 
             case "3":
                 this.clearStarsOnSheet();
-                int offt = chH.getOfft();
+                int offt = chH.getOffset();
                 String[] newData = chH.getData();
                 this.data = uB.addDataSubst(this.data, newData, offt);
                 this.fillInStarsOnSheet();
@@ -406,7 +406,7 @@ public class SheetHolder {
             case "4":
                 this.clearStarsOnSheet();
                 len = chH.getLen();
-                offt = chH.getOfft();
+                offt = chH.getOffset();
                 String[] newDataShift = chH.getData();
                 String[] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
                 this.data = tempDataShift;
@@ -416,7 +416,7 @@ public class SheetHolder {
             case "5":
                 this.clearStarsOnSheet();
                 len = chH.getLen();
-                offt = chH.getOfft();
+                offt = chH.getOffset();
                 this.data = uB.fillInZeros(this.data, offt, len);
                 this.fillInStarsOnSheet();
             default:

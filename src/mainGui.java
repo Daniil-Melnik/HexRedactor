@@ -105,14 +105,14 @@ public class mainGui extends JFrame {
                 RegExp rG = new RegExp();
                 if (searchPanel.isSearchByMaskSelected()) {
                     if (rG.isMask(maskValue[0])) {
-                        offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                        offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                     } else {
                         hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
                     }
                 } else if (searchPanel.isSearchByValueSelected()) {
                     if (rG.isValue(maskValue[0])) {
                         BigInteger val = new BigInteger(maskValue[0]);
-                        offts = bT.getByteOffsetsValue(data, len, val);
+                        offts = bT.getByteValueByOffsets(data, len, val);
                     } else {
                         hc.showOk("Ошибка", "Значение - целое беззнаковое число");
                     }
@@ -399,10 +399,10 @@ public class mainGui extends JFrame {
                         int offt2 = row * rowLen + col - 1;
 
                         for (int i = 0; i < 4; i++) {
-                            intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
-                            longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
-                            floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
-                            doubleArr[i] = bT.getDouble(data, offt2, (int) Math.pow(2, i));
+                            intArr[i] = bT.getSignedInt(data, offt2, (int) Math.pow(2, i));
+                            longArr[i] = bT.getUnsignedInt(data, offt2, (int) Math.pow(2, i));
+                            floatArr[i] = (i < 3) ? bT.getFloatNumber(data, offt2, (int) Math.pow(2, i)) : -1;
+                            doubleArr[i] = bT.getDoubleNumber(data, offt2, (int) Math.pow(2, i));
                         }
 
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
@@ -450,10 +450,10 @@ public class mainGui extends JFrame {
                         int offt2 = row * rowLen + col - 1;
 
                         for (int i = 0; i < 4; i++) {
-                            intArr[i] = bT.getSigned(data, offt2, (int) Math.pow(2, i));
-                            longArr[i] = bT.getUnsigned(data, offt2, (int) Math.pow(2, i));
-                            floatArr[i] = (i < 3) ? bT.getFloat(data, offt2, (int) Math.pow(2, i)) : -1;
-                            doubleArr[i] = bT.getDouble(data, offt2, (int) Math.pow(2, i));
+                            intArr[i] = bT.getSignedInt(data, offt2, (int) Math.pow(2, i));
+                            longArr[i] = bT.getUnsignedInt(data, offt2, (int) Math.pow(2, i));
+                            floatArr[i] = (i < 3) ? bT.getFloatNumber(data, offt2, (int) Math.pow(2, i)) : -1;
+                            doubleArr[i] = bT.getDoubleNumber(data, offt2, (int) Math.pow(2, i));
                         }
 
                         bSP.setPanel(intArr, longArr, floatArr, doubleArr);
@@ -637,10 +637,10 @@ public class mainGui extends JFrame {
                             boolean isMask = rG.isMask(maskValue[0]);
 
                             if (isMask) {
-                                offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                                offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                             } else {
                                 BigInteger val = new BigInteger(maskValue[0]);
-                                offts = bT.getByteOffsetsValue(data, len, val);
+                                offts = bT.getByteValueByOffsets(data, len, val);
                             }
 
                             findedCells = sH[0].getTableCellCoords(offts);
@@ -717,10 +717,10 @@ public class mainGui extends JFrame {
                         boolean isMask = rG.isMask(maskValue[0]);
 
                         if (isMask) {
-                            offts = bT.getBytesOffsetMask(data, len, maskValue[0]);
+                            offts = bT.getBytesOffsetByMask(data, len, maskValue[0]);
                         } else {
                             BigInteger val = new BigInteger(maskValue[0]);
-                            offts = bT.getByteOffsetsValue(data, len, val);
+                            offts = bT.getByteValueByOffsets(data, len, val);
                         }
 
                         findedCells = sH[0].getTableCellCoords(offts);
