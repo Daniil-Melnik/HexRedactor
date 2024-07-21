@@ -23,29 +23,29 @@ public class FileManager {
     /**
      * Moves or copies a file from the old path to the new path.
      *
-     * @param fNameOld the path of the source file
-     * @param fNameNew the path of the destination file
+     * @param fileNameOld the path of the source file
+     * @param fileNameNew the path of the destination file
      * @param isCopy   if true, the file is copied; if false, the file is moved
      * @throws IOException if an I/O error occurs
      */
-    public void setFile(String fNameOld, String fNameNew, boolean isCopy) throws IOException {
+    public void setFile(String fileNameOld, String fileNameNew, boolean isCopy) throws IOException {
         if (!isCopy)
-            clearFile(fNameNew);
-        copyFileUsingStream(fNameOld, fNameNew);
-        Path pathOld = Paths.get(fNameOld);
+            clearFile(fileNameNew);
+        copyFileUsingStream(fileNameOld, fileNameNew);
+        Path pathOld = Paths.get(fileNameOld);
         Files.delete(pathOld);
     }
 
     /**
      * Copies a file using streams.
      *
-     * @param fNameOld the path of the source file
-     * @param fNameNew the path of the destination file
+     * @param fileNameOld the path of the source file
+     * @param fileNameNew the path of the destination file
      * @throws IOException if an I/O error occurs
      */
-    private static void copyFileUsingStream(String fNameOld, String fNameNew) throws IOException {
-        File source = new File(fNameOld);
-        File dest = new File(fNameNew);
+    private static void copyFileUsingStream(String fileNameOld, String fileNameNew) throws IOException {
+        File source = new File(fileNameOld);
+        File dest = new File(fileNameNew);
         InputStream is = null;
         OutputStream os = null;
         try {
