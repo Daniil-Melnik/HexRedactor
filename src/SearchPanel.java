@@ -42,6 +42,9 @@ public class SearchPanel extends JPanel {
     private JLabel sizeLabel;
     private JLabel methodLabel;
     private JLabel mainLabel;
+    private String[] byteBlockSizeOptions = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+            "15",
+            "16" };
 
     /**
      * Constructor for the SearchPanel.
@@ -60,9 +63,7 @@ public class SearchPanel extends JPanel {
         mainLabel.setFont(font20);
         add(mainLabel);
 
-        String[] byteOptions = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
-                "16" };
-        byteSizeComboBox = new JComboBox<>(byteOptions);
+        byteSizeComboBox = new JComboBox<>(byteBlockSizeOptions);
         byteSizeComboBox.setBounds(110, 40, 60, 20);
 
         sizeLabel = new JLabel("Кол-во байт:");
