@@ -10,6 +10,11 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,12 +27,9 @@ public class mainGui extends JFrame {
     public static void createGUI() throws IOException {
 
         JButton forward, back, info;
-        JTextField dataField;
-        JTextField heightField;
-        JTextField lenField;
-        JTextField widthField;
         MainGuiListeners mGL = new MainGuiListeners();
         ChangeFoculListeners cFL = new ChangeFoculListeners();
+        FileManagerListeners fmL = new FileManagerListeners();
         int[] offset = { 0, 0 };
 
         boolean[] changed = { false };
@@ -47,8 +49,6 @@ public class mainGui extends JFrame {
 
         HandChng hc = new HandChng(frame);
 
-        // Object[][] data = {};
-
         JTable table = new JTable();
 
         table.setCellSelectionEnabled(true);
@@ -56,7 +56,6 @@ public class mainGui extends JFrame {
 
         final String[][] buffer = { {} };
 
-        // Создаем экземпляр класса Renderer, передавая массив координат
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 0, 0, 0);
@@ -125,26 +124,12 @@ public class mainGui extends JFrame {
         fileManagerPanel.addOpenFileButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-                int result = fileChooser.showOpenDialog(frame);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    fileName[0] = fileChooser.getSelectedFile().getAbsolutePath();
-                    bIO[0] = new ByteFormatIO(fileName[0]);
-
-                    sH[0] = new SheetHolder(fileName[0]);
-
-                    sH[0].setColumnLen(4); // что-то не то, где то задана константа
-                    sH[0].setRowLen(4);
-                    sH[0].setDLen(0);
-                    dat[0] = bIO[0].getHexBytesByOffset(offset[0], 4 * 4);
-                    sH[0].setAllData(dat[0]);
-                    String[] smallFName = fileName[0].split("\\\\");
-                    fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
+                boolean gettedOptionCondition = fmL.openNewListener(bIO, frame, fileName, sH, dat, fileManagerPanel,
+                        offset);
+                if (gettedOptionCondition) {
                     setTable(table, scrollPane, offset[1], sH[0]);
                 }
+
             }
         });
 
@@ -262,18 +247,6 @@ public class mainGui extends JFrame {
             }
         });
 
-        widthField = new JTextField(15);
-        widthField.setToolTipText("Ширина");
-
-        heightField = new JTextField(15);
-        heightField.setToolTipText("Высота");
-
-        lenField = new JTextField(15);
-        lenField.setToolTipText("Длина вставки");
-
-        dataField = new JTextField(15);
-        dataField.setToolTipText("Данные вставки");
-
         forward = new JButton();
         forward.setIcon(new ImageIcon("src/icons/forward.png"));
         forward.addActionListener(new ActionListener() {
@@ -321,11 +294,6 @@ public class mainGui extends JFrame {
         forward.setBounds(710, 550, 300, 40);
         back.setBounds(400, 550, 300, 40);
         info.setBounds(1020, 550, 80, 40);
-
-        widthField.setBounds(400, 350, 350, 20);
-        heightField.setBounds(500, 350, 350, 20);
-        lenField.setBounds(720, 90, 80, 20);
-        dataField.setBounds(720, 150, 150, 20);
 
         frame.getContentPane().add(scrollPane);
         frame.add(forward);
