@@ -10,11 +10,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,6 +25,7 @@ public class mainGui extends JFrame {
         MainGuiListeners mGL = new MainGuiListeners();
         ChangeFoculListeners cFL = new ChangeFoculListeners();
         FileManagerListeners fmL = new FileManagerListeners();
+        KeyListeners kL = new KeyListeners();
         int[] offset = { 0, 0 };
 
         boolean[] changed = { false };
@@ -136,30 +132,7 @@ public class mainGui extends JFrame {
         fileManagerPanel.addSaveAsButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-
-                fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-                fileChooser.setSelectedFile(new File("default_filename.txt"));
-
-                int result = fileChooser.showSaveDialog(frame);
-
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    String filePath = selectedFile.getAbsolutePath();
-
-                    if (!filePath.toLowerCase().endsWith(".txt")) {
-                        filePath += ".txt";
-                    }
-                    int rowLen = sH[0].getRowLen();
-                    int columnLen = sH[0].getColumnLen();
-
-                    int cellOfft = offset[1] - rowLen * columnLen;
-                    dat[0] = sH[0].getData();
-                    int tmpDLen = sH[0].getDLen();
-                    bIO[0].printData(cellOfft, dat[0], tmpDLen, filePath);
-                }
+                fmL.saveAsListener(frame, sH, offset, dat, bIO);
             }
 
         });
@@ -211,25 +184,9 @@ public class mainGui extends JFrame {
         table.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_D) {
-                    int row = table.getSelectionModel().getLeadSelectionIndex();
-                    int column = table.getColumnModel().getSelectionModel().getLeadSelectionIndex();
-                    int[] coord = new int[2];
-                    coord[0] = row;
-                    coord[1] = column;
+                kL.keyListener(e, table, sH, scrollPane, offset, mh);
 
-                    int rowLen = sH[0].getRowLen();
-
-                    mh.addCoord(coord);
-                    if (mh.getCond() == 2) {
-                        int[][] highlightCells = mh.getFullCoords(rowLen);
-                        sH[0].setHCells(highlightCells);
-                        setTable(table, scrollPane, offset[1], sH[0]);
-                    } else {
-                        sH[0].setHCells(new int[0][0]);
-                        setTable(table, scrollPane, offset[1], sH[0]);
-                    }
-                }
+                setTable(table, scrollPane, offset[1], sH[0]);
             }
         });
 
