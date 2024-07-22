@@ -38,7 +38,7 @@ public class SearchPanel extends JPanel {
     private JRadioButton searchByValueRadioButton;
     public JTextField inputField;
     private JButton findButton;
-    private JLabel inputLabel; // Надпись для поля ввода
+    private JLabel inputLabel;
     private JLabel sizeLabel;
     private JLabel methodLabel;
     private JLabel mainLabel;
