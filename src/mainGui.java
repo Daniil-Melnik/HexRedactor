@@ -35,8 +35,6 @@ public class mainGui extends JFrame {
         MainGuiListeners mGL = new MainGuiListeners();
         int[] offset = { 0, 0 };
 
-        EditBtnActions eBA = new EditBtnActions();
-
         boolean[] changed = { false };
         final String[][] dat = { null, null };
 
@@ -127,84 +125,7 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ChangeSizeDialog changeSizeDialog = new ChangeSizeDialog();
-
-                    int result = JOptionPane.showConfirmDialog(
-                            frame,
-                            changeSizeDialog,
-                            "Введите значения",
-                            JOptionPane.OK_CANCEL_OPTION);
-
-                    if (result == JOptionPane.OK_OPTION) {
-                        String height = changeSizeDialog.getHeightValue();
-                        String width = changeSizeDialog.getWidthValue();
-
-                        int preColumnLen = Integer.parseInt(height);
-                        int preRowLen = Integer.parseInt(width);
-
-                        if (preRowLen * preColumnLen < 1048577) {
-                            int rowLen;
-                            int columnLen;
-                            if (!changed[0]) {
-                                int[][] highlightCells = new int[0][0];
-                                sH[0].setHCells(highlightCells);
-
-                                rowLen = Integer.parseInt(width);
-                                sH[0].setRowLen(rowLen);
-
-                                columnLen = Integer.parseInt(height);
-                                sH[0].setColumnLen(columnLen);
-
-                                String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
-                                sH[0].setAllData(data);
-                            } else {
-                                int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                                if (resultChng == 0) {
-                                    sH[0].setHCells(new int[0][0]);
-
-                                    dat[0] = sH[0].getData();
-
-                                    rowLen = sH[0].getRowLen();
-                                    columnLen = sH[0].getColumnLen();
-
-                                    int cellOfft = offset[1] - rowLen * columnLen;
-                                    int tmpDLen = sH[0].getDLen();
-                                    bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]); // добавлена печать в файл
-                                                                                              // изменённого фрагмента
-
-                                    rowLen = Integer.parseInt(height);
-                                    columnLen = Integer.parseInt(width);
-
-                                    sH[0].setRowLen(rowLen);
-                                    sH[0].setColumnLen(columnLen);
-
-                                    dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
-                                    sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
-
-                                    offset[0] = offset[1];
-
-                                    String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
-                                    sH[0].setAllData(data);
-
-                                    changed[0] = false;
-                                    sH[0].setDLen(0);
-                                } else if (resultChng == 1) {
-                                    // вставить оставить файл в старом виде
-                                    sH[0].setHCells(new int[0][0]);
-                                    rowLen = Integer.parseInt(height);
-                                    columnLen = Integer.parseInt(width);
-
-                                    sH[0].setRowLen(rowLen);
-                                    sH[0].setColumnLen(columnLen);
-                                    changed[0] = false;
-                                }
-                            }
-                        } else {
-                            hc.showOk("Ошибка", "Размер страницы не более 1МБ");
-                        }
-
-                    }
-
+                    mGL.changeSizeBtnListener(sH, frame, changed, offset, hc, bIO, fileName, dat);
                     setTable(table, scrollPane, offset[1], sH[0]);
                 } catch (NumberFormatException ex) {
                     hc.showOk("Ошибка", "Размерности - целое число ячеек");
