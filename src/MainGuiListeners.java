@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -249,7 +248,7 @@ public class MainGuiListeners {
         }
 
         // наследование поиска начало
-        if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
+        if ((!maskValue[0].isEmpty()) && (!byteSize[0].isEmpty())) {
             UtilByte uB = new UtilByte();
             int offt1 = offset[1] + rowLen * columnLen;
             String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
@@ -312,7 +311,7 @@ public class MainGuiListeners {
             }
         }
 
-        if ((!maskValue.equals("")) && (!byteSize[0].equals(""))) {
+        if ((!maskValue[0].isEmpty()) && (!byteSize[0].equals(""))) {
             UtilByte uB = new UtilByte();
             int offt1 = offset[1] + rowLen * columnLen;
             String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
