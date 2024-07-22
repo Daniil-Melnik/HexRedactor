@@ -50,7 +50,8 @@ public class EditBtnActions {
         int rowLen = sH.getRowLen();
         String operationType = ChangeTypes.DELETE_WITH_ZEROING.getValue();
 
-        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0
+                                                                                     // на 1
         int highlightCellsLen = highlightCells.length;
         ChangeHandler cHZero = new ChangeHandler(operationType, offt, highlightCellsLen, null);
         sH.makeHandle(cHZero);
@@ -70,7 +71,8 @@ public class EditBtnActions {
         int rowLen = sH.getRowLen();
         String operationType = ChangeTypes.DELETE_WITH_SHIFT.getValue();
 
-        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0
+                                                                                     // на 1
         int highlightCellsLen = highlightCells.length;
         offset[0] = offset[0] + highlightCellsLen;
         ChangeHandler cHShift = new ChangeHandler(operationType, offt, highlightCellsLen, null);
@@ -81,7 +83,7 @@ public class EditBtnActions {
      * Pastes data into the selected cells with shifting.
      *
      * @param sH             the SheetHolder object to perform the operation on
-     * @param currentData       the data to be pasted
+     * @param currentData    the data to be pasted
      * @param highlightCells the coordinates of the highlighted cells
      */
 
@@ -90,7 +92,8 @@ public class EditBtnActions {
         int rowLen = sH.getRowLen();
         String operationType = ChangeTypes.INSERT_WITH_SHIFT.getValue();
 
-        int currentOffset = startCoordinate[0] * rowLen + startCoordinate[1] - 1 - 1; // 02.07.2024 сдвиг на 1 по ячейкам
+        int currentOffset = startCoordinate[0] * rowLen + startCoordinate[1] - 1 - 1; // 02.07.2024 сдвиг на 1 по
+                                                                                      // ячейкам
         int len = currentData.length;
         ChangeHandler chH = new ChangeHandler(operationType, currentOffset, len, currentData);
         sH.makeHandle(chH);
@@ -100,7 +103,7 @@ public class EditBtnActions {
      * Pastes data into the selected cells with replacement.
      *
      * @param sH             the SheetHolder object to perform the operation on
-     * @param currentData       the data to be pasted
+     * @param currentData    the data to be pasted
      * @param highlightCells the coordinates of the highlighted cells
      */
 
@@ -156,9 +159,6 @@ public class EditBtnActions {
         UtilByte uB = new UtilByte();
         String[] strArr = uB.getValuesOfHighlt(table, highlightCells);
         buffer[0] = strArr;
-        for (String s : buffer[0]) {
-            System.out.print(s + " ");
-        }
     }
 
     /**
@@ -176,7 +176,8 @@ public class EditBtnActions {
         int rowLen = sH.getRowLen();
         String operationType = ChangeTypes.DELETE_WITH_ZEROING.getValue();
 
-        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0 на 1
+        int offt = offset[1] + startCoordinate[0] * rowLen + startCoordinate[1] - 1; // поменяно 21.04.2024 offset с 0
+                                                                                     // на 1
         int highlightCellsLen = highlightCells.length;
 
         UtilByte uB = new UtilByte();

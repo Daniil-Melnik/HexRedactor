@@ -117,6 +117,10 @@ public class MainGuiListeners {
                 }
                 break;
 
+            case COPY:
+                eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
+                break;
+
             default:
                 break;
         }

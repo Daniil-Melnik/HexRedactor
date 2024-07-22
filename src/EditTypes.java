@@ -1,4 +1,5 @@
 public enum EditTypes {
+    COPY("Копировать"),
     INSERT("Вставить"),
     DELETE("Удалить"),
     CUT("Вырезать"),
