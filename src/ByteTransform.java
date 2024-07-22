@@ -19,9 +19,9 @@ public class ByteTransform {
     /**
      * Converts bytes to a binary string.
      * 
-     * @param data the input byte array in hexadecimal format
+     * @param data   the input byte array in hexadecimal format
      * @param offset the offset in the array
-     * @param len  the length of bytes to convert
+     * @param len    the length of bytes to convert
      * @return a binary string representation of the specified bytes
      */
     public String getBinaryString(String[] data, int offset, int len) {
@@ -48,7 +48,7 @@ public class ByteTransform {
         StringBuilder concatBinStrBuilder = new StringBuilder();
         for (String str : binaryString) {
             concatBinStrBuilder.append(str);
-        }  
+        }
 
         return concatBinStrBuilder.toString();
     }
@@ -56,9 +56,9 @@ public class ByteTransform {
     /**
      * Converts bytes to a signed long value.
      * 
-     * @param data the input byte array in hexadecimal format
+     * @param data   the input byte array in hexadecimal format
      * @param offset the offset in the array
-     * @param len  the length of bytes to convert
+     * @param len    the length of bytes to convert
      * @return the signed long value represented by the specified bytes
      */
     public long getSignedInt(String[] data, int offset, int len) {
@@ -74,9 +74,9 @@ public class ByteTransform {
     /**
      * Converts bytes to an unsigned BigInteger value.
      * 
-     * @param data the input byte array in hexadecimal format
+     * @param data   the input byte array in hexadecimal format
      * @param offset the offset in the array
-     * @param len  the length of bytes to convert
+     * @param len    the length of bytes to convert
      * @return the unsigned BigInteger value represented by the specified bytes
      */
     public BigInteger getUnsignedInt(String[] data, int offset, int len) {
@@ -90,29 +90,33 @@ public class ByteTransform {
     /**
      * Converts bytes to a float value.
      * 
-     * @param data the input byte array in hexadecimal format
+     * @param data   the input byte array in hexadecimal format
      * @param offset the offset in the array
-     * @param len  the length of bytes to convert
+     * @param len    the length of bytes to convert
      * @return the float value represented by the specified bytes
      */
     public float getFloatNumber(String[] data, int offset, int len) {
-        String concBinStr = getBinaryString(data, offset, len);
+        float res;
+        try {
+            String concBinStr = getBinaryString(data, offset, len);
 
-        String subStr = concBinStr.substring(1);
-        int intValue = Integer.parseInt(subStr, 2);
+            String subStr = concBinStr.substring(1);
+            int intValue = Integer.parseInt(subStr, 2);
 
-        float res = Float.intBitsToFloat(intValue);
-        res *= concBinStr.charAt(0) == '1' ? -1 : 1;
-
+            res = Float.intBitsToFloat(intValue);
+            res *= concBinStr.charAt(0) == '1' ? -1 : 1;
+        } finally {
+            res = 0;
+        }
         return res;
     }
 
     /**
      * Converts bytes to a double value.
      * 
-     * @param data the input byte array in hexadecimal format
+     * @param data   the input byte array in hexadecimal format
      * @param offset the offset in the array
-     * @param len  the length of bytes to convert
+     * @param len    the length of bytes to convert
      * @return the double value represented by the specified bytes
      */
     public double getDoubleNumber(String[] data, int offset, int len) {
@@ -166,7 +170,7 @@ public class ByteTransform {
      * Checks if a byte is valid according to a mask.
      * 
      * @param dataElelement the byte to check
-     * @param mask   the mask to use for validation
+     * @param mask          the mask to use for validation
      * @return true if the byte is valid, false otherwise
      */
     public boolean isValidMask(String dataElelement, String mask) {
@@ -183,7 +187,7 @@ public class ByteTransform {
     /**
      * Adjusts the mask to fit the size of the block.
      * 
-     * @param oldMask the original mask
+     * @param oldMask    the original mask
      * @param currentLen the current length of the block
      * @return the adjusted mask
      */
