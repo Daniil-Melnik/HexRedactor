@@ -106,7 +106,7 @@ public class ByteTransform {
             res = Float.intBitsToFloat(intValue);
             res *= concBinStr.charAt(0) == '1' ? -1 : 1;
         } finally {
-            res = 0;
+            res = -1;
         }
         return res;
     }

@@ -9,8 +9,6 @@ import java.awt.event.KeyEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -28,9 +26,8 @@ public class mainGui extends JFrame {
         JTextField heightField;
         JTextField lenField;
         JTextField widthField;
-        HandlerQueue hQ = new HandlerQueue();
-        ByteTransform bT = new ByteTransform();
         MainGuiListeners mGL = new MainGuiListeners();
+        ChangeFoculListeners cFL = new ChangeFoculListeners();
         int[] offset = { 0, 0 };
 
         boolean[] changed = { false };
@@ -44,7 +41,6 @@ public class mainGui extends JFrame {
         final ByteFormatIO[] bIO = { null };
 
         MouseHig mh = new MouseHig();
-        RegExp rE = new RegExp();
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,10 +82,6 @@ public class mainGui extends JFrame {
             }
         });
 
-        ////////////////////////////////////////////////////////////////
-        //////////////////////// Операции панели ///////////////////////
-        ////////////////////////////////////////////////////////////////
-
         EditPanel editPanel = new EditPanel();
         editPanel.setBounds(400, 360, 400, 180);
         editPanel.addEditButtonListener(new ActionListener() {
@@ -111,10 +103,6 @@ public class mainGui extends JFrame {
             }
         });
         frame.add(editPanel);
-
-        ////////////////////////////////////////////////////////////////
-        ////////////////// Изменение размеров таблицы //////////////////
-        ////////////////////////////////////////////////////////////////
 
         TableInfoPanel tableInfoPanel = new TableInfoPanel(0, 0, 0, 0);
         tableInfoPanel.setBounds(820, 360, 280, 180);
@@ -194,109 +182,19 @@ public class mainGui extends JFrame {
         final int[] prevCol = { 0 };
         final int[] prevRow = { 1 };
 
-        /////////////////////////////////////////////////////////////////
-        ////////////// Перехват изменения строки фокуса /////////////////
-        /////////////////////////////////////////////////////////////////
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int rowColLen = 4;
-                if (!e.getValueIsAdjusting()) {
-                    sH[0].setCurrentRow(table.getSelectedRow());
-                    sH[0].setCurrentColumn(table.getSelectedColumn());
-                    int currentRow = sH[0].getCurrentRow();
-                    int currentCol = sH[0].getCurrentColumn();
-                    UtilByte uB = new UtilByte();
-                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != (-1))
-                            && (currentCol != (-1))) {
-                        prevRow[0] = currentRow;
-                        prevCol[0] = currentCol;
-                        long[] intArr = new long[rowColLen];
-                        BigInteger[] longArr = new BigInteger[rowColLen];
-                        float[] floatArr = new float[rowColLen];
-                        double[] doubleArr = new double[rowColLen];
-
-                        int row = table.getSelectedRow();
-                        int col = table.getSelectedColumn();
-
-                        int rowLen = sH[0].getRowLen();
-                        int columnLen = sH[0].getColumnLen();
-
-                        int offt1 = offset[1] + rowLen * columnLen;
-                        String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
-                        String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
-
-                        int offt2 = row * rowLen + col - 1;
-
-                        for (int i = 0; i < 4; i++) {
-                            intArr[i] = bT.getSignedInt(data, offt2, (int) Math.pow(2, i));
-                            longArr[i] = bT.getUnsignedInt(data, offt2, (int) Math.pow(2, i));
-                            floatArr[i] = (i < 3) ? bT.getFloatNumber(data, offt2, (int) Math.pow(2, i)) : -1;
-                            doubleArr[i] = bT.getDoubleNumber(data, offt2, (int) Math.pow(2, i));
-                        }
-
-                        bSP.setPanel(intArr, longArr, floatArr, doubleArr);
-                    }
-                    int[][] highlightCells = sH[0].getHCells();
-                    tableInfoPanel.updTableInfo(sH[0], highlightCells, offset);
-                }
+                cFL.rowFocusListener(e, sH, table, prevCol, prevRow, offset, bIO, bSP, tableInfoPanel);
             }
         });
 
-        ////////////////////////////////////////////////////////////////
-        ///////////// Перехват изменения столбца фокуса ////////////////
-        ////////////////////////////////////////////////////////////////
         table.getColumnModel().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int rowColLen = 4;
-                if (!e.getValueIsAdjusting()) {
-
-                    sH[0].setCurrentRow(table.getSelectedRow());
-                    sH[0].setCurrentColumn(table.getSelectedColumn());
-                    int currentRow = sH[0].getCurrentRow();
-                    int currentCol = sH[0].getCurrentColumn();
-
-                    UtilByte uB = new UtilByte();
-                    if (((currentRow != prevRow[0]) || (currentCol != prevCol[0])) && (currentRow != -1)
-                            && (currentCol != -1)) {
-                        prevRow[0] = currentRow;
-                        prevCol[0] = currentCol;
-                        long[] intArr = new long[rowColLen];
-                        BigInteger[] longArr = new BigInteger[rowColLen];
-                        float[] floatArr = new float[rowColLen];
-                        double[] doubleArr = new double[rowColLen];
-
-                        int row = table.getSelectedRow();
-                        int col = table.getSelectedColumn();
-
-                        int rowLen = sH[0].getRowLen();
-                        int columnLen = sH[0].getColumnLen();
-
-                        int offt1 = offset[1] + rowLen * columnLen;
-                        String[] rightData = bIO[0].getHexBytesByOffset(offt1, 7);
-                        String[] data = uB.fillInSevenBytes(sH[0].getData(), rightData);
-
-                        int offt2 = row * rowLen + col - 1;
-
-                        for (int i = 0; i < 4; i++) {
-                            intArr[i] = bT.getSignedInt(data, offt2, (int) Math.pow(2, i));
-                            longArr[i] = bT.getUnsignedInt(data, offt2, (int) Math.pow(2, i));
-                            floatArr[i] = (i < 3) ? bT.getFloatNumber(data, offt2, (int) Math.pow(2, i)) : -1;
-                            doubleArr[i] = bT.getDoubleNumber(data, offt2, (int) Math.pow(2, i));
-                        }
-
-                        bSP.setPanel(intArr, longArr, floatArr, doubleArr);
-                    }
-                    int[][] highlightCells = sH[0].getHCells();
-                    tableInfoPanel.updTableInfo(sH[0], highlightCells, offset);
-                }
+                cFL.columnFocusListener(e, sH, table, prevCol, prevRow, offset, bIO, bSP, tableInfoPanel);
             }
         });
-
-        //////////////////////////////////////////////////////////////////
-        //////////////////// Перехват правых кликаний ////////////////////
-        //////////////////////////////////////////////////////////////////
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -350,40 +248,12 @@ public class mainGui extends JFrame {
             }
         });
 
-        ///////////////////////////////////////////////////////////////////
-        //////////////////// Отлов изменений в таблице ////////////////////
-        ///////////////////////////////////////////////////////////////////
-
         table.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
                 if (row != TableModelEvent.HEADER_ROW && column != TableModelEvent.ALL_COLUMNS) {
-                    // Object value = table.getValueAt(row, column);
-                    // String[] strData = { String.valueOf(value) };
-
-                    // int rowLen = sH[0].getRowLen();
-
-                    // String operationType = ChangeTypes.MODIFI_CELL.getValue();
-
-                    // ChangeHandler chH = new ChangeHandler(operationType, offset[0] + (rowLen *
-                    // row) + column - 1, 1,
-                    // strData);
-                    // sH[0].makeHandle(chH); // добавть изменения в SheetHolder
-                    // ArrayList<Integer> aL = rE.isValidArr(sH[0].getData(), offset[0]);
-                    // int[][] errorCells = rE.getErrorCells(rowLen, offset[0], aL);
-                    // sH[0].setErCells(errorCells);
-                    // if (aL.isEmpty()) {
-                    // hQ.addChange(chH, row * rowLen + column - 1);
-                    // } else {
-                    // String msgErrCells = "Значения в ячейках по сдвигу: ";
-                    // for (Integer integer : aL) {
-                    // msgErrCells += integer + " ";
-                    // }
-                    // msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
-                    // hc.getOpPane("Ошибка заполнения ячеек", msgErrCells);
-                    // }
                     mGL.tableChangeListener(e, table, sH, scrollPane, hc, offset, row, column);
                     setTable(table, scrollPane, offset[1], sH[0]);
                     changed[0] = true;
@@ -403,10 +273,6 @@ public class mainGui extends JFrame {
 
         dataField = new JTextField(15);
         dataField.setToolTipText("Данные вставки");
-
-        ///////////////////////////////////////////////////////////////////
-        //////////////////// Кнопка проллистать вперёд ////////////////////
-        ///////////////////////////////////////////////////////////////////
 
         forward = new JButton();
         forward.setIcon(new ImageIcon("src/icons/forward.png"));
@@ -429,10 +295,6 @@ public class mainGui extends JFrame {
                 }
             }
         });
-
-        //////////////////////////////////////////////////////////////////
-        //////////////////// Кнопка проллистать назад ////////////////////
-        //////////////////////////////////////////////////////////////////
 
         back = new JButton();
         back.setIcon(new ImageIcon("src/icons/back.png"));
