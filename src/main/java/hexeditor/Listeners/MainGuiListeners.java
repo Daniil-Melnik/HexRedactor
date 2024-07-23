@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Listeners;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,6 +13,20 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
+
+import main.java.hexeditor.ByteFormatIO;
+import main.java.hexeditor.ByteTransform;
+import main.java.hexeditor.ChangeHandler;
+import main.java.hexeditor.ChangeSizeDialog;
+import main.java.hexeditor.ChangeTypes;
+import main.java.hexeditor.EditPanel;
+import main.java.hexeditor.EditTypes;
+import main.java.hexeditor.HandChng;
+import main.java.hexeditor.HandlerQueue;
+import main.java.hexeditor.RegExp;
+import main.java.hexeditor.SearchPanel;
+import main.java.hexeditor.SheetHolder;
+import main.java.hexeditor.UtilByte;
 
 public class MainGuiListeners {
     public void searchButtonListener(SheetHolder[] sH, SearchPanel searchPanel, String[] byteSize, int[] offset,

@@ -25,6 +25,10 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import main.java.hexeditor.Listeners.ChangeFoculListeners;
+import main.java.hexeditor.Listeners.FileManagerListeners;
+import main.java.hexeditor.Listeners.MainGuiListeners;
+
 public class mainGui extends JFrame {
 
     public static void createGUI() throws IOException {

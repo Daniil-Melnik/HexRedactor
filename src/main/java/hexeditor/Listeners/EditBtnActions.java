@@ -1,7 +1,12 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Listeners;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import main.java.hexeditor.ChangeHandler;
+import main.java.hexeditor.ChangeTypes;
+import main.java.hexeditor.SheetHolder;
+import main.java.hexeditor.UtilByte;
 
 /**
  * Class containing actions for editing cells in a table.
