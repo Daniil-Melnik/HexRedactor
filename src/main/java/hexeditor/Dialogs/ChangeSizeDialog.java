@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Dialogs;
 
 import javax.swing.JTextField;
 import javax.swing.JPanel;

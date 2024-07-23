@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Utils;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;

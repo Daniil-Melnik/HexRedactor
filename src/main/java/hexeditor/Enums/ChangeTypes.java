@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Enums;
 
 public enum ChangeTypes {
     MODIFI_CELL("0"),

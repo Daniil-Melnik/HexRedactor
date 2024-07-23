@@ -5,9 +5,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import main.java.hexeditor.ByteFormatIO;
-import main.java.hexeditor.FileManagerPanel;
 import main.java.hexeditor.SheetHolder;
+import main.java.hexeditor.Panels.FileManagerPanel;
+import main.java.hexeditor.Utils.ByteFormatIO;
 
 public class FileManagerListeners {
     public boolean openNewListener(ByteFormatIO[] bIO, JFrame frame, String[] fileName, SheetHolder[] sH,

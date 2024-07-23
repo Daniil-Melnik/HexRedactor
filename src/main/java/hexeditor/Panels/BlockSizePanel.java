@@ -1,10 +1,12 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Panels;
 
 import java.awt.Font;
 import java.math.BigInteger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import main.java.hexeditor.Renderers.RoundedBorder;
 
 /**
  * Panel displaying byte values ​​by blocks in integer (signed, unsigned),

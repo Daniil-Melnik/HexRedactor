@@ -5,12 +5,12 @@ import java.math.BigInteger;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 
-import main.java.hexeditor.BlockSizePanel;
-import main.java.hexeditor.ByteFormatIO;
-import main.java.hexeditor.ByteTransform;
 import main.java.hexeditor.SheetHolder;
-import main.java.hexeditor.TableInfoPanel;
-import main.java.hexeditor.UtilByte;
+import main.java.hexeditor.Panels.BlockSizePanel;
+import main.java.hexeditor.Panels.TableInfoPanel;
+import main.java.hexeditor.Utils.ByteFormatIO;
+import main.java.hexeditor.Utils.ByteTransform;
+import main.java.hexeditor.Utils.UtilByte;
 
 public class ChangeFoculListeners {
     public void rowFocusListener(ListSelectionEvent e, SheetHolder[] sH, JTable table, int[] prevCol, int[] prevRow,

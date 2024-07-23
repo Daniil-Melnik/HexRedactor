@@ -25,9 +25,21 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import main.java.hexeditor.Dialogs.HandChng;
+import main.java.hexeditor.Enums.EditTypes;
 import main.java.hexeditor.Listeners.ChangeFoculListeners;
 import main.java.hexeditor.Listeners.FileManagerListeners;
+import main.java.hexeditor.Listeners.KeyListeners;
 import main.java.hexeditor.Listeners.MainGuiListeners;
+import main.java.hexeditor.Listeners.MouseListener;
+import main.java.hexeditor.Panels.BlockSizePanel;
+import main.java.hexeditor.Panels.EditPanel;
+import main.java.hexeditor.Panels.FileManagerPanel;
+import main.java.hexeditor.Panels.SearchPanel;
+import main.java.hexeditor.Panels.TableInfoPanel;
+import main.java.hexeditor.Renderers.Renderer;
+import main.java.hexeditor.Utils.ByteFormatIO;
+import main.java.hexeditor.Utils.UtilByte;
 
 public class mainGui extends JFrame {
 
@@ -50,7 +62,7 @@ public class mainGui extends JFrame {
         final SheetHolder[] sH = { null };
         final ByteFormatIO[] bIO = { null };
 
-        MouseHig mh = new MouseHig();
+        MouseListener mh = new MouseListener();
 
         JFrame frame = new JFrame("Test frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

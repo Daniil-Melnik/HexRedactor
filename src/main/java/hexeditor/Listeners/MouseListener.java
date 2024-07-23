@@ -1,13 +1,13 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Listeners;
 
 /**
  * Utility class for mouse operations
  * Purpose: Automatically selects cells in a table based on mouse interactions
  *
- * @see MouseHig
+ * @see MouseListener
  * @author DMelnik
  */
-public class MouseHig {
+public class MouseListener {
     private byte condition;
     private int[][] coordinate;
 
@@ -15,7 +15,7 @@ public class MouseHig {
      * Constructor for MouseHig class
      */
 
-    public MouseHig() {
+    public MouseListener() {
         coordinate = new int[2][2];
         condition = 0;
     }

@@ -1,8 +1,10 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Panels;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import main.java.hexeditor.Renderers.RoundedBorder;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;

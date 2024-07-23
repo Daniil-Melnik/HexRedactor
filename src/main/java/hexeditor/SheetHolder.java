@@ -2,6 +2,11 @@ package main.java.hexeditor;
 
 import java.io.IOException;
 
+import main.java.hexeditor.Listeners.MouseListener;
+import main.java.hexeditor.Utils.ByteFormatIO;
+import main.java.hexeditor.Utils.ChangeHandler;
+import main.java.hexeditor.Utils.UtilByte;
+
 /**
  * Stores information about the current page and is responsible for the initial
  * change of page data.
@@ -304,7 +309,7 @@ public class SheetHolder {
      * @param mH mouse event object
      */
 
-    public void resetSheet(MouseHig mH) {
+    public void resetSheet(MouseListener mH) {
         this.setErCells(new int[0][0]);
         this.setHCells(new int[0][0]);
 

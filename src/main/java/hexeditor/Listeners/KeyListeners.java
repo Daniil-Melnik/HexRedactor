@@ -1,19 +1,21 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Listeners;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import main.java.hexeditor.SheetHolder;
+
 public class KeyListeners {
     public void keyListener(KeyEvent e, JTable table, SheetHolder[] sH, JScrollPane scrollPane, int[] offset,
-            MouseHig mh) {
+            MouseListener mh) {
         if (e.getKeyCode() == KeyEvent.VK_D) {
             keyCodeD(table, sH, scrollPane, offset, mh);
         }
     }
 
-    private void keyCodeD(JTable table, SheetHolder[] sH, JScrollPane scrollPane, int[] offset, MouseHig mh) {
+    private void keyCodeD(JTable table, SheetHolder[] sH, JScrollPane scrollPane, int[] offset, MouseListener mh) {
         int row = table.getSelectionModel().getLeadSelectionIndex();
         int column = table.getColumnModel().getSelectionModel().getLeadSelectionIndex();
         int[] coord = new int[2];

@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Enums;
 
 public enum EditTypes {
     COPY("Копировать"),

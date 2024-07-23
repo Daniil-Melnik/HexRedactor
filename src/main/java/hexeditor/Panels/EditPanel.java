@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package main.java.hexeditor.Panels;
 
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -6,6 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import main.java.hexeditor.Enums.EditTypes;
+import main.java.hexeditor.Renderers.RoundedBorder;
+
 import javax.swing.ButtonGroup;
 
 import java.awt.Font;

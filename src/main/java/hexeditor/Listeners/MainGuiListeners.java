@@ -14,19 +14,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 
-import main.java.hexeditor.ByteFormatIO;
-import main.java.hexeditor.ByteTransform;
-import main.java.hexeditor.ChangeHandler;
-import main.java.hexeditor.ChangeSizeDialog;
-import main.java.hexeditor.ChangeTypes;
-import main.java.hexeditor.EditPanel;
-import main.java.hexeditor.EditTypes;
-import main.java.hexeditor.HandChng;
-import main.java.hexeditor.HandlerQueue;
-import main.java.hexeditor.RegExp;
-import main.java.hexeditor.SearchPanel;
 import main.java.hexeditor.SheetHolder;
-import main.java.hexeditor.UtilByte;
+import main.java.hexeditor.Dialogs.ChangeSizeDialog;
+import main.java.hexeditor.Dialogs.HandChng;
+import main.java.hexeditor.Enums.ChangeTypes;
+import main.java.hexeditor.Enums.EditTypes;
+import main.java.hexeditor.Panels.EditPanel;
+import main.java.hexeditor.Panels.SearchPanel;
+import main.java.hexeditor.Utils.ByteFormatIO;
+import main.java.hexeditor.Utils.ByteTransform;
+import main.java.hexeditor.Utils.ChangeHandler;
+import main.java.hexeditor.Utils.HandlerQueue;
+import main.java.hexeditor.Utils.RegExp;
+import main.java.hexeditor.Utils.UtilByte;
 
 public class MainGuiListeners {
     public void searchButtonListener(SheetHolder[] sH, SearchPanel searchPanel, String[] byteSize, int[] offset,
