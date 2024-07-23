@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import javax.swing.border.Border;
 import java.awt.Component;
 import java.awt.Insets;

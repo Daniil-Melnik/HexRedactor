@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import java.util.ArrayList;
 
 /**
@@ -16,18 +18,18 @@ public class HandlerQueue {
      * Constructor for HandlerQueue class, initializes an empty queue
      */
 
-    public HandlerQueue(){
+    public HandlerQueue() {
         this.queue = new ArrayList<ChangeHandler>();
     }
 
     /**
      * Adds a ChangeHandler object to the queue
      * 
-     * @param chH the ChangeHandler object to add to the queue
+     * @param chH   the ChangeHandler object to add to the queue
      * @param sOfft not used in current implementation
      */
 
-    public void addChange (ChangeHandler chH, int sOfft){
+    public void addChange(ChangeHandler chH, int sOfft) {
         this.queue.add(chH);
     }
 
@@ -35,10 +37,10 @@ public class HandlerQueue {
      * Displays information about each ChangeHandler object in the queue
      */
 
-    public  void showQueue(){
+    public void showQueue() {
         for (ChangeHandler c : this.queue) {
-            System.out.println("type = " + c.getOperationType() + "\noffset = " + c.getOffset() + "\nlen = " + c.getLen());
+            System.out.println(
+                    "type = " + c.getOperationType() + "\noffset = " + c.getOffset() + "\nlen = " + c.getLen());
         }
     }
 }
-

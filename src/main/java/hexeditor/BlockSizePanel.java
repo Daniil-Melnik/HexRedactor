@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import java.awt.Font;
 import java.math.BigInteger;
 
@@ -134,7 +136,7 @@ public class BlockSizePanel extends JPanel {
             tablePanel[1][i].setText(Long.toString(intArr[index]));
             tablePanel[2][i].setText(longArr[index].toString());
             tablePanel[3][i].setText(i != 4 ? Float.toString(floatArr[index]) : "*");
-            tablePanel[4][i].setText( Double.toString(doubleArr[index]));
+            tablePanel[4][i].setText(Double.toString(doubleArr[index]));
         }
 
         return this;

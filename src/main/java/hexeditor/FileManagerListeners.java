@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import java.io.File;
 
 import javax.swing.JFileChooser;

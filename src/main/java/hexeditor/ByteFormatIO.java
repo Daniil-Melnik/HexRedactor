@@ -1,19 +1,21 @@
+package main.java.hexeditor;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 import static java.lang.Math.toIntExact;
 
-/** 
+/**
  * Class for working with file byte data.
- *  
- * @autor DMelnik 
+ * 
+ * @autor DMelnik
  * @version 1.0
- */ 
+ */
 public class ByteFormatIO {
     private final String fileName;
 
-
-    /** 
+    /**
      * Constructor - creates a new object with a specified file name.
      * 
      * @param fileName the name of the file the object will work with
@@ -23,11 +25,11 @@ public class ByteFormatIO {
         this.fileName = fileName;
     }
 
-    /** 
+    /**
      * Gets an array of hexadecimal strings by offset and length.
      * 
      * @param offset the offset in bytes
-     * @param len the length in bytes
+     * @param len    the length in bytes
      * @return an array of strings in hexadecimal format
      */
 
@@ -47,7 +49,7 @@ public class ByteFormatIO {
         return hexBytesOffset;
     }
 
-    /** 
+    /**
      * Gets the length of the file in bytes.
      * 
      * @param fileName the name of the file
@@ -61,7 +63,7 @@ public class ByteFormatIO {
         }
     }
 
-    /** 
+    /**
      * Converts an array of hexadecimal format strings to a byte array.
      * 
      * @param data an array of strings in hexadecimal format
@@ -87,7 +89,7 @@ public class ByteFormatIO {
         return res;
     }
 
-    /** 
+    /**
      * Splits the input hexadecimal format string into an array of strings.
      * 
      * @param inputHexString a string in hexadecimal format separated by semicolons
@@ -97,13 +99,13 @@ public class ByteFormatIO {
         return inputHexString.split(";");
     }
 
-    /** 
+    /**
      * Writes data to a file at a given offset and length.
      * 
-     * @param offset the offset in bytes
-     * @param data an array of strings in hexadecimal format
+     * @param offset   the offset in bytes
+     * @param data     an array of strings in hexadecimal format
      * @param deltaLen the length of the data
-     * @param newName the new file name
+     * @param newName  the new file name
      */
     public void printData(int offset, String[] data, int deltaLen, String newName) {
         RandomAccessFile randomAccessFile = null;

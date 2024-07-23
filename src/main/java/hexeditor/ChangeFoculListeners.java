@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import java.math.BigInteger;
 
 import javax.swing.JTable;

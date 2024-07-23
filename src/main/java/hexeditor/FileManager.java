@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.InputStream;
@@ -25,7 +27,7 @@ public class FileManager {
      *
      * @param fileNameOld the path of the source file
      * @param fileNameNew the path of the destination file
-     * @param isCopy   if true, the file is copied; if false, the file is moved
+     * @param isCopy      if true, the file is copied; if false, the file is moved
      * @throws IOException if an I/O error occurs
      */
     public void setFile(String fileNameOld, String fileNameNew, boolean isCopy) throws IOException {

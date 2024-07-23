@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 

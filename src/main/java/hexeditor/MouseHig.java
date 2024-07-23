@@ -1,20 +1,22 @@
+package main.java.hexeditor;
+
 /**
-* Utility class for mouse operations
-* Purpose: Automatically selects cells in a table based on mouse interactions
-*
-* @see MouseHig
-* @author DMelnik
-*/
+ * Utility class for mouse operations
+ * Purpose: Automatically selects cells in a table based on mouse interactions
+ *
+ * @see MouseHig
+ * @author DMelnik
+ */
 public class MouseHig {
     private byte condition;
-    private int [][] coordinate;
+    private int[][] coordinate;
 
     /**
      * Constructor for MouseHig class
      */
 
-    public MouseHig(){
-        coordinate = new int [2][2];
+    public MouseHig() {
+        coordinate = new int[2][2];
         condition = 0;
     }
 
@@ -24,7 +26,7 @@ public class MouseHig {
      * @param newCondition the new condition byte value
      */
 
-    public void setCond(byte newCondition){
+    public void setCond(byte newCondition) {
         this.condition = newCondition;
     }
 
@@ -34,7 +36,7 @@ public class MouseHig {
      * @param coordinate the coordinates to add
      */
 
-    public void addCoord(int [] coordinate){
+    public void addCoord(int[] coordinate) {
         switch (this.condition) {
             case 0:
                 this.coordinate[0] = coordinate;
@@ -45,12 +47,12 @@ public class MouseHig {
                 this.coordinate[1] = coordinate;
                 this.condition = 2;
                 break;
-            
+
             case 2:
-                this.coordinate = new int [2][2];
+                this.coordinate = new int[2][2];
                 this.condition = 0;
                 break;
-        
+
             default:
                 break;
         }
@@ -62,7 +64,7 @@ public class MouseHig {
      * @return the current condition byte value
      */
 
-    public byte getCond(){
+    public byte getCond() {
         return this.condition;
     }
 
@@ -72,7 +74,7 @@ public class MouseHig {
      * @return the selected coordinates as a 2D array
      */
 
-    public int [][] getCoord(){
+    public int[][] getCoord() {
         return this.coordinate;
     }
 
@@ -80,11 +82,12 @@ public class MouseHig {
      * Ensures the coordinates are valid by swapping if necessary
      */
 
-    private void validCoord(){
-        if ((this.coordinate[0][0] > this.coordinate[1][0]) || (this.coordinate[0][0] == this.coordinate[1][0] && this.coordinate[0][1] > this.coordinate[1][1])){
-            int [] dCoord = this.coordinate[0];
+    private void validCoord() {
+        if ((this.coordinate[0][0] > this.coordinate[1][0])
+                || (this.coordinate[0][0] == this.coordinate[1][0] && this.coordinate[0][1] > this.coordinate[1][1])) {
+            int[] dCoord = this.coordinate[0];
             this.coordinate[0] = this.coordinate[1];
-            this.coordinate[1] = dCoord; 
+            this.coordinate[1] = dCoord;
         }
     }
 
@@ -95,7 +98,7 @@ public class MouseHig {
      * @return an array of all selected coordinates
      */
 
-    public int [][] getFullCoords(int len){
+    public int[][] getFullCoords(int len) {
 
         validCoord();
 
@@ -110,13 +113,14 @@ public class MouseHig {
 
         int nAllCells = nFullRows * len + nExtraCells;
 
-        int [][] res = new int [nAllCells][2];
+        int[][] res = new int[nAllCells][2];
 
         int nRes = 0;
 
-        for (int i = this.coordinate[0][0] * (len + 1) + this.coordinate[0][1]; i <= this.coordinate[1][0] * (len + 1) + this.coordinate[1][1]; i++){
-            if (i % (len + 1) != 0){   
-                int [] qT = new int [2];
+        for (int i = this.coordinate[0][0] * (len + 1) + this.coordinate[0][1]; i <= this.coordinate[1][0] * (len + 1)
+                + this.coordinate[1][1]; i++) {
+            if (i % (len + 1) != 0) {
+                int[] qT = new int[2];
                 qT[0] = i / (len + 1);
                 qT[1] = i % (len + 1);
                 res[nRes] = qT;

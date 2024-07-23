@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

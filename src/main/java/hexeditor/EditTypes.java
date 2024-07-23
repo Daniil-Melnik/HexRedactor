@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 public enum EditTypes {
     COPY("Копировать"),
     INSERT("Вставить"),

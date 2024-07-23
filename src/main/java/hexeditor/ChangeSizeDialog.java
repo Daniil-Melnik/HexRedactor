@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JLabel;

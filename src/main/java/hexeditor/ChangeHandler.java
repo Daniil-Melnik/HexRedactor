@@ -1,3 +1,5 @@
+package main.java.hexeditor;
+
 /**
  * Class representing an operation on data.
  * <p>
@@ -28,10 +30,10 @@ public class ChangeHandler {
     /**
      * Constructs a ChangeHandler with specified type, offset, length, and data.
      * 
-     * @param type the type of operation
+     * @param type   the type of operation
      * @param offset the offset for the operation
-     * @param len  the length affected by the operation
-     * @param data the data involved in the operation
+     * @param len    the length affected by the operation
+     * @param data   the data involved in the operation
      */
 
     public ChangeHandler(String type, int offset, int len, String[] data) {
