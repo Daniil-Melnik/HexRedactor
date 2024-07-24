@@ -9,6 +9,13 @@ import main.java.hexeditor.SheetHolder;
 import main.java.hexeditor.Panels.FileManagerPanel;
 import main.java.hexeditor.Utils.ByteFormatIO;
 
+/**
+ * Contains methods for intercepting buttons in the FileManager panel
+ * 
+ * @autor DMelnik
+ * @version 1.0
+ */
+
 public class FileManagerListeners {
     public boolean openNewListener(ByteFormatIO[] bIO, JFrame frame, String[] fileName, SheetHolder[] sH,
             String[][] dat, FileManagerPanel fileManagerPanel, int[] offset) {

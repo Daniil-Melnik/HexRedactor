@@ -12,7 +12,21 @@ import main.java.hexeditor.Utils.ByteFormatIO;
 import main.java.hexeditor.Utils.ByteTransform;
 import main.java.hexeditor.Utils.UtilByte;
 
+/**
+ * Contains methods for intercepting changes in focus on a cell
+ * 
+ * @autor DMelnik
+ * @version 1.0
+ */
+
 public class ChangeFoculListeners {
+
+    /**
+     * Contains methods for intercepting changes in focus on a cell
+     * 
+     * @autor DMelnik
+     * @version 1.0
+     */
     public void rowFocusListener(ListSelectionEvent e, SheetHolder[] sH, JTable table, int[] prevCol, int[] prevRow,
             int[] offset, ByteFormatIO[] bIO, BlockSizePanel bSP, TableInfoPanel tableInfoPanel) {
         int rowColLen = 4;

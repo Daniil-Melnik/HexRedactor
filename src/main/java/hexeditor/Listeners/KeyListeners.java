@@ -7,6 +7,13 @@ import javax.swing.JTable;
 
 import main.java.hexeditor.SheetHolder;
 
+/**
+ * Contains methods for intercepting button clicks
+ * 
+ * @autor DMelnik
+ * @version 1.0
+ */
+
 public class KeyListeners {
     public void keyListener(KeyEvent e, JTable table, SheetHolder[] sH, JScrollPane scrollPane, int[] offset,
             MouseListener mh) {
