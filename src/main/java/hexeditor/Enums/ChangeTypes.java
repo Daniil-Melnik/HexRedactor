@@ -1,5 +1,12 @@
 package main.java.hexeditor.Enums;
 
+/**
+ * Enum containing the values of the types of atomic modification operations
+ * 
+ * @author DMelnik
+ * @version 1.0
+ */
+
 public enum ChangeTypes {
     MODIFI_CELL("0"),
     DELETE_WITH_ZEROING("1"),
