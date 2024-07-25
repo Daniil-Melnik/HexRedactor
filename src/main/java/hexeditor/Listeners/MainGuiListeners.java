@@ -1,4 +1,4 @@
-package main.java.hexeditor.Listeners;
+package hexeditor.Listeners;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,19 +14,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 
-import main.java.hexeditor.SheetHolder;
-import main.java.hexeditor.Dialogs.ChangeSizeDialog;
-import main.java.hexeditor.Dialogs.HandChng;
-import main.java.hexeditor.Enums.ChangeTypes;
-import main.java.hexeditor.Enums.EditTypes;
-import main.java.hexeditor.Panels.EditPanel;
-import main.java.hexeditor.Panels.SearchPanel;
-import main.java.hexeditor.Utils.ByteFormatIO;
-import main.java.hexeditor.Utils.ByteTransform;
-import main.java.hexeditor.Utils.ChangeHandler;
-import main.java.hexeditor.Utils.HandlerQueue;
-import main.java.hexeditor.Utils.RegExp;
-import main.java.hexeditor.Utils.UtilByte;
+import hexeditor.SheetHolder;
+import hexeditor.Dialogs.ChangeSizeDialog;
+import hexeditor.Dialogs.HandChng;
+import hexeditor.Enums.ChangeTypes;
+import hexeditor.Enums.EditTypes;
+import hexeditor.Panels.EditPanel;
+import hexeditor.Panels.SearchPanel;
+import hexeditor.Utils.ByteFormatIO;
+import hexeditor.Utils.ByteTransform;
+import hexeditor.Utils.ChangeHandler;
+import hexeditor.Utils.HandlerQueue;
+import hexeditor.Utils.RegExp;
+import hexeditor.Utils.UtilByte;
 
 public class MainGuiListeners {
     public void searchButtonListener(SheetHolder[] sH, SearchPanel searchPanel, String[] byteSize, int[] offset,

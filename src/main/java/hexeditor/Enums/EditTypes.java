@@ -1,4 +1,4 @@
-package main.java.hexeditor.Enums;
+package hexeditor.Enums;
 
 /**
  * Enum containing the values of the types modification operations for editPanel

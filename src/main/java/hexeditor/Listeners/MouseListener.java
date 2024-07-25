@@ -1,4 +1,4 @@
-package main.java.hexeditor.Listeners;
+package hexeditor.Listeners;
 
 /**
  * Utility class for mouse operations

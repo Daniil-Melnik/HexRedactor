@@ -1,11 +1,11 @@
-package main.java.hexeditor.Listeners;
+package hexeditor.Listeners;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import main.java.hexeditor.SheetHolder;
+import hexeditor.SheetHolder;
 
 /**
  * Contains methods for intercepting button clicks

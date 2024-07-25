@@ -1,4 +1,4 @@
-package main.java.hexeditor.Utils;
+package hexeditor.Utils;
 
 /**
  * Class representing an operation on data.

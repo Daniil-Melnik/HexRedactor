@@ -1,4 +1,4 @@
-package main.java.hexeditor;
+package hexeditor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,21 +25,21 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.hexeditor.Dialogs.HandChng;
-import main.java.hexeditor.Enums.EditTypes;
-import main.java.hexeditor.Listeners.ChangeFoculListeners;
-import main.java.hexeditor.Listeners.FileManagerListeners;
-import main.java.hexeditor.Listeners.KeyListeners;
-import main.java.hexeditor.Listeners.MainGuiListeners;
-import main.java.hexeditor.Listeners.MouseListener;
-import main.java.hexeditor.Panels.BlockSizePanel;
-import main.java.hexeditor.Panels.EditPanel;
-import main.java.hexeditor.Panels.FileManagerPanel;
-import main.java.hexeditor.Panels.SearchPanel;
-import main.java.hexeditor.Panels.TableInfoPanel;
-import main.java.hexeditor.Renderers.Renderer;
-import main.java.hexeditor.Utils.ByteFormatIO;
-import main.java.hexeditor.Utils.UtilByte;
+import hexeditor.Dialogs.HandChng;
+import hexeditor.Enums.EditTypes;
+import hexeditor.Listeners.ChangeFoculListeners;
+import hexeditor.Listeners.FileManagerListeners;
+import hexeditor.Listeners.KeyListeners;
+import hexeditor.Listeners.MainGuiListeners;
+import hexeditor.Listeners.MouseListener;
+import hexeditor.Panels.BlockSizePanel;
+import hexeditor.Panels.EditPanel;
+import hexeditor.Panels.FileManagerPanel;
+import hexeditor.Panels.SearchPanel;
+import hexeditor.Panels.TableInfoPanel;
+import hexeditor.Renderers.Renderer;
+import hexeditor.Utils.ByteFormatIO;
+import hexeditor.Utils.UtilByte;
 
 public class mainGui extends JFrame {
 

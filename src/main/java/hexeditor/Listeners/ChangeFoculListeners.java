@@ -1,16 +1,16 @@
-package main.java.hexeditor.Listeners;
+package hexeditor.Listeners;
 
 import java.math.BigInteger;
 
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 
-import main.java.hexeditor.SheetHolder;
-import main.java.hexeditor.Panels.BlockSizePanel;
-import main.java.hexeditor.Panels.TableInfoPanel;
-import main.java.hexeditor.Utils.ByteFormatIO;
-import main.java.hexeditor.Utils.ByteTransform;
-import main.java.hexeditor.Utils.UtilByte;
+import hexeditor.SheetHolder;
+import hexeditor.Panels.BlockSizePanel;
+import hexeditor.Panels.TableInfoPanel;
+import hexeditor.Utils.ByteFormatIO;
+import hexeditor.Utils.ByteTransform;
+import hexeditor.Utils.UtilByte;
 
 /**
  * Contains methods for intercepting changes in focus on a cell

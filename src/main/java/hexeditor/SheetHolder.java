@@ -1,11 +1,11 @@
-package main.java.hexeditor;
+package hexeditor;
 
 import java.io.IOException;
 
-import main.java.hexeditor.Listeners.MouseListener;
-import main.java.hexeditor.Utils.ByteFormatIO;
-import main.java.hexeditor.Utils.ChangeHandler;
-import main.java.hexeditor.Utils.UtilByte;
+import hexeditor.Listeners.MouseListener;
+import hexeditor.Utils.ByteFormatIO;
+import hexeditor.Utils.ChangeHandler;
+import hexeditor.Utils.UtilByte;
 
 /**
  * Stores information about the current page and is responsible for the initial

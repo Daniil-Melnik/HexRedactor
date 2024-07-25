@@ -1,13 +1,13 @@
-package main.java.hexeditor.Listeners;
+package hexeditor.Listeners;
 
 import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import main.java.hexeditor.SheetHolder;
-import main.java.hexeditor.Panels.FileManagerPanel;
-import main.java.hexeditor.Utils.ByteFormatIO;
+import hexeditor.SheetHolder;
+import hexeditor.Panels.FileManagerPanel;
+import hexeditor.Utils.ByteFormatIO;
 
 /**
  * Contains methods for intercepting buttons in the FileManager panel

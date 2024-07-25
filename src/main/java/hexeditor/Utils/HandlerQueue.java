@@ -1,4 +1,4 @@
-package main.java.hexeditor.Utils;
+package hexeditor.Utils;
 
 import java.util.ArrayList;
 
