@@ -244,8 +244,8 @@ public class mainGui extends JFrame {
                         sH[0].resetSheet(mh);
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
-                } catch (IOException e) {
-                    System.err.println("An error occurred while trying to get the file length: " + e.getMessage());
+                } catch (IOException | NullPointerException e) {
+                    System.err.println("Ошибка чтения forward-страницы");
                 }
             }
         });
@@ -254,14 +254,19 @@ public class mainGui extends JFrame {
         back.setIcon(new ImageIcon("src/icons/back.png"));
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                int rowLen = sH[0].getRowLen();
-                int columnLen = sH[0].getColumnLen();
-                if ((offset[0] - (long) rowLen * columnLen) >= 0) {
-                    mGL.backButtonListener(sH, offset, rowLen, columnLen, changed, bIO, dat, fileName, hc, byteSize,
-                            maskValue);
-                    sH[0].resetSheet(mh);
-                    setTable(table, scrollPane, offset[1], sH[0]);
+                try {
+                    int rowLen = sH[0].getRowLen();
+                    int columnLen = sH[0].getColumnLen();
+                    if ((offset[0] - (long) rowLen * columnLen) >= 0) {
+                        mGL.backButtonListener(sH, offset, rowLen, columnLen, changed, bIO, dat, fileName, hc, byteSize,
+                                maskValue);
+                        sH[0].resetSheet(mh);
+                        setTable(table, scrollPane, offset[1], sH[0]);
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Ошибка чтения back-страницы");
                 }
+
             }
         });
 
