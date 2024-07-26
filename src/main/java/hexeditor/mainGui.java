@@ -1,5 +1,8 @@
 package hexeditor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -345,8 +348,10 @@ public class mainGui extends JFrame {
     }
 
     public static void main(String[] args) {
+        final Logger logger = LogManager.getLogger();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                logger.info("Hello World!");
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 try {
                     createGUI();
