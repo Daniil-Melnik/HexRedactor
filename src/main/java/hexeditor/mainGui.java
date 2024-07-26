@@ -55,6 +55,8 @@ public class mainGui extends JFrame {
         KeyListeners kL = new KeyListeners();
         int[] offset = { 0, 0 };
 
+        final Logger logger = LogManager.getLogger();
+
         boolean[] changed = { false };
         final String[][] dat = { null, null };
 
@@ -120,6 +122,8 @@ public class mainGui extends JFrame {
                     changed[0] = true;
                 } catch (ArrayIndexOutOfBoundsException exception) {
                     hc.showOk("Ошибка", "Нельзя редактировать область **");
+                    logger.warn("");
+
                 }
 
             }
@@ -248,7 +252,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                 } catch (IOException | NullPointerException e) {
-                    System.err.println("Ошибка чтения forward-страницы");
+                    logger.error("Trying to jump forward past the end of the file");
                 }
             }
         });
@@ -267,7 +271,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                 } catch (NullPointerException e) {
-                    System.out.println("Ошибка чтения back-страницы");
+                    logger.error("Attempt to go back to the beginning of the file");
                 }
 
             }
@@ -351,12 +355,12 @@ public class mainGui extends JFrame {
         final Logger logger = LogManager.getLogger();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                logger.info("Hello World!");
+                logger.info("Started");
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 try {
                     createGUI();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    logger.error("Error when launching the GUI");
                 }
             }
         });
