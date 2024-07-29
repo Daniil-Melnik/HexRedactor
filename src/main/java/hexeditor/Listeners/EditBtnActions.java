@@ -8,6 +8,9 @@ import hexeditor.Enums.ChangeTypes;
 import hexeditor.Utils.ChangeHandler;
 import hexeditor.Utils.UtilByte;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Class containing actions for editing cells in a table.
  * <p>
@@ -22,6 +25,8 @@ import hexeditor.Utils.UtilByte;
  */
 
 public class EditBtnActions {
+
+    private Logger logger = LogManager.getLogger();;
 
     /**
      * Fills the selected cells with zeros.
@@ -41,7 +46,7 @@ public class EditBtnActions {
         int currentOffset = startCoordinate[0] * rowLen + startCoordinate[1] - 1; // сдвиг в таблице по координате
         ChangeHandler chH = new ChangeHandler(operationType, currentOffset, len, null);
         sH.makeHandle(chH);
-
+        logger.info("fill in " + highlightCells.length + " cells from " + currentOffset + "zero values");
     }
 
     /**
@@ -62,6 +67,7 @@ public class EditBtnActions {
         int highlightCellsLen = highlightCells.length;
         ChangeHandler cHZero = new ChangeHandler(operationType, offt, highlightCellsLen, null);
         sH.makeHandle(cHZero);
+        logger.info("delete " + highlightCellsLen + " cells from " + offt + "with zeroing");
     }
 
     /**
@@ -84,6 +90,7 @@ public class EditBtnActions {
         offset[0] = offset[0] + highlightCellsLen;
         ChangeHandler cHShift = new ChangeHandler(operationType, offt, highlightCellsLen, null);
         sH.makeHandle(cHShift);
+        logger.info("delete " + highlightCellsLen + " cells from " + offt + "with shift");
     }
 
     /**
@@ -104,6 +111,8 @@ public class EditBtnActions {
         int len = currentData.length;
         ChangeHandler chH = new ChangeHandler(operationType, currentOffset, len, currentData);
         sH.makeHandle(chH);
+
+        logger.info("paste " + currentData + " cells to " + currentOffset + "with shift");
     }
 
     /**
@@ -124,6 +133,7 @@ public class EditBtnActions {
         int len = currentData.length;
         ChangeHandler chH = new ChangeHandler(operationType, currentOffset, len, currentData);
         sH.makeHandle(chH);
+        logger.info("paste " + currentData + " cells to " + currentOffset + "with substitution");
     }
 
     /**
@@ -150,6 +160,7 @@ public class EditBtnActions {
 
         ChangeHandler chH = new ChangeHandler(operationType, offt, highlightCellsLen, null);
         sH.makeHandle(chH);
+        logger.info("cut " + strArr.length + " cells from " + offt + "with shift");
     }
 
     /**

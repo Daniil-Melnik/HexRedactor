@@ -180,6 +180,8 @@ public class MainGuiListeners {
                         int rowLen;
                         int columnLen;
                         if (!changed[0]) {
+                            logger.info(
+                                    "change size to " + preRowLen + " x " + preColumnLen + " saving is not required");
                             int[][] highlightCells = new int[0][0];
                             sH[0].setHCells(highlightCells);
 
@@ -194,6 +196,7 @@ public class MainGuiListeners {
                         } else {
                             int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
                             if (resultChng == 0) {
+                                logger.info("change size to " + preRowLen + " x " + preColumnLen + " with save");
                                 sH[0].setHCells(new int[0][0]);
 
                                 dat[0] = sH[0].getData();
@@ -223,6 +226,7 @@ public class MainGuiListeners {
                                 changed[0] = false;
                                 sH[0].setDLen(0);
                             } else if (resultChng == 1) {
+                                logger.info("change size to " + preRowLen + " x " + preColumnLen + " with save");
                                 sH[0].setHCells(new int[0][0]);
                                 rowLen = Integer.parseInt(height);
                                 columnLen = Integer.parseInt(width);
