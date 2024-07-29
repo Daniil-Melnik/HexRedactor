@@ -28,9 +28,17 @@ import hexeditor.Utils.HandlerQueue;
 import hexeditor.Utils.RegExp;
 import hexeditor.Utils.UtilByte;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class MainGuiListeners {
+
+    private Logger logger;
+
     public void searchButtonListener(SheetHolder[] sH, SearchPanel searchPanel, String[] byteSize, int[] offset,
             String[] maskValue, ByteFormatIO[] bIO, HandChng hc) {
+
+        logger = LogManager.getLogger();
         String inputText = searchPanel.inputField.getText();
 
         byteSize[0] = (String) searchPanel.byteSizeComboBox.getSelectedItem();
@@ -205,7 +213,7 @@ public class MainGuiListeners {
                                 sH[0].setColumnLen(columnLen);
 
                                 dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
-                                sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
+                                sH[0].setAllData(dat[0]);
 
                                 offset[0] = offset[1];
 
@@ -215,7 +223,6 @@ public class MainGuiListeners {
                                 changed[0] = false;
                                 sH[0].setDLen(0);
                             } else if (resultChng == 1) {
-                                // вставить оставить файл в старом виде
                                 sH[0].setHCells(new int[0][0]);
                                 rowLen = Integer.parseInt(height);
                                 columnLen = Integer.parseInt(width);
@@ -225,11 +232,14 @@ public class MainGuiListeners {
                                 changed[0] = false;
                             }
                         }
+                        logger.info(width);
                     } else {
                         hc.showOk("Ошибка", "Размер страницы не более 1МБ");
+                        logger.error("An attempt to resize the table to a size greater than 1048577 bytes");
                     }
                 } else {
                     hc.showOk("Ошибка", "Количество строк и столбцов - ненулевые значения");
+                    logger.error("Attempt to resize the table to zero values");
                 }
             }
 
