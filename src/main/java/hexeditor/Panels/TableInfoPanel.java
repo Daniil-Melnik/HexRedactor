@@ -1,11 +1,14 @@
 package hexeditor.Panels;
 
+import org.apache.logging.log4j.core.config.builder.api.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import hexeditor.SheetHolder;
 import hexeditor.Renderers.RoundedBorder;
+import javafx.geometry.Insets;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -63,6 +66,7 @@ public class TableInfoPanel extends JPanel {
 
         changeButton = new JButton("Изменить");
         changeButton.setFont(font15);
+        changeButton.setEnabled(((sizeX != 0) && (sizeY != 0)));
         changeButton.setBounds(165, 50, 105, 20);
         add(changeButton);
 
@@ -108,6 +112,7 @@ public class TableInfoPanel extends JPanel {
         focusLabel.setText("Текущий фокус: " + focus);
         selectionStartLabel.setText("Начало выделения: " + selectionStart);
         lenLabel.setText("Длина выделения:   " + selectionLen);
+        changeButton.setEnabled((sizeX != 0) && (sizeY != 0));
 
         revalidate();
         repaint();

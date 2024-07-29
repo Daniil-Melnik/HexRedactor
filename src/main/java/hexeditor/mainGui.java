@@ -139,6 +139,7 @@ public class mainGui extends JFrame {
                 try {
                     mGL.changeSizeBtnListener(sH, frame, changed, offset, hc, bIO, fileName, dat);
                     setTable(table, scrollPane, offset[1], sH[0]);
+                    logger.info("changed table size = " + sH[0].getRowLen() + "x" + sH[0].getColumnLen());
                 } catch (NumberFormatException ex) {
                     hc.showOk("Ошибка", "Размерности - целое число ячеек");
                 }

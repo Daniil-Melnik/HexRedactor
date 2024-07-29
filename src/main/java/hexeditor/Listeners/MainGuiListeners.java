@@ -145,80 +145,97 @@ public class MainGuiListeners {
             ByteFormatIO[] bIO, String[] fileName, String[][] dat) {
         ChangeSizeDialog changeSizeDialog = new ChangeSizeDialog();
 
-        int result = JOptionPane.showConfirmDialog(
-                frame,
-                changeSizeDialog,
-                "Введите значения",
-                JOptionPane.OK_CANCEL_OPTION);
+        int preColumnLen = 0;
+        int preRowLen = 0;
 
-        if (result == JOptionPane.OK_OPTION) {
-            String height = changeSizeDialog.getHeightValue();
-            String width = changeSizeDialog.getWidthValue();
+        String height = "";
+        String width = "";
 
-            int preColumnLen = Integer.parseInt(height);
-            int preRowLen = Integer.parseInt(width);
+        boolean cancelCondition = false;
 
-            if (preRowLen * preColumnLen < 1048577) {
-                int rowLen;
-                int columnLen;
-                if (!changed[0]) {
-                    int[][] highlightCells = new int[0][0];
-                    sH[0].setHCells(highlightCells);
+        while (preColumnLen * preRowLen == 0 && !cancelCondition) {
+            int result = JOptionPane.showConfirmDialog(
+                    frame,
+                    changeSizeDialog,
+                    "Введите значения",
+                    JOptionPane.OK_CANCEL_OPTION);
 
-                    rowLen = Integer.parseInt(width);
-                    sH[0].setRowLen(rowLen);
+            if (result == JOptionPane.OK_OPTION) {
+                height = changeSizeDialog.getHeightValue();
+                width = changeSizeDialog.getWidthValue();
 
-                    columnLen = Integer.parseInt(height);
-                    sH[0].setColumnLen(columnLen);
+                preColumnLen = Integer.parseInt(height);
+                preRowLen = Integer.parseInt(width);
 
-                    String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
-                    sH[0].setAllData(data);
-                } else {
-                    int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
-                    if (resultChng == 0) {
-                        sH[0].setHCells(new int[0][0]);
+                if (preColumnLen * preRowLen != 0) {
+                    if (preRowLen * preColumnLen < 1048577) {
+                        int rowLen;
+                        int columnLen;
+                        if (!changed[0]) {
+                            int[][] highlightCells = new int[0][0];
+                            sH[0].setHCells(highlightCells);
 
-                        dat[0] = sH[0].getData();
+                            rowLen = Integer.parseInt(width);
+                            sH[0].setRowLen(rowLen);
 
-                        rowLen = sH[0].getRowLen();
-                        columnLen = sH[0].getColumnLen();
+                            columnLen = Integer.parseInt(height);
+                            sH[0].setColumnLen(columnLen);
 
-                        int cellOfft = offset[1] - rowLen * columnLen;
-                        int tmpDLen = sH[0].getDLen();
-                        bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]); // добавлена печать в файл
-                                                                                  // изменённого фрагмента
+                            String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
+                            sH[0].setAllData(data);
+                        } else {
+                            int resultChng = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
+                            if (resultChng == 0) {
+                                sH[0].setHCells(new int[0][0]);
 
-                        rowLen = Integer.parseInt(height);
-                        columnLen = Integer.parseInt(width);
+                                dat[0] = sH[0].getData();
 
-                        sH[0].setRowLen(rowLen);
-                        sH[0].setColumnLen(columnLen);
+                                rowLen = sH[0].getRowLen();
+                                columnLen = sH[0].getColumnLen();
 
-                        dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
-                        sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
+                                int cellOfft = offset[1] - rowLen * columnLen;
+                                int tmpDLen = sH[0].getDLen();
+                                bIO[0].printData(cellOfft, dat[0], tmpDLen, fileName[0]); // добавлена печать в файл
+                                                                                          // изменённого фрагмента
 
-                        offset[0] = offset[1];
+                                rowLen = Integer.parseInt(height);
+                                columnLen = Integer.parseInt(width);
 
-                        String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
-                        sH[0].setAllData(data);
+                                sH[0].setRowLen(rowLen);
+                                sH[0].setColumnLen(columnLen);
 
-                        changed[0] = false;
-                        sH[0].setDLen(0);
-                    } else if (resultChng == 1) {
-                        // вставить оставить файл в старом виде
-                        sH[0].setHCells(new int[0][0]);
-                        rowLen = Integer.parseInt(height);
-                        columnLen = Integer.parseInt(width);
+                                dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
+                                sH[0].setAllData(dat[0]); // менять или нет сдвиг ??
 
-                        sH[0].setRowLen(rowLen);
-                        sH[0].setColumnLen(columnLen);
-                        changed[0] = false;
+                                offset[0] = offset[1];
+
+                                String[] data = bIO[0].getHexBytesByOffset(offset[1], rowLen * columnLen);
+                                sH[0].setAllData(data);
+
+                                changed[0] = false;
+                                sH[0].setDLen(0);
+                            } else if (resultChng == 1) {
+                                // вставить оставить файл в старом виде
+                                sH[0].setHCells(new int[0][0]);
+                                rowLen = Integer.parseInt(height);
+                                columnLen = Integer.parseInt(width);
+
+                                sH[0].setRowLen(rowLen);
+                                sH[0].setColumnLen(columnLen);
+                                changed[0] = false;
+                            }
+                        }
+                    } else {
+                        hc.showOk("Ошибка", "Размер страницы не более 1МБ");
                     }
+                } else {
+                    hc.showOk("Ошибка", "Количество строк и столбцов - ненулевые значения");
                 }
-            } else {
-                hc.showOk("Ошибка", "Размер страницы не более 1МБ");
             }
 
+            if (result == JOptionPane.CANCEL_OPTION) {
+                cancelCondition = true;
+            }
         }
     }
 

@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import hexeditor.Enums.EditTypes;
 import hexeditor.Renderers.RoundedBorder;
 
@@ -39,12 +42,15 @@ public class EditPanel extends JPanel {
     private JRadioButton shiftRadioButton;
     private JRadioButton shiftPasteRadioButton;
     private JRadioButton replaceRadioButton;
+    private Logger logger;
 
     /**
      * Constructs an EditPanel with various editing options.
      */
 
     public EditPanel() {
+        logger = LogManager.getLogger();
+
         setLayout(null);
         setBorder(new RoundedBorder(10));
 
@@ -106,10 +112,11 @@ public class EditPanel extends JPanel {
     private void updateDynamicPanel() {
         dynamicContent.removeAll();
 
-        Font font15 = new Font("Arial", Font.PLAIN, 15);
-
-        // String selectedItem = (String) comboOperationType.getSelectedItem();
         EditTypes selectedAction = (EditTypes) comboOperationType.getSelectedItem();
+
+        logger.info("Revalidate search panel, selected action = " + selectedAction);
+
+        Font font15 = new Font("Arial", Font.PLAIN, 15);
 
         switch (selectedAction) {
             case DELETE:
@@ -190,6 +197,7 @@ public class EditPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             String str = (String) valueBuffer.getSelectedItem();
+            logger.info("source " + str + " is selected");
             if (str.equals("из буфера")) {
                 valueField.setEditable(false);
             } else if (str.equals("задать")) {
