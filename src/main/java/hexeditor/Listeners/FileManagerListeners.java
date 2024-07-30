@@ -9,6 +9,9 @@ import hexeditor.SheetHolder;
 import hexeditor.Panels.FileManagerPanel;
 import hexeditor.Utils.ByteFormatIO;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Contains methods for intercepting buttons in the FileManager panel
  * 
@@ -17,6 +20,9 @@ import hexeditor.Utils.ByteFormatIO;
  */
 
 public class FileManagerListeners {
+
+    Logger logger = LogManager.getLogger();
+
     public boolean openNewListener(ByteFormatIO[] bIO, JFrame frame, String[] fileName, SheetHolder[] sH,
             String[][] dat, FileManagerPanel fileManagerPanel, int[] offset) {
         JFileChooser fileChooser = new JFileChooser();
@@ -38,6 +44,7 @@ public class FileManagerListeners {
             sH[0].setAllData(dat[0]);
             String[] smallFName = fileName[0].split("\\\\");
             fileManagerPanel.setCurrentFile(smallFName[smallFName.length - 1]);
+            logger.info("open new file: " + fileName);
         }
         return conditionToNewFile;
     }
@@ -66,6 +73,7 @@ public class FileManagerListeners {
             dat[0] = sH[0].getData();
             int tmpDLen = sH[0].getDLen();
             bIO[0].printData(cellOfft, dat[0], tmpDLen, filePath);
+            logger.info("saved as " + filePath);
         }
     }
 }

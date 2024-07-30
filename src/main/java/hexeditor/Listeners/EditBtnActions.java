@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
 
 public class EditBtnActions {
 
-    private Logger logger = LogManager.getLogger();;
+    private Logger logger = LogManager.getLogger();
 
     /**
      * Fills the selected cells with zeros.
