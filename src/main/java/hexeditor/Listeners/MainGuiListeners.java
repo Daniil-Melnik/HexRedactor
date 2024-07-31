@@ -110,7 +110,7 @@ public class MainGuiListeners {
                                 logger.info("send paste subst 'задать");
                             } else {
                                 hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
-                                logger.warn("user make too big volume page (more 1MB) by insert data");
+                                logger.warn("Attempt make too big volume page (more 1MB) by insert data");
                             }
                         } else if (replaceCond) {
                             eBA.btnPasteSubst(sH[0], currData, highlightCells);
@@ -118,7 +118,7 @@ public class MainGuiListeners {
                         }
                     } else {
                         hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
-                        logger.warn("incorrect form of data string from user input (not **;**;...)");
+                        logger.warn("Attemt to send incorrect form of data string from user input (not **;**;...)");
                     }
                 }
                 if ((bufferValue.equals("из буфера"))) {
@@ -128,7 +128,7 @@ public class MainGuiListeners {
                             logger.info("sent paste shift 'из буфера");
                         } else {
                             hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
-                            logger.warn("user make too big volume page (more 1MB) by insert data");
+                            logger.warn("Attempt make too big volume page (more 1MB) by insert data");
                         }
                     } else if (replaceCond) {
                         eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
@@ -254,11 +254,11 @@ public class MainGuiListeners {
                         logger.info(width);
                     } else {
                         hc.showOk("Ошибка", "Размер страницы не более 1МБ");
-                        logger.error("An attempt to resize the table to a size greater than 1048577 bytes");
+                        logger.warn("An attempt to resize the table to a size greater than 1048577 bytes");
                     }
                 } else {
                     hc.showOk("Ошибка", "Количество строк и столбцов - ненулевые значения");
-                    logger.error("Attempt to resize the table to zero values");
+                    logger.warn("Attempt to resize the table to zero values");
                 }
             }
 
@@ -288,6 +288,7 @@ public class MainGuiListeners {
             dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
             sH[0].setAllData(dat[0]);
             sH[0].setDLen(0);
+            logger.info("click forward button (saving is not required)");
         } else {
             int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
             if (result == 0) {
@@ -301,11 +302,13 @@ public class MainGuiListeners {
                 offset[0] = offset[1];
                 changed[0] = false;
                 sH[0].setDLen(0);
+                logger.info("click forward button with saving");
             } else if (result == 1) {
                 // оставить файл в старом виде
                 dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                 sH[0].setAllData(dat[0]);
                 changed[0] = false;
+                logger.info("click forward button without saving");
             }
         }
 
