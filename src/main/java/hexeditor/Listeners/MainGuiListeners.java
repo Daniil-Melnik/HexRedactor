@@ -33,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 
 public class MainGuiListeners {
 
-    private Logger logger;
+    private Logger logger = LogManager.getLogger();
 
     public void searchButtonListener(SheetHolder[] sH, SearchPanel searchPanel, String[] byteSize, int[] offset,
             String[] maskValue, ByteFormatIO[] bIO, HandChng hc) {
@@ -64,6 +64,7 @@ public class MainGuiListeners {
                 offsets = bT.getBytesOffsetByMask(data, len, maskValue[0]);
             } else {
                 hc.showOk("Ошибка", "Маска - непустая строка состоящая из символов : {0, 1, *}");
+                logger.warn("incorrect mask form from user input (can contain 1, 0, *)");
             }
         } else if (searchPanel.isSearchByValueSelected()) {
             if (rG.isValue(maskValue[0])) {
@@ -71,6 +72,7 @@ public class MainGuiListeners {
                 offsets = bT.getByteValueByOffsets(data, len, val);
             } else {
                 hc.showOk("Ошибка", "Значение - целое беззнаковое число");
+                logger.warn("incorrect value form from user input (can be unsigned integer)");
             }
         }
 
@@ -107,11 +109,14 @@ public class MainGuiListeners {
                                 eBA.btnPasteShift(sH[0], currData, highlightCells);
                             } else
                                 hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                            logger.warn("user make too big volume page (more 1MB) by insert data");
                         } else if (replaceCond) {
                             eBA.btnPasteSubst(sH[0], currData, highlightCells);
+                            logger.info("send paste 'задать");
                         }
                     } else {
                         hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
+                        logger.warn("incorrect form of data string from user input (not **;**;...)");
                     }
                 }
                 if ((bufferValue.equals("из буфера"))) {
