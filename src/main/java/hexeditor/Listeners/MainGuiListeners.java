@@ -357,6 +357,7 @@ public class MainGuiListeners {
             dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
             sH[0].setAllData(dat[0]);
             sH[0].setDLen(0);
+            logger.info("click forward button (saving is not required)");
         } else {
             int result = hc.getOpPane("Сохранение", "Данные изменены. Сохранить?");
             if (result == 0) {
@@ -369,10 +370,12 @@ public class MainGuiListeners {
                 offset[0] = offset[1];
                 changed[0] = false;
                 sH[0].setDLen(0);
+                logger.info("click forward button with saving");
             } else if (result == 1) {
                 dat[0] = bIO[0].getHexBytesByOffset(offset[0], rowLen * columnLen);
                 sH[0].setAllData(dat[0]);
                 changed[0] = false;
+                logger.info("click forward button without saving");
             }
         }
 
@@ -434,6 +437,7 @@ public class MainGuiListeners {
         textFrame.getContentPane().add(scrollPane);
 
         textFrame.setVisible(true);
+        logger.info("opened info window");
     }
 
     public void tableChangeListener(TableModelEvent e, JTable table, SheetHolder[] sH, JScrollPane scrollPane,
@@ -451,6 +455,7 @@ public class MainGuiListeners {
         ChangeHandler chH = new ChangeHandler(operationType, offset[0] + (rowLen * row) + column - 1, 1,
                 strData);
         sH[0].makeHandle(chH); // добавть изменения в SheetHolder
+        logger.error("Changed table on: " + (offset[0] + (rowLen * row) + column - 1));
         ArrayList<Integer> aL = rE.isValidArr(sH[0].getData(), offset[0]);
         int[][] errorCells = rE.getErrorCells(rowLen, offset[0], aL);
         sH[0].setErCells(errorCells);
@@ -463,6 +468,7 @@ public class MainGuiListeners {
             }
             msgErrCells += "\nнекорректны\nДолжны быть 16-ричные цисла от 00 до FF.";
             hc.showOk("Ошибка заполнения ячеек", msgErrCells);
+            logger.error("Attempt save table with incorrect hex values");
         }
     }
 }
