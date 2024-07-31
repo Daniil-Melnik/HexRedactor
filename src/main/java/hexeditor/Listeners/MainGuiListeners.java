@@ -107,12 +107,14 @@ public class MainGuiListeners {
                         if (shiftCond) {
                             if (sH[0].isEmptyVolume(currData.length)) {
                                 eBA.btnPasteShift(sH[0], currData, highlightCells);
-                            } else
+                                logger.info("send paste subst 'задать");
+                            } else {
                                 hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
-                            logger.warn("user make too big volume page (more 1MB) by insert data");
+                                logger.warn("user make too big volume page (more 1MB) by insert data");
+                            }
                         } else if (replaceCond) {
                             eBA.btnPasteSubst(sH[0], currData, highlightCells);
-                            logger.info("send paste 'задать");
+                            logger.info("sent paste subst 'задать");
                         }
                     } else {
                         hc.showOk("Ошибка", "Введите через ';' список байт от 00 до FF");
@@ -123,10 +125,14 @@ public class MainGuiListeners {
                     if (shiftCond) {
                         if (sH[0].isEmptyVolume(buffer[0].length)) {
                             eBA.btnPasteShift(sH[0], buffer[0], highlightCells);
-                        } else
+                            logger.info("sent paste shift 'из буфера");
+                        } else {
                             hc.showOk("Ошибка", "Количество байт на странице превышает 1МБ");
+                            logger.warn("user make too big volume page (more 1MB) by insert data");
+                        }
                     } else if (replaceCond) {
                         eBA.btnPasteSubst(sH[0], buffer[0], highlightCells);
+                        logger.info("sent paste subst 'из буфера");
                     }
                 }
                 break;
@@ -134,19 +140,23 @@ public class MainGuiListeners {
             case INSERT_ZERO:
                 JTextField lenField = editPanel.zeroNumberField;
                 eBA.btnFillInZero(sH[0], lenField, highlightCells);
+                logger.info("fill btn with zero");
                 break;
 
             case CUT:
                 if (editPanel.isShiftSelected()) {
                     eBA.btnCutShift(table, sH[0], offset, buffer, highlightCells);
+                    logger.info("sent cut with shifting");
                 }
                 if (editPanel.isZeroSelected()) {
                     eBA.btnCutZero(table, sH[0], offset, buffer, highlightCells);
+                    logger.info("sent cut with substitution");
                 }
                 break;
 
             case COPY:
                 eBA.btnCopy(table, sH[0], offset, buffer, highlightCells);
+                logger.info("sent copy");
                 break;
 
             default:
