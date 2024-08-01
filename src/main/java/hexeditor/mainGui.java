@@ -207,6 +207,7 @@ public class mainGui extends JFrame {
                             int[][] highlightCells = mh.getFullCoords(rowLen);
                             sH[0].setHCells(highlightCells);
                             setTable(table, scrollPane, offset[1], sH[0]);
+                            logger.info("Selected cells: " + highlightCells[0][0] + " " + highlightCells[0][1]);
                         } else {
                             sH[0].setHCells(new int[0][0]);
                             setTable(table, scrollPane, offset[1], sH[0]);
@@ -249,6 +250,7 @@ public class mainGui extends JFrame {
                     int rowLen = sH[0].getRowLen();
                     int columnLen = sH[0].getColumnLen();
                     if ((offset[0] + (long) rowLen * columnLen) < fileLen) {
+                        logger.info("Sent forward button");
                         mGL.forvardButtonListener(bIO, sH, offset, changed, dat, fileName, hc, maskValue, byteSize,
                                 rowLen, columnLen);
                         // наследование поиска конец
@@ -256,7 +258,7 @@ public class mainGui extends JFrame {
                         setTable(table, scrollPane, offset[1], sH[0]);
                     }
                 } catch (IOException | NullPointerException e) {
-                    logger.error("Trying to jump forward past the end of the file");
+                    logger.error("Attemt to jump forward past the end of the file");
                 }
             }
         });
@@ -286,6 +288,7 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mGL.infoButtonListener();
+                logger.info("Sent info button");
             }
         });
         forward.setBounds(710, 550, 300, 40);
