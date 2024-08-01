@@ -2,6 +2,9 @@ package hexeditor;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import hexeditor.Listeners.MouseListener;
 import hexeditor.Utils.ByteFormatIO;
 import hexeditor.Utils.ChangeHandler;
@@ -29,6 +32,7 @@ public class SheetHolder {
     private int[][] hCells;
     private int[][] fCells;
     private int[][] erCells;
+    private Logger logger;
 
     /**
      * Setter for rowLen attribute
@@ -258,11 +262,12 @@ public class SheetHolder {
      */
 
     public SheetHolder(String fName) {
-        this.offt = 0;
+        offt = 0;
         this.fName = fName;
-        this.hCells = new int[0][0];
-        this.fCells = new int[0][0];
-        this.erCells = new int[0][0];
+        hCells = new int[0][0];
+        fCells = new int[0][0];
+        erCells = new int[0][0];
+        logger = LogManager.getLogger();
     }
 
     /**
@@ -379,6 +384,7 @@ public class SheetHolder {
                 len = chH.getLen();
                 currOfft = chH.getOffset() - this.offt;
                 uB.removeFromArrZero(this.data, len, currOfft);
+                logger.info("Get removeFromArrZero");
                 break;
 
             case "2":
@@ -396,6 +402,7 @@ public class SheetHolder {
                         this.dLen += len;
                         this.fillInStarsOnSheet();
                     }
+                    logger.info("Get removeFromArr");
                 } catch (IOException e) {
                     System.err.println("An error occurred while trying to get the file length: " + e.getMessage());
                 }
@@ -408,6 +415,7 @@ public class SheetHolder {
                 String[] newData = chH.getData();
                 this.data = uB.addDataSubst(this.data, newData, offt);
                 this.fillInStarsOnSheet();
+                logger.info("Get addDataSubst");
                 break;
 
             case "4":
@@ -418,6 +426,7 @@ public class SheetHolder {
                 String[] tempDataShift = uB.addDataShift(this.data, newDataShift, offt);
                 this.data = tempDataShift;
                 this.fillInStarsOnSheet();
+                logger.info("Get addDataShift");
                 break;
 
             case "5":
@@ -426,6 +435,8 @@ public class SheetHolder {
                 offt = chH.getOffset();
                 this.data = uB.fillInZeros(this.data, offt, len);
                 this.fillInStarsOnSheet();
+                logger.info("Get fillInZeros");
+                break;
             default:
                 break;
         }
