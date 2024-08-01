@@ -122,7 +122,7 @@ public class mainGui extends JFrame {
                     changed[0] = true;
                 } catch (ArrayIndexOutOfBoundsException exception) {
                     hc.showOk("Ошибка", "Нельзя редактировать область **");
-                    logger.warn("");
+                    logger.warn("Attemt to edit ** area");
 
                 }
 
@@ -142,6 +142,7 @@ public class mainGui extends JFrame {
                     logger.info("changed table size = " + sH[0].getRowLen() + "x" + sH[0].getColumnLen());
                 } catch (NumberFormatException ex) {
                     hc.showOk("Ошибка", "Размерности - целое число ячеек");
+                    logger.warn("Attemted to set incorrect size to table (must be unsigned integer)");
                 }
             }
         });
@@ -156,6 +157,7 @@ public class mainGui extends JFrame {
                         offset);
                 if (gettedOptionCondition) {
                     setTable(table, scrollPane, offset[1], sH[0]);
+                    logger.info("Sent open new file");
                 }
 
             }
@@ -165,6 +167,7 @@ public class mainGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fmL.saveAsListener(frame, sH, offset, dat, bIO);
+                logger.info("Sent saveAs file");
             }
 
         });
