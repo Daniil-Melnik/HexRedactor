@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import hexeditor.SheetHolder;
 import hexeditor.Renderers.RoundedBorder;
-import javafx.geometry.Insets;
+import javafx.geometry.Insets;  
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
