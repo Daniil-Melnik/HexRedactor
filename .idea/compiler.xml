@@ -9,8 +9,5 @@
         <module name="HexRedactor" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="HexRedactor" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

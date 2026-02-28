@@ -69,7 +69,7 @@ public class mainGui extends JFrame {
 
         MouseListener mh = new MouseListener();
 
-        JFrame frame = new JFrame("Test frame");
+        JFrame frame = new JFrame("HexRedactor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         HandChng hc = new HandChng(frame);
